@@ -1,0 +1,184 @@
+{
+ "updated": "2026-10-16T21:56:00+02:00",
+ "nl": {
+  "advies": {
+   "e10": 2.684,
+   "diesel": 2.703,
+   "e5": 2.904,
+   "date": "20261016",
+   "src": "UnitedConsumers landelijke adviesprijs"
+  },
+  "adviesHist": [
+   [
+    "20260928",
+    2.73,
+    2.785
+   ],
+   [
+    "20261016",
+    2.684,
+    2.703
+   ]
+  ]
+ },
+ "be": {
+  "max": {
+   "e10": 2.064,
+   "e5": 2.201,
+   "diesel": 2.428,
+   "date": "20261016",
+   "src": "officiële maximumprijs (FOD Economie)"
+  },
+  "next": {
+   "e10": 2.064,
+   "e5": 2.201,
+   "diesel": 2.444,
+   "date": "20261017"
+  },
+  "avg": {
+   "e10": 1.977,
+   "diesel": 2.335,
+   "date": "20261012",
+   "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
+  },
+  "low": {
+   "e10": 1.856,
+   "e5": 2.041,
+   "diesel": 2.233,
+   "date": "20261016",
+   "where": {
+    "e10": "Luik",
+    "e5": "Limburg",
+    "diesel": "Limburg"
+   },
+   "src": "laagste prijs grensprovincies (Antwerpen, Limburg, Luik)"
+  },
+  "prov": {
+   "date": "20261016",
+   "Antwerpen": {
+    "e10": 1.869,
+    "e5": 2.091,
+    "diesel": 2.235
+   },
+   "Limburg": {
+    "e10": 1.876,
+    "e5": 2.041,
+    "diesel": 2.233
+   },
+   "Luik": {
+    "e10": 1.856,
+    "e5": 2.094,
+    "diesel": 2.248
+   },
+   "Oost-Vlaanderen": {
+    "e10": 1.864,
+    "e5": 2.001,
+    "diesel": 2.228
+   }
+  }
+ },
+ "de": {
+  "avg": {
+   "e10": 2.126,
+   "diesel": 2.233,
+   "date": "20261007",
+   "src": "ADAC-gemiddelde Duitsland"
+  },
+  "border": {
+   "e10": 2.129,
+   "diesel": 2.248,
+   "date": "20261016",
+   "src": "goedkoopste grensstation (Markttransparenzstelle)"
+  },
+  "nrw": {
+   "e10": 2.122,
+   "date": "20261016",
+   "src": "gemiddelde Noordrijn-Westfalen"
+  }
+ },
+ "history": {
+  "deAvg": [
+   [
+    "20260916",
+    2.314,
+    null
+   ],
+   [
+    "20260917",
+    null,
+    2.471
+   ],
+   [
+    "20260930",
+    2.258,
+    2.409
+   ],
+   [
+    "20261007",
+    2.126,
+    2.233
+   ]
+  ],
+  "deBorder": [
+   [
+    "20261015",
+    2.059,
+    2.189
+   ],
+   [
+    "20261016",
+    2.129,
+    2.248
+   ]
+  ],
+  "beMax": [
+   [
+    "20260916",
+    2.058,
+    2.468
+   ],
+   [
+    "20261009",
+    2.065,
+    2.392
+   ],
+   [
+    "20261016",
+    2.064,
+    2.428
+   ],
+   [
+    "20261017",
+    2.064,
+    2.444
+   ]
+  ],
+  "beAvg": [
+   [
+    "20260914",
+    1.976,
+    2.29
+   ],
+   [
+    "20260921",
+    1.988,
+    2.387
+   ],
+   [
+    "20260928",
+    2.032,
+    2.43
+   ],
+   [
+    "20261005",
+    1.959,
+    2.349
+   ],
+   [
+    "20261012",
+    1.977,
+    2.335
+   ]
+  ]
+ }
+}
