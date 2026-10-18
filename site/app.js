@@ -192,10 +192,34 @@ async function searchPlace(place) {
     if (S.key) list = list.filter((s) => !(s.src === "osm" && s.cc === "DE"));
     list.forEach((s) => { s.dist = haversine([place.lat, place.lng], [s.lat, s.lng]); });
     S.found = list.filter((s) => s.src === "tk" || s.dist <= 6);
+    await meldingenErbij(place, S.found);
     const fails = res.filter((r) => r.status === "rejected");
     if (fails.length && !S.found.length) S.searchErr = "Zoeken lukte niet. Controleer je internet en probeer opnieuw.";
   } catch (e) { S.searchErr = "Zoeken lukte niet. Probeer het opnieuw."; }
   S.searching = false; render();
+}
+// Prijzen die bezoekers zelf gemeld hebben (NL/BE, hoogstens 48 uur oud) bij de stations zetten.
+async function meldingenErbij(place, list) {
+  if (!place.lat || !list.some((s) => s.src === "osm")) return;
+  try {
+    const j = await getJSON(`/api/melding?lat=${place.lat.toFixed(1)}&lng=${place.lng.toFixed(1)}`, {}, 8000);
+    const by = new Map((j.stations || []).map((m) => [m.id, m]));
+    for (const st of list) { const m = by.get(st.id); if (!m) continue; st.meld = m.prijzen; for (const [f, x] of Object.entries(m.prijzen)) st[f] = x.p; }
+  } catch (e) {}
+}
+const geleden = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 60 ? `${Math.max(1, m)} min geleden` : m < 1440 ? `${Math.round(m / 60)} uur geleden` : "gisteren"; };
+async function meldPrijs(id) {
+  const st = S.found.find((x) => x.id === id); if (!st) return;
+  const v = prompt(`Wat kost ${FUELNAME[S.fuel]} bij ${st.brand || st.name || "dit station"}? Bijvoorbeeld 2,349`, st.meld?.[S.fuel] ? fmt(st.meld[S.fuel].p) : "");
+  if (v == null) return;
+  const p = parseFloat(String(v).replace(",", "."));
+  if (!(p > 0.3 && p < 4)) { alert("Vul een prijs in zoals 2,349."); return; }
+  try {
+    const r = await fetch("/api/melding", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: st.id, naam: [st.brand || st.name, st.street, town(st)].filter(Boolean).join(", "), lat: st.lat, lng: st.lng, cc: st.cc, fuel: S.fuel, prijs: p }) });
+    const j = await r.json();
+    if (!r.ok) { alert(j.fout || "Melden lukte niet."); return; }
+    st.meld = { ...(st.meld || {}), [S.fuel]: { p, t: Date.now() } }; st[S.fuel] = p; gc("melding/" + st.cc, "Prijs gemeld"); render();
+  } catch (e) { alert("Melden lukte niet. Controleer je internet."); }
 }
 async function doSearch(q) {
   q = q.trim(); if (!q) return;
@@ -315,10 +339,10 @@ function card(s, med) {
   }
   return `<div class="sc" data-id="${s.id}">
     <div class="nm"><b>${flag}${esc(s.brand || s.name)}${s.hwy ? '<span class="tag">Snelweg</span>' : ""}${s.unmanned ? '<span class="tag ok">Onbemand</span>' : ""}</b><span>${esc([s.street, town(s)].filter(Boolean).join(", ") || "Adres onbekend")}</span></div>
-    <div class="pr">${p ? fmt(p) : "–"}<small>${p ? "live" : ref ? "gem. " + fmt(ref) : "geen prijs"}</small></div>
+    <div class="pr">${p ? fmt(p) : "–"}<small>${s.meld?.[S.fuel] ? "gemeld " + geleden(s.meld[S.fuel].t) : p ? "live" : ref ? "gem. " + fmt(ref) : "geen prijs"}</small></div>
     <div class="meta"><button class="star${fav ? " on" : ""}" data-fav="${s.id}" aria-label="Favoriet">${fav ? "★" : "☆"}</button>${s.src === "tk" ? `<span class="pill ${cls}"><i class="dot"></i>${s.isOpen ? CLS[cls] : "Gesloten"}</span>` : ""}${s.dist != null ? `<span>${fmt(s.dist, 1)} km</span>` : s.border != null ? `<span>${fmt(s.border, 1)} km van grens</span>` : ""}${n != null && S.home ? `<span class="net ${n >= 0 ? "pos" : "neg"}">netto ${eur(n)}</span>` : ""}</div>
     ${detail}
-    <div class="acts">${navBtns(s)}</div>
+    <div class="acts">${navBtns(s)}</div>${s.src === "osm" ? `<button class="meldbtn" data-meld="${esc(s.id)}">${s.meld?.[S.fuel] ? "Andere prijs gezien? Melden" : "Prijs gezien? Meld hem voor anderen"}</button>` : ""}
   </div>`;
 }
 function renderSearch() {
@@ -476,6 +500,7 @@ $("locBtn").addEventListener("click", async () => {
 });
 $("list").addEventListener("click", (e) => {
   const alt = e.target.closest("[data-alt]"); if (alt) { const a = S.alts[+alt.dataset.alt]; $("q").value = a.name; S.alts = []; searchPlace(a); return; }
+  const ml = e.target.closest("[data-meld]"); if (ml) { meldPrijs(ml.dataset.meld); return; }
   const fav = e.target.closest("[data-fav]"); if (fav) { const id = fav.dataset.fav; S.favs.has(id) ? S.favs.delete(id) : S.favs.add(id); store.set("tw_favs", [...S.favs]); render(); return; }
   if (e.target.closest("a,button")) return;
   const row = e.target.closest(".sc"); if (!row) return;
