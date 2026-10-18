@@ -83,7 +83,9 @@ export async function verzamel(oud, key, log = console.log) {
 export default async () => {
   const store = getStore('prijzen');
   const oud = (await store.get('data', { type: 'json' }).catch(() => null)) || basis;
-  const d = await verzamel(oud, Netlify.env.get('TANKERKOENIG_KEY'));
+  const log = [];
+  const d = await verzamel(oud, Netlify.env.get('TANKERKOENIG_KEY'), m => { log.push(m); console.log(m); });
+  d._ts = Date.now(); d._log = log;
   await store.setJSON('data', d);
   console.log(`prijzen bijgewerkt: NL ${d.nl.advies?.e10}/${d.nl.advies?.diesel} · BE max ${d.be.max?.e10}/${d.be.max?.diesel} · BE laagst ${d.be.low?.e10}/${d.be.low?.diesel} · DE grens ${d.de.border?.e10}/${d.de.border?.diesel}`);
 };
