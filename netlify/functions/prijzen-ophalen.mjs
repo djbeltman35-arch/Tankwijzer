@@ -20,7 +20,7 @@ function hist(lijst, datum, e10, diesel) {
   const l = (lijst || []).filter(r => r[0] !== datum); l.push([datum, e10 ?? null, diesel ?? null]);
   return l.sort((a, b) => a[0].localeCompare(b[0])).slice(-120);
 }
-const SNELWEG = /\b(bab|autobahn|rasthof|raststätte|rastst|autohof|a\s?\d{1,3}\b)/i;
+const SNELWEG = /\b(bab|autobahn|rasthof|raststätte|rastst|autohof|truck|lkw|a\s?\d{1,3}\b)/i;
 
 export async function verzamel(oud, key, log = console.log) {
   const d = structuredClone(oud);
