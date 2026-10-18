@@ -335,13 +335,13 @@ function render() {
     $("vSub").textContent = d > 0 ? `${eur(d * settings().L)} minder voor ${settings().L} L, zonder rijkosten` : "";
   }
 
-  renderSearch(); renderMap(); renderDays(); renderCompare(); renderFills();
+  renderCarSum(); renderSearch(); renderMap(); renderDays(); renderCompare(); renderFills();
   $("alertFuel").textContent = FUELNAME[S.fuel];
   if (document.activeElement !== $("alertP")) $("alertP").value = S.alert[S.fuel] || "";
 }
 
 function card(s, med) {
-  const p = s[S.fuel], cls = s.src === "tk" ? (s.isOpen ? classOf(p, med) : "off") : "off", fav = S.favs.has(s.id), n = s.src === "tk" ? netSave(s) : null;
+  const p = s[S.fuel], cls = s.src === "tk" ? (s.isOpen ? classOf(p, med) : "off") : "off", fav = S.favs.has(s.id), n = p ? netSave(s) : null, km = p && S.home ? tripKm(s) : null;
   const flag = `<i class="flag ${s.cc.toLowerCase()}"></i>`;
   const ref = s.src === "osm" ? refPrice(s.cc) : null;
   let detail = "";
@@ -353,7 +353,7 @@ function card(s, med) {
   return `<div class="sc" data-id="${s.id}">
     <div class="nm"><b>${flag}${esc(s.brand || s.name)}${s.hwy ? '<span class="tag">Snelweg</span>' : ""}${s.unmanned ? '<span class="tag ok">Onbemand</span>' : ""}</b><span>${esc([s.street, town(s)].filter(Boolean).join(", ") || "Adres onbekend")}</span></div>
     <div class="pr">${p ? fmt(p) : "–"}<small>${s.bron?.[S.fuel] === "google" ? "Google · " + geleden(s.gp[S.fuel].t) : s.bron?.[S.fuel] === "melding" ? "gemeld " + geleden(s.meld[S.fuel].t) : p ? "live" : ref ? "gem. " + fmt(ref) : "geen prijs"}</small></div>
-    <div class="meta"><button class="star${fav ? " on" : ""}" data-fav="${s.id}" aria-label="Favoriet">${fav ? "★" : "☆"}</button>${s.src === "tk" ? `<span class="pill ${cls}"><i class="dot"></i>${s.isOpen ? CLS[cls] : "Gesloten"}</span>` : ""}${s.dist != null ? `<span>${fmt(s.dist, 1)} km</span>` : s.border != null ? `<span>${fmt(s.border, 1)} km van grens</span>` : ""}${n != null && S.home ? `<span class="net ${n >= 0 ? "pos" : "neg"}">netto ${eur(n)}</span>` : ""}</div>
+    <div class="meta"><button class="star${fav ? " on" : ""}" data-fav="${s.id}" aria-label="Favoriet">${fav ? "★" : "☆"}</button>${s.src === "tk" ? `<span class="pill ${cls}"><i class="dot"></i>${s.isOpen ? CLS[cls] : "Gesloten"}</span>` : ""}${s.dist != null ? `<span>${fmt(s.dist, 1)} km</span>` : s.border != null ? `<span>${fmt(s.border, 1)} km van grens</span>` : ""}${n != null && S.home ? `<span class="net ${n >= 0 ? "pos" : "neg"}" title="Na ${fmt(km, 0)} km heen en terug">${n >= 0 ? "loont: " : "loont niet: "}${eur(n)}</span>` : ""}</div>
     ${detail}
     <div class="acts">${navBtns(s)}</div>${s.src === "osm" ? `<button class="meldbtn" data-meld="${esc(s.id)}">${s.meld?.[S.fuel] ? "Andere prijs gezien? Melden" : "Prijs gezien? Meld hem voor anderen"}</button>` : ""}
   </div>`;
@@ -452,6 +452,12 @@ function options() {
   out.forEach((o) => { o.km = tripKm(o.s); o.net = netSave(o.s, o.km); });
   return out.filter((o) => o.s[S.fuel]).sort((x, y) => y.net - x.net);
 }
+function renderCarSum() {
+  const { L, use, tank } = settings(), car = $("car").value;
+  $("carSum").textContent = `${car && car !== "__own" ? car + " · " : ""}${FUELNAME[S.fuel]} · ${fmt(use, 1)} L/100 km (1 op ${fmt(100 / use, 1)}) · tank ${tank} L · nu ${L} L tanken${S.home ? "" : " · zet je locatie aan voor de besparing"}`;
+  if (document.activeElement !== $("cFuel")) $("cFuel").value = S.fuel;
+  if (document.activeElement !== $("cKmL")) $("cKmL").value = use > 0 ? Math.round(1000 / use) / 10 : "";
+}
 function renderCompare() {
   const { L } = settings(), nl = nlPrice().p, opts = options(); S.opts = opts;
   const best = opts[0];
@@ -549,6 +555,9 @@ $("car").addEventListener("change", (e) => { store.set("tw_car", e.target.value)
 ["cUse", "cTank", "cLvl"].forEach((id) => { const v = store.get("tw_" + id, null); if (v != null) $(id).value = v;
   $(id).addEventListener("input", () => { store.set("tw_" + id, $(id).value); if (id !== "cLvl") { $("car").value = "__own"; store.set("tw_car", "__own"); } render(); }); });
 if (store.get("tw_cUse", null) == null) { const c = CARS.find((x) => x[0] === $("car").value); if (c) { $("cUse").value = c[1]; $("cTank").value = c[2]; } }
+$("cFuel").addEventListener("change", () => { const f = $("cFuel").value; document.querySelector(`[data-fuel="${f}"]`)?.click(); });
+$("cKmL").addEventListener("input", () => { const k = parseFloat(String($("cKmL").value).replace(",", ".")); if (k > 3 && k < 60) { $("cUse").value = (Math.round(1000 / k) / 10); store.set("tw_cUse", $("cUse").value); $("car").value = "__own"; store.set("tw_car", "__own"); render(); } });
+$("mijnauto").addEventListener("toggle", () => { if ($("mijnauto").open) gc("auto/open", "Mijn auto geopend"); });
 $("cNL").addEventListener("change", () => { const v = parseFloat($("cNL").value); if (v > .5 && v < 5) S.nlOwn[S.fuel] = v; else delete S.nlOwn[S.fuel]; store.set("tw_nlOwn", S.nlOwn); render(); });
 
 // tankbeurten
