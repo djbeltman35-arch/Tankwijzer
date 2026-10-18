@@ -1,0 +1,49 @@
+/* Tankgids: zelfde kleuren en letters als de app */
+:root{--bg:#eef1f3;--surface:#fff;--ink:#14262e;--muted:#5b6d74;--line:#d6dde0;--accent:#0b6e75;--accent-ink:#fff;--led-bg:#13201f;--led:#ffb627;--good:#1f8a4c;--bad:#c2392f;--good-bg:#e3f4ea;--brand:#9b1b1f;
+  --f-display:"Barlow Condensed","Arial Narrow",sans-serif;--f-body:"Figtree",system-ui,sans-serif;--f-num:"JetBrains Mono",ui-monospace,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0f181b;--surface:#172428;--ink:#e6eef0;--muted:#93a6ad;--line:#2a3b40;--accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0a1211;--led:#ffbe3d;--good:#4cc77f;--bad:#f06a5d;--good-bg:#15301f;--brand:#e5636a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 var(--f-body)}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+.top{background:var(--led-bg);color:#fff}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.logo{font:700 1.6rem/1 var(--f-display);letter-spacing:.02em;color:#fff;text-decoration:none}.logo b{color:var(--led)}
+.top nav{display:flex;gap:2px 12px;flex-wrap:wrap;margin-left:auto}
+.top nav a{color:#d8e3e6;text-decoration:none;font-weight:600;font-size:.92rem;padding:4px 2px}
+.top nav a[aria-current]{color:var(--led)}
+main{padding-bottom:10px}
+.crumbs{font-size:.85rem;color:var(--muted);margin:16px 0 4px}.crumbs a{color:var(--muted)}
+h1{font:700 clamp(2rem,6vw,2.8rem)/1.05 var(--f-display);letter-spacing:.01em;margin:6px 0 12px;text-wrap:balance}
+h2{font:700 1.5rem/1.15 var(--f-display);letter-spacing:.02em;margin:26px 0 8px}
+h3{font-size:1.02rem;margin:16px 0 4px}
+p,li{max-width:70ch}
+.kort{font-size:1.12rem;background:var(--surface);border-left:5px solid var(--led);padding:12px 14px;border-radius:10px;margin:0 0 8px}
+.lead{font-size:1.1rem}
+.meta,.note,.bronnen{color:var(--muted);font-size:.88rem}
+.tw{overflow-x:auto;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
+.pt{width:100%;border-collapse:collapse}
+.pt th,.pt td{padding:10px 9px;text-align:left;border-top:1px solid var(--line);vertical-align:middle}
+.pt thead th{border-top:none;font-size:.82rem;color:var(--muted);background:color-mix(in srgb,var(--line) 35%,transparent)}
+.pt .p{text-align:right;white-space:nowrap;font:700 1rem var(--f-num)}
+.pt .sub{display:block;font-size:.8rem;color:var(--muted);font-weight:400}
+.pt .pos{color:var(--good)}.pt .neg{color:var(--bad)}
+.flag{display:inline-block;width:18px;height:12px;border-radius:2px;margin-right:7px;vertical-align:-1px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.flag.nl{background:linear-gradient(#ae1c28 33%,#fff 0 66%,#21468b 0)}.flag.be{background:linear-gradient(90deg,#000 33%,#fdda24 0 66%,#ef3340 0)}.flag.de{background:linear-gradient(#000 33%,#dd0000 0 66%,#ffce00 0)}
+.tegels{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.tegels div{background:var(--led-bg);color:#fff;border-radius:12px;padding:12px 14px}
+.tegels div>span{display:block;font-size:.82rem;color:#b9c7cb}.tegels b{display:block;font:700 1.9rem/1.1 var(--f-num);color:var(--led)}.tegels small{color:#b9c7cb}
+.knop{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:700;padding:12px 18px;border-radius:12px;text-decoration:none}
+.knop.sec{background:var(--surface);color:var(--accent);border:2px solid var(--accent)}
+.cta{margin:26px 0 8px}
+.panel{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--good);border-radius:12px;padding:4px 16px 8px}
+.kaarten{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.kaarten a{display:block;height:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.kaarten a:hover{border-color:var(--accent)}.kaarten b{display:block;color:var(--accent)}.kaarten span{font-size:.88rem;color:var(--muted)}
+.links{columns:2 220px;padding-left:18px}
+ol.tips li{margin:6px 0}
+.faq h3{margin-top:14px}.faq p{margin:2px 0}
+.foot{border-top:1px solid var(--line);margin-top:28px;padding:18px 0 30px;font-size:.88rem;color:var(--muted)}
+.foot p{margin:6px 0}.foot .free{font-weight:700;color:var(--ink)}
+.foot nav{display:flex;flex-wrap:wrap;gap:4px 16px;margin:8px 0}.foot nav a{font-weight:600;text-decoration:none}
+.foot .small{font-size:.8rem}

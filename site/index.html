@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Goedkoop tanken: live prijzen NL, België en Duitsland | Tankwijzer</title>
+<meta name="description" content="Waar tank je vandaag het goedkoopst? Live benzine- en dieselprijzen van Duitse grensstations, de Belgische maximumprijs en de Nederlandse pompprijs naast elkaar, met je besparing na aftrek van de rit. Gratis, zonder reclame.">
+<link rel="canonical" href="https://goedkopertanken.netlify.app/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><meta property="og:site_name" content="Tankwijzer">
+<meta property="og:url" content="https://goedkopertanken.netlify.app/"><meta property="og:title" content="Waar tank je vandaag het goedkoopst?">
+<meta property="og:description" content="Live prijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit. Gratis en zonder reclame.">
+<meta property="og:image" content="https://goedkopertanken.netlify.app/og.png"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{{LDJSON}}</script>
+<script data-goatcounter="https://goedkopertanken.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<meta name="theme-color" content="#13201f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tankwijzer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#eef1f3;--surface:#fff;--ink:#14262e;--muted:#5b6d74;--line:#d6dde0;
+  --accent:#0b6e75;--accent-ink:#fff;--led-bg:#13201f;--led:#ffb627;--led-dim:#6b5a33;
+  --good:#1f8a4c;--mid:#c77a0a;--bad:#c2392f;--good-bg:#e3f4ea;--mid-bg:#fbf0dc;--bad-bg:#fbe5e3;
+  --nl:#c2392f;--de:#0b6e75;--be:#b58900;--brand:#9b1b1f;
+  --f-display:"Barlow Condensed","Arial Narrow",sans-serif;--f-body:"Figtree",system-ui,sans-serif;--f-num:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f181b;--surface:#172428;--ink:#e6eef0;--muted:#93a6ad;--line:#2a3b40;
+  --accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0a1211;--led:#ffbe3d;--led-dim:#5d4d2a;
+  --good:#4cc77f;--mid:#f0a53a;--bad:#f06a5d;--good-bg:#15301f;--mid-bg:#33270f;--bad-bg:#371815;
+  --nl:#f06a5d;--de:#3cc3c9;--be:#f0c23a;--brand:#e5636a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f181b;--surface:#172428;--ink:#e6eef0;--muted:#93a6ad;--line:#2a3b40;
+  --accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0a1211;--led:#ffbe3d;--led-dim:#5d4d2a;
+  --good:#4cc77f;--mid:#f0a53a;--bad:#f06a5d;--good-bg:#15301f;--mid-bg:#33270f;--bad-bg:#371815;
+  --nl:#f06a5d;--de:#3cc3c9;--be:#f0c23a;--brand:#e5636a;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+a{color:var(--accent)}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:900px;margin:0 auto;padding-block:16px 24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--f-display);font-weight:700;font-size:2rem;line-height:1;margin:0;display:flex;flex-direction:column;gap:2px}
+h1 b.brand{font-weight:800;color:var(--brand)}
+h1 .sub{font-family:var(--f-body);font-weight:600;font-size:.9rem;color:var(--brand);letter-spacing:.02em;display:inline-flex;align-items:center;gap:6px}
+h1 .sub::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+h2{font-family:var(--f-display);font-weight:600;font-size:1.45rem;margin:0;line-height:1.1}
+h3{font-size:1rem;margin:0}
+.note{font-size:.85rem;color:var(--muted);margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.3rem .75rem}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.status.live i{background:var(--good)} .status.stale i{background:var(--mid)} .status.err i{background:var(--bad)}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;color:var(--ink);font:600 .88rem var(--f-body);padding:.4rem .85rem;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pumps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pump{background:var(--led-bg);border-radius:14px;padding:12px 14px;color:#cfd8d6;display:flex;flex-direction:column;gap:2px;min-width:0}
+.pump .lab{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#9fb0ad;display:flex;align-items:center;gap:6px}
+.flag{display:inline-block;width:16px;height:11px;border-radius:2px}
+.flag.nl{background:linear-gradient(#ae1c28 33%,#fff 33% 66%,#21468b 66%)}
+.flag.be{background:linear-gradient(90deg,#000 33%,#fdda24 33% 66%,#ef3340 66%)}
+.flag.de{background:linear-gradient(#000 33%,#dd0000 33% 66%,#ffce00 66%)}
+.led{font-family:var(--f-num);font-weight:700;color:var(--led);font-size:clamp(1.3rem,5vw,2.4rem);line-height:1.1;font-variant-numeric:tabular-nums}
+.led small{font-size:.4em;color:var(--led-dim);margin-left:3px}
+.pump .src{font-size:.72rem;color:#93a39f;overflow-wrap:anywhere}
+.verdict{border-radius:14px;padding:12px 14px;display:flex;gap:12px;align-items:center;border:1px solid var(--line);background:var(--surface)}
+.verdict .vnum{font-family:var(--f-display);font-weight:700;font-size:2.1rem;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.verdict.good .vnum{color:var(--good)} .verdict.bad .vnum{color:var(--bad)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.banner{border-radius:12px;padding:12px 14px;background:var(--mid-bg);color:var(--ink);border:1px solid color-mix(in srgb,var(--mid) 40%,transparent);display:flex;flex-direction:column;gap:8px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:var(--muted);font-weight:500;flex:1 1 150px;min-width:0}
+label.f input,label.f select{font:600 1rem var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.5rem .6rem;width:100%}
+label.chk{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.9rem;white-space:nowrap;padding-block:.5rem}
+label.chk input{width:18px;height:18px;accent-color:var(--accent);margin:0}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:.55rem .95rem;font:700 .9rem var(--f-body);cursor:pointer;text-decoration:none;display:inline-block}
+.btn.sec{background:transparent;color:var(--accent);border:1px solid var(--line)}
+.btn:disabled{opacity:.5;cursor:default}
+.list{display:flex;flex-direction:column;gap:8px}
+.st{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.st .rank{font-family:var(--f-num);font-size:.8rem;color:var(--muted);width:1.8rem}
+.st .nm{min-width:0}
+.st .nm b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st .nm span{font-size:.8rem;color:var(--muted)}
+.st .pr{text-align:right;font-family:var(--f-num);font-weight:700;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.st .meta{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.78rem;color:var(--muted)}
+.st .meta a{color:var(--accent);font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:.1rem .55rem;border-radius:999px;font-weight:700;font-size:.74rem;white-space:nowrap}
+.pill.good{background:var(--good-bg);color:var(--good)} .pill.mid{background:var(--mid-bg);color:var(--mid)} .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.off{background:var(--line);color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+#map{height:min(65vh,560px);border-radius:14px;border:1px solid var(--line);z-index:0}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.stat{display:flex;flex-direction:column}
+.stat b{font-family:var(--f-num);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.stat span{font-size:.78rem;color:var(--muted)}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font:12px var(--f-num)}
+.daytbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:.4rem .4rem;border-bottom:1px solid var(--line);text-align:left}
+th{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+td.n,th.n{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.moment{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.moment b{font-family:var(--f-display);font-size:1.15rem;color:var(--accent);line-height:1.2;min-width:3.2rem}
+.banner.hit{background:var(--good-bg);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+.chips{gap:6px 16px}
+.st{cursor:pointer}
+.st .nm b{display:flex;align-items:center;gap:6px}
+.star{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:.15rem .5rem;font-size:1rem;line-height:1.2;color:var(--muted);cursor:pointer}
+.star.on{color:#c88a00;border-color:var(--led)}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.05rem .4rem;border-radius:4px;background:var(--bad-bg);color:var(--bad)}
+.net{font-weight:700}
+.detail{grid-column:1/-1;border-top:1px dashed var(--line);padding-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;font-size:.84rem}
+.detail .prices{display:flex;gap:14px;flex-wrap:wrap;grid-column:1/-1}
+.detail .prices span{font-family:var(--f-num)}
+.detail .hrs{grid-column:1/-1;color:var(--muted)}
+.detail .acts{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+ul.tips{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.tips li{display:grid;grid-template-columns:2.2rem 1fr;gap:10px}
+ul.tips .k{font-family:var(--f-display);font-weight:700;font-size:1.25rem;color:var(--accent)}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--led-bg);border-top:0;box-shadow:0 -4px 18px rgba(0,0,0,.18);display:grid;grid-template-columns:repeat(4,1fr);align-items:end;padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);z-index:1000}
+.nav button{border:0;background:none;color:#c9d4d2;font:700 .8rem var(--f-body);padding:8px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-height:64px;justify-content:flex-end}
+.nav button svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;padding:3px 14px;box-sizing:content-box;border-radius:999px}
+.nav button[aria-selected="true"]{color:var(--led)}
+.nav button[aria-selected="true"] svg{background:color-mix(in srgb,var(--led) 22%,transparent)}
+.nav button.save{color:var(--led)}
+.nav button.save .ring{width:62px;height:62px;margin-top:-26px;border-radius:50%;background:var(--led);color:#13201f;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35);border:4px solid var(--led-bg)}
+.nav button.save .ring svg{width:30px;height:30px;padding:0;background:none!important;stroke-width:2.6}
+.nav button.save[aria-selected="true"] .ring{background:#fff}
+.empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+@media (max-width:520px){.pump{padding:10px 10px}.led{font-size:clamp(1.15rem,6.2vw,1.7rem)}.pump .lab{font-size:.64rem;letter-spacing:.04em}.pump .src{font-size:.66rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* v4: zoeken, route, knoppen */
+.search{display:flex;gap:8px}
+.search input{flex:1;min-width:0;font:600 1.05rem var(--f-body);color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:.75rem .9rem}
+.search input:focus{border-color:var(--accent);outline:none}
+.big{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:.75rem 1.1rem;font:700 1rem var(--f-body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;min-height:48px}
+.big[aria-disabled]{opacity:.5;pointer-events:none}
+.big.sec{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
+.big.g{background:#1a73e8;color:#fff}
+.big.w{background:#33ccff;color:#06232b}
+.big.a{background:#1d1d1f;color:#fff}
+:root[data-theme="dark"] .big.a{background:#f2f2f7;color:#1d1d1f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .big.a{background:#f2f2f7;color:#1d1d1f}}
+.big svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chiprow{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chiprow button{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:.45rem .9rem;font:600 .88rem var(--f-body);cursor:pointer}
+.chiprow button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.reshead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.reshead h2{font-size:1.35rem}
+.sc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:6px 10px}
+.sc .nm b{font-size:1rem;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.sc .nm span{display:block;font-size:.82rem;color:var(--muted)}
+.sc .pr{font-family:var(--f-num);font-weight:700;font-size:1.3rem;text-align:right;font-variant-numeric:tabular-nums;line-height:1.1}
+.sc .pr small{display:block;font:500 .72rem var(--f-body);color:var(--muted)}
+.sc .meta{grid-column:1/-1;display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--muted)}
+.sc .acts{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}
+.iconbtn.txt{width:auto;padding:0 .7rem;font:700 .85rem var(--f-body);text-decoration:none}
+.sc .acts .big{min-height:44px;padding:.55rem .8rem;font-size:.95rem}
+.iconbtn{width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.2rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.iconbtn.on{color:var(--led);border-color:var(--led)}
+.tag.ok{background:var(--good-bg);color:var(--good)}
+.routebox{background:var(--surface);border:2px solid var(--accent);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.routebox .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.routebox .nums b{display:block;font-family:var(--f-num);font-size:1.1rem}
+.routebox .nums span{font-size:.72rem;color:var(--muted)}
+.nav3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nav2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.big .bl{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;text-align:left;min-width:0}
+.big .bl b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.big .bl b{font-weight:700}
+.big .bl small{font-size:.64rem;font-weight:600;opacity:.9;white-space:nowrap}
+.nav2 .big,.sc .acts .big{padding:.5rem .5rem;min-height:52px;justify-content:flex-start;gap:6px;min-width:0;overflow:hidden}
+.nav3 .big,.sc .acts .big{padding:.55rem .3rem;font-size:.92rem;gap:5px}
+.savehero{background:var(--led-bg);border-radius:16px;padding:16px;color:#cfd8d6;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.savehero .main{grid-column:1/-1}
+.savehero .main span{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:#9fb0ad}
+.savehero .main b{display:block;font-family:var(--f-num);font-size:2.6rem;line-height:1.1;color:var(--led)}
+.savehero div span{display:block;font-size:.74rem;color:#9fb0ad}
+.savehero div b{font-family:var(--f-num);font-size:1.05rem;color:#e6eef0}
+.foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);text-align:center;font-size:.85rem;color:var(--muted)}
+.foot p{margin:6px 0}.freeline{font-weight:600;color:var(--ink)}
+.footnav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;font-weight:600}
+.footnav a,.apps a{color:var(--accent);text-decoration:none}
+.card.free{border-left:4px solid var(--good)}
+.seo{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+.seo h2{font:700 1.3rem var(--f-display);letter-spacing:.02em;margin:0 0 6px}
+.seo h3{font-size:1rem;margin:12px 0 2px}.seo p{margin:0 0 6px;line-height:1.5}
+.seo .gidslinks{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:6px 0 0;list-style:none}
+.seo .gidslinks a{display:inline-block;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);text-decoration:none;font-weight:600;font-size:.9rem}
+.madeby{text-align:center;font-size:.75rem;color:var(--muted);margin:8px 0 0;letter-spacing:.04em}
+.madeby a{color:inherit;text-decoration:none;padding:6px 10px;display:inline-block}
+details.more{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+details.more summary{font-weight:700;cursor:pointer}
+.filters{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+@media (max-width:420px){.routebox .nums{grid-template-columns:repeat(2,1fr)}}
+.reshead select{font:600 .9rem var(--f-body);color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:0 .6rem;height:44px}
+.filters select{font:600 .9rem var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.4rem .5rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1><span>Tank<b class="brand">wijzer</b></span> <span class="sub">met live prijzen</span></h1>
+    <span class="status" id="status"><i></i><span id="statusTxt">Laden…</span></span>
+  </div>
+  <div class="seg" role="group" aria-label="Brandstof" style="align-self:flex-start">
+    <button data-fuel="e10" aria-pressed="true">Euro95 / E10</button>
+    <button data-fuel="diesel" aria-pressed="false">Diesel</button>
+    <button data-fuel="e5" aria-pressed="false">E5 / 98</button>
+  </div>
+  <section class="pumps">
+    <div class="pump"><div class="lab"><i class="flag nl"></i>NL</div><div class="led" id="ledNL">–</div><div class="src" id="srcNL"></div></div>
+    <div class="pump"><div class="lab"><i class="flag be"></i>BE</div><div class="led" id="ledBE">–</div><div class="src" id="srcBE"></div></div>
+    <div class="pump"><div class="lab"><i class="flag de"></i>DE</div><div class="led" id="ledDE">–</div><div class="src" id="srcDE"></div></div>
+  </section>
+  <div class="verdict" id="verdict" style="flex-wrap:wrap"><div class="vnum" id="vBig">–</div><div style="flex:1;min-width:180px"><strong id="vHead"></strong><div class="note" id="vSub"></div></div>
+    <div class="nav2" style="width:100%"><a class="big g" id="vRoute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg><span class="bl"><b>Google Maps</b><small>Android Auto · CarPlay</small></span></a><a class="big a" id="vApple" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg><span class="bl"><b>Apple Kaarten</b><small>CarPlay</small></span></a></div></div>
+  <div id="alertBanner" class="banner hit" hidden></div>
+
+  <!-- ZOEK -->
+  <section data-view="zoek" style="display:flex;flex-direction:column;gap:12px">
+    <form class="search" id="searchForm" role="search">
+      <input id="q" type="search" placeholder="Plaats of postcode, bv. Kleve" autocomplete="off" enterkeyhint="search" aria-label="Zoek plaats">
+      <button class="big" type="submit"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Zoek</button>
+    </form>
+    <div>
+      <button class="big sec" id="locBtn" style="width:100%"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Mijn locatie</button>
+    </div>
+    <div class="chiprow" id="quick"></div>
+    <div class="reshead"><h2 id="resTitle">Grensstrook</h2>
+      <div style="display:flex;gap:6px"><select id="sort" aria-label="Sorteer" class="iconsel"><option value="price">Goedkoopst</option><option value="dist">Dichtstbij</option><option value="net">Netto besparing</option></select>
+      <button class="iconbtn" id="filterBtn" aria-label="Filters">⚙</button></div></div>
+    <div class="filters" id="filters" hidden>
+      <label class="chk"><input type="checkbox" id="openOnly" checked>Alleen open</label>
+      <label class="chk"><input type="checkbox" id="noHwy" checked>Geen snelweg</label>
+      <label class="chk"><input type="checkbox" id="favOnly">Favorieten</label>
+      <select id="brand" aria-label="Merk"><option value="">Alle merken</option></select>
+      <select id="region" aria-label="Grensregio"></select>
+    </div>
+    <p class="note" id="resNote"></p>
+    <div class="list" id="list"></div>
+  </section>
+
+  <!-- PRIJZEN -->
+  <section data-view="dag" hidden style="display:flex;flex-direction:column;gap:12px">
+    <div class="card">
+      <h2>Dagprijzen</h2>
+      <svg class="chart" id="chart" viewBox="0 0 400 230" role="img" aria-label="Grafiek dagprijzen"></svg>
+      <div class="legend"><span><i class="dot" style="color:var(--nl)"></i>NL gemiddeld</span><span><i class="dot" style="color:var(--be)"></i>BE gemiddeld (wekelijks)</span><span><i class="dot" style="color:var(--de)"></i>DE gemiddeld</span></div>
+      <p class="note" id="dayNote"></p>
+    </div>
+    <div class="card">
+      <div class="daytbl"><table><thead><tr><th>Datum</th><th class="n">NL 95</th><th class="n">±</th><th class="n">NL diesel</th><th class="n">±</th><th class="n">BE 95</th><th class="n">BE diesel</th><th class="n">DE E10</th><th class="n">DE diesel</th></tr></thead><tbody id="dayBody"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- BESPAAR -->
+  <section data-view="bespaar" hidden style="display:flex;flex-direction:column;gap:12px">
+    <div class="savehero" id="saveHero"></div>
+    <div class="card">
+      <h2>Tankbeurt opslaan</h2>
+      <div class="seg" role="group" aria-label="Land" id="fCseg"><button data-fc="DE" aria-pressed="true">Duitsland</button><button data-fc="BE" aria-pressed="false">België</button><button data-fc="NL" aria-pressed="false">Nederland</button></div>
+      <div class="controls">
+        <label class="f">Liters<input id="fL" type="number" step="0.01" inputmode="decimal"></label>
+        <label class="f">Prijs €/L<input id="fP" type="number" step="0.001" inputmode="decimal"></label>
+        <label class="f">Datum<input id="fDate" type="date"></label>
+      </div>
+      <p class="note" id="fPreview"></p>
+      <button class="big" id="fAdd" style="width:100%">Tankbeurt opslaan</button>
+      <p class="note" id="fMsg"></p>
+    </div>
+    <div class="card">
+      <h2>Mijn tankbeurten</h2>
+      <div class="daytbl"><table><thead><tr><th>Datum</th><th>Land</th><th class="n">L</th><th class="n">€/L</th><th class="n">Bespaard</th><th></th></tr></thead><tbody id="fBody"></tbody></table></div>
+    </div>
+    <details class="more"><summary>Mijn auto</summary>
+      <div class="controls" style="margin-top:10px">
+        <label class="f">Auto<select id="car"></select></label>
+      </div>
+      <div class="controls">
+        <label class="f">Verbruik L/100 km<input id="cUse" type="number" step="0.1" value="6.5"></label>
+        <label class="f">Tank (L)<input id="cTank" type="number" min="10" value="50"></label>
+        <label class="f">Mijn NL-prijs<input id="cNL" type="number" step="0.001"></label>
+      </div>
+      <label class="f">Tank nu <b id="lvlLbl">10%</b> vol · tanken: <b id="litLbl">45 L</b><input type="range" id="cLvl" min="0" max="90" step="5" value="10"></label>
+      <input id="cFreq" type="hidden" value="2">
+    </details>
+  </section>
+
+  <!-- MEER -->
+  <section data-view="meer" hidden style="display:flex;flex-direction:column;gap:12px">
+    <div class="card free">
+      <h2>Gratis, en ik verdien er niets aan</h2>
+      <p class="note">Tankwijzer heeft geen reclame, geen betaalde plekken en geen commissie van tankstations. Ik verdien er op geen enkele manier een cent aan. Je hebt geen account nodig, en je tankbeurten en instellingen blijven op je eigen telefoon.</p>
+    </div>
+    <div class="card">
+      <h2>Prijsalarm</h2>
+      <label class="f"><span>Melden onder (€/L, <span id="alertFuel"></span>)</span><input id="alertP" type="number" step="0.001" placeholder="2,099"></label>
+      <button class="big sec" id="alertPerm">Meldingen toestaan</button>
+      <p class="note" id="alertMsg"></p>
+    </div>
+    <div class="card">
+      <h2>Weergave</h2>
+      <div class="seg" role="group" aria-label="Thema"><button data-theme-set="system">Systeem</button><button data-theme-set="light">Licht</button><button data-theme-set="dark">Donker</button></div>
+    </div>
+    <details class="more"><summary>Tips</summary>
+      <ul class="tips" style="margin-top:10px">
+        <li><span class="k">12u</span><p class="note">Duitsland: tank vlak vóór 12:00, daarna gaan de prijzen omhoog.</p></li>
+        <li><span class="k">A</span><p class="note">Snelwegstations zijn het duurst, in Duitsland zo'n 33 ct per liter.</p></li>
+        <li><span class="k">SB</span><p class="note">Onbemande stations zijn meestal goedkoper.</p></li>
+        <li><span class="k">ma</span><p class="note">In Nederland is maandag vaak de duurste dag.</p></li>
+        <li><span class="k">BE</span><p class="note">België: de maximumprijs is een plafond; veel stations zitten lager.</p></li>
+      </ul>
+    </details>
+    <details class="more"><summary>Over de gegevens</summary>
+      <p class="note" style="margin-top:8px">DE: Tankerkönig / MTS-K (CC BY 4.0). NL: CBS en UnitedConsumers. BE: FOD Economie. Plaatsen en stationslocaties: © OpenStreetMap. Navigatie: Google Maps.</p>
+      <button class="big sec" id="clearCache" style="margin-top:8px">Opgeslagen prijzen wissen</button>
+    </details>
+  </section>
+  <!--SEO-->
+  <footer class="foot">
+    <p class="freeline">Gratis en onafhankelijk: geen reclame, geen commissie, ik verdien er geen cent aan.</p>
+    <nav class="footnav" aria-label="Meer"><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a><a href="/gids/grensplaatsen.html">Grensplaatsen</a><a href="/gids/">Tankgids</a><a href="/gids/over.html">Over en privacy</a></nav>
+    <p class="apps">Meer van Erik: <a href="https://goedkopeboodschappen.netlify.app/">Goedkope Boodschappen</a> · <a href="https://vluchtwijzer.netlify.app/">Vluchtwijzer</a> · <a href="https://vakantietoppers.netlify.app/">Vakantiewijzer</a></p>
+    <p class="madeby"><a href="mailto:erik@beltman.email">Made by Erik</a></p>
+  </footer>
+</div>
+
+<nav class="nav" role="tablist">
+  <button data-tab="zoek" aria-selected="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Zoeken</button>
+  <button data-tab="bespaar" class="save" aria-selected="false"><span class="ring"><svg viewBox="0 0 24 24"><path d="M17 7.5A6 6 0 1 0 17 16.5"/><path d="M4 10.5h9M4 13.5h9"/></svg></span>Bespaar</button>
+  <button data-tab="dag" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>Prijzen</button>
+  <button data-tab="meer" aria-selected="false"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Meer</button>
+</nav>
+
+<script src="geo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

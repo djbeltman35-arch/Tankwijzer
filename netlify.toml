@@ -1,0 +1,26 @@
+# Tankwijzer (goedkopertanken.netlify.app): Netlify bouwt bij elke wijziging op GitHub.
+[build]
+  command = "python3 scripts/bouw.py public"
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self), camera=(), microphone=()"
+    Strict-Transport-Security = "max-age=31536000"
+[[headers]]
+  for = "/gids/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Oude adressen van eerdere versies
+[[redirects]]
+  from = "/gids/tanken-in-wezet.html"
+  to = "/gids/tanken-in-vise.html"
+  status = 301

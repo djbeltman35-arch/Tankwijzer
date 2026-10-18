@@ -1,11 +1,12 @@
 {
- "updated": "2026-10-17T10:12:00+02:00",
+ "updated": "2026-10-18T21:40:43+02:00",
  "nl": {
   "advies": {
-   "e10": 2.684,
-   "diesel": 2.703,
-   "e5": 2.904,
-   "date": "20261016",
+   "e10": 2.664,
+   "diesel": 2.699,
+   "e5": 2.884,
+   "lpg": 1.287,
+   "date": "20261018",
    "src": "UnitedConsumers landelijke adviesprijs"
   },
   "adviesHist": [
@@ -18,6 +19,11 @@
     "20261016",
     2.684,
     2.703
+   ],
+   [
+    "20261018",
+    2.664,
+    2.699
    ]
   ]
  },
@@ -26,14 +32,16 @@
    "e10": 2.064,
    "e5": 2.201,
    "diesel": 2.444,
-   "date": "20261017",
+   "lpg": 1.079,
+   "date": "20261018",
    "src": "officiële maximumprijs (FOD Economie)"
   },
   "next": {
    "e10": 2.064,
    "e5": 2.201,
    "diesel": 2.444,
-   "date": "20261017"
+   "lpg": 1.079,
+   "date": "20261019"
   },
   "avg": {
    "e10": 1.977,
@@ -42,38 +50,86 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "low": {
-   "e10": 1.856,
-   "e5": 2.041,
-   "diesel": 2.233,
-   "date": "20261016",
+   "date": "20261018",
    "where": {
     "e10": "Luik",
     "e5": "Limburg",
-    "diesel": "Limburg"
+    "diesel": "Limburg",
+    "lpg": "Limburg"
    },
-   "src": "laagste prijs grensprovincies (Antwerpen, Limburg, Luik)"
+   "src": "laagste prijs grensprovincies (Antwerpen, Limburg, Luik)",
+   "e10": 1.856,
+   "e5": 2.041,
+   "diesel": 2.249,
+   "lpg": 0.831
   },
   "prov": {
-   "date": "20261016",
+   "date": "20261018",
    "Antwerpen": {
-    "e10": 1.869,
+    "e10": 1.883,
     "e5": 2.091,
-    "diesel": 2.235
+    "diesel": 2.251,
+    "lpg": 0.999
    },
-   "Limburg": {
-    "e10": 1.876,
-    "e5": 2.041,
-    "diesel": 2.233
+   "Vlaams-Brabant": {
+    "e10": 1.864,
+    "e5": 2.098,
+    "diesel": 2.232,
+    "lpg": 1.029
    },
-   "Luik": {
-    "e10": 1.856,
-    "e5": 2.094,
-    "diesel": 2.248
+   "Waals Brabant": {
+    "e10": 1.851,
+    "e5": 2.081,
+    "diesel": 2.231,
+    "lpg": 1.019
+   },
+   "Brussel": {
+    "e10": 1.885,
+    "e5": 2.161,
+    "diesel": 2.263,
+    "lpg": 1.029
+   },
+   "West-Vlaanderen": {
+    "e10": 1.859,
+    "e5": 2.001,
+    "diesel": 2.241,
+    "lpg": 1
    },
    "Oost-Vlaanderen": {
     "e10": 1.864,
     "e5": 2.001,
-    "diesel": 2.228
+    "diesel": 2.229,
+    "lpg": 1.009
+   },
+   "Henegouwen": {
+    "e10": 1.862,
+    "e5": 1.999,
+    "diesel": 2.235,
+    "lpg": 0.999
+   },
+   "Luik": {
+    "e10": 1.856,
+    "e5": 2.094,
+    "diesel": 2.264,
+    "lpg": 0.987
+   },
+   "Limburg": {
+    "e10": 1.876,
+    "e5": 2.041,
+    "diesel": 2.249,
+    "lpg": 0.831
+   },
+   "Luxemburg": {
+    "e10": 1.914,
+    "e5": 2.121,
+    "diesel": 2.294,
+    "lpg": 1.079
+   },
+   "Namen": {
+    "e10": 1.867,
+    "e5": 2.099,
+    "diesel": 2.237,
+    "lpg": 0.989
    }
   }
  },
@@ -156,6 +212,11 @@
     "20261017",
     2.064,
     2.444
+   ],
+   [
+    "20261018",
+    2.064,
+    2.444
    ]
   ],
   "beAvg": [
@@ -183,6 +244,13 @@
     "20261012",
     1.977,
     2.335
+   ]
+  ],
+  "beLow": [
+   [
+    "20261018",
+    1.856,
+    2.249
    ]
   ]
  }

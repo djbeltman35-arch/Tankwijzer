@@ -1,0 +1,9 @@
+{
+  "name": "tankwijzer",
+  "private": true,
+  "type": "module",
+  "description": "Tankwijzer: functies voor live Duitse prijzen en de dagprijzen",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
