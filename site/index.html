@@ -224,6 +224,7 @@ details.more summary{font-weight:700;cursor:pointer}
     <button data-fuel="e10" aria-pressed="true">Euro95 / E10</button>
     <button data-fuel="diesel" aria-pressed="false">Diesel</button>
     <button data-fuel="e5" aria-pressed="false">E5 / 98</button>
+    <button data-fuel="lpg" aria-pressed="false">LPG</button>
   </div>
   <section class="pumps">
     <div class="pump"><div class="lab"><i class="flag nl"></i>NL</div><div class="led" id="ledNL">–</div><div class="src" id="srcNL"></div></div>
@@ -312,8 +313,9 @@ details.more summary{font-weight:700;cursor:pointer}
     </div>
     <div class="card">
       <h2>Prijsalarm</h2>
-      <label class="f"><span>Melden onder (€/L, <span id="alertFuel"></span>)</span><input id="alertP" type="number" step="0.001" placeholder="2,099"></label>
-      <button class="big sec" id="alertPerm">Meldingen toestaan</button>
+      <p class="note">Krijg een melding op je telefoon zodra een prijs bij de grens in jouw buurt onder je bedrag zakt, ook als de app dicht is. Gratis, zonder account.</p>
+      <label class="f"><span>Melden onder (€/L, <span id="alertFuel"></span>)</span><input id="alertP" type="number" step="0.001" inputmode="decimal" placeholder="2,099"></label>
+      <button class="big" id="alertPerm">Alarm aanzetten</button>
       <p class="note" id="alertMsg"></p>
     </div>
     <div class="card">

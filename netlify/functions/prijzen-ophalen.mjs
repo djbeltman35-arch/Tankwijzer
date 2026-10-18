@@ -4,6 +4,7 @@
 // Lukt een bron niet, dan blijven de vorige waarden staan. Zo kost bijwerken niets en loopt het altijd door.
 import { getStore } from '@netlify/blobs';
 import { BRONNEN, nlAdvies, beMax, beProv, beAvg, GRENS_DE } from '../bronnen.mjs';
+import { controleerAlarmen } from '../alarm.mjs';
 import basis from '../../site/data-basis.json' with { type: 'json' };
 
 const UA = 'Mozilla/5.0 (compatible; Tankwijzer/2.0; +https://goedkopertanken.netlify.app)';
@@ -87,6 +88,7 @@ export default async () => {
   const d = await verzamel(oud, Netlify.env.get('TANKERKOENIG_KEY'), m => { log.push(m); console.log(m); });
   d._ts = Date.now(); d._log = log;
   await store.setJSON('data', d);
+  try { await controleerAlarmen(d, Netlify.env.get('VAPID_PUBLIC'), Netlify.env.get('VAPID_PRIVATE')); } catch (e) { console.log('alarm fout ' + e.message); }
   console.log(`prijzen bijgewerkt: NL ${d.nl.advies?.e10}/${d.nl.advies?.diesel} · BE max ${d.be.max?.e10}/${d.be.max?.diesel} · BE laagst ${d.be.low?.e10}/${d.be.low?.diesel} · DE grens ${d.de.border?.e10}/${d.de.border?.diesel}`);
 };
 

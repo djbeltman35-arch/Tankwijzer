@@ -3,7 +3,7 @@
 // Live Duitse prijzen lopen via onze eigen server (/api/tk/), zodat de Tankerkönig-sleutel nooit in de browser staat.
 const API = "/api/tk/";
 const PRICE_TTL = 5 * 60 * 1000, LIST_TTL = 12 * 60 * 60 * 1000, CBS_TTL = 3 * 60 * 60 * 1000, ROAD = 1.3;
-const FUELNAME = { e10: "Euro95 / E10", diesel: "Diesel", e5: "Super E5 / 98" };
+const FUELNAME = { e10: "Euro95 / E10", diesel: "Diesel", e5: "Super E5 / 98", lpg: "LPG" };
 const HWY = /\b(BAB|Autobahn|Rastst(ä|ae)tte|Tank\s*(&|und)\s*Rast|Serways)\b/i;
 const CBS_FALLBACK = [
   ["20260920",2.449,2.572],["20260921",2.449,2.579],["20260922",2.443,2.562],["20260923",2.441,2.543],["20260924",2.444,2.539],
@@ -214,8 +214,8 @@ async function loadCBS() {
   if (S.cbs && Date.now() - S.cbs.ts < CBS_TTL) return;
   const k = ymd(new Date(Date.now() - 75 * 864e5));
   try {
-    const j = await getJSON("https://opendata.cbs.nl/ODataApi/odata/80416ned/TypedDataSet?$filter=" + encodeURIComponent(`Perioden ge '${k}'`) + "&$select=Perioden,BenzineEuro95_1,Diesel_2");
-    const rows = (j.value || []).filter((r) => r.BenzineEuro95_1).map((r) => [r.Perioden, r.BenzineEuro95_1, r.Diesel_2]).sort((a, b) => a[0].localeCompare(b[0]));
+    const j = await getJSON("https://opendata.cbs.nl/ODataApi/odata/80416ned/TypedDataSet?$filter=" + encodeURIComponent(`Perioden ge '${k}'`) + "&$select=Perioden,BenzineEuro95_1,Diesel_2,Lpg_3");
+    const rows = (j.value || []).filter((r) => r.BenzineEuro95_1).map((r) => [r.Perioden, r.BenzineEuro95_1, r.Diesel_2, r.Lpg_3]).sort((a, b) => a[0].localeCompare(b[0]));
     if (rows.length) { S.cbs = { ts: Date.now(), rows }; store.set("tw_cbs", S.cbs); }
   } catch (e) {}
   render();
@@ -235,13 +235,14 @@ const deBorder = (f = S.fuel) => S.data.de?.border?.[f] ?? null;
 function nlPrice(f = S.fuel) {
   if (S.nlOwn[f]) return { p: S.nlOwn[f], src: "Eigen prijs" };
   if (f === "e5") { const a = S.data.nl?.advies; return { p: a?.e5 ?? 2.904, src: "Advies · " + dayLabel(a?.date || "20261016") }; }
+  if (f === "lpg") { const r = [...cbsRows()].reverse().find((x) => x[3]); if (r) return { p: r[3], src: "Gem. · " + dayLabel(r[0]) }; const a = S.data.nl?.advies; return { p: a?.lpg ?? null, src: "Advies · " + dayLabel(a?.date || "20261016") }; }
   const rows = cbsRows(), last = rows[rows.length - 1], prev = rows[rows.length - 2], i = f === "e10" ? 1 : 2;
   const ah = S.data.nl?.adviesHist || [], a0 = ah.find((r) => r[0] === last[0]), a1 = ah[ah.length - 1];
   if (a0 && a1 && a1[0] > last[0] && a0[i] && a1[i]) return { p: last[i] + (a1[i] - a0[i]), src: `Schatting · ${dayLabel(a1[0])}` };
   const d = prev ? Math.round((last[i] - prev[i]) * 1000) / 10 : null;
   return { p: last[i], src: `Gem. · ${dayLabel(last[0])}${d ? ` · ${d > 0 ? "+" : "−"}${fmt(Math.abs(d), 1)}` : ""}` };
 }
-const refPrice = (cc) => cc === "BE" ? beAvg() : cc === "DE" ? (S.data.de?.avg?.[S.fuel] ?? deBorder()) : nlPrice().p;
+const refPrice = (cc) => cc === "BE" ? (S.fuel === "lpg" ? beLow() : beAvg()) : cc === "DE" ? (S.data.de?.avg?.[S.fuel] ?? deBorder()) : nlPrice().p;
 
 // ---------- berekeningen ----------
 function tripKm(s) { return S.home ? haversine([S.home.lat, S.home.lng], [s.lat, s.lng]) * 2 * ROAD : null; }
@@ -287,8 +288,9 @@ function render() {
   $("ledNL").innerHTML = fmt(nl.p) + "<small>€</small>"; $("srcNL").textContent = nl.src;
   $("ledBE").innerHTML = fmt(be) + "<small>€</small>"; const bn = S.data.be?.next, mx = beMax(); const bt = bn && bn.date > S.data.be.max.date && bn[S.fuel] && mx ? bn[S.fuel] - mx : null;
   $("srcBE").textContent = be ? (S.data.be.avg?.[S.fuel] ? `Gem. ${dayLabel(S.data.be.avg.date)} · max ${fmt(mx)}` : `Max · ${dayLabel(S.data.be.max.date)}`) + (bt ? ` · morgen ${bt > 0 ? "↑" : "↓"}${fmt(Math.abs(bt) * 100, 1)}ct` : "") : "–";
-  $("ledDE").innerHTML = fmt(deP) + "<small>€</small>"; $("srcDE").textContent = regionCheap ? `Live · ${town(regionCheap)}` : deP ? "Grens · " + (S.data.de.border.at ? hhmm(S.data.de.border.at) : dayLabel(S.data.de.border.date)) : "–";
-  const opts = [["België", beL], ["Duitsland", deP]].filter((o) => o[1]).sort((a, b) => a[1] - b[1]), v = $("verdict");
+  if (S.fuel === "lpg") { $("ledDE").innerHTML = "–"; $("srcDE").textContent = "Geen live LPG-prijzen"; } else {
+  $("ledDE").innerHTML = fmt(deP) + "<small>€</small>"; $("srcDE").textContent = regionCheap ? `Live · ${town(regionCheap)}` : deP ? "Grens · " + (S.data.de.border.at ? hhmm(S.data.de.border.at) : dayLabel(S.data.de.border.date)) : "–"; }
+  const opts = [["België", beL], ["Duitsland", S.fuel === "lpg" ? null : deP]].filter((o) => o[1]).sort((a, b) => a[1] - b[1]), v = $("verdict");
   if (opts.length) {
     const [land, p] = opts[0], d = nl.p - p;
     v.className = "verdict " + (d > 0 ? "good" : "bad"); $("vBig").textContent = (d >= 0 ? "−" : "+") + Math.round(Math.abs(d) * 100) + " ct";
@@ -327,7 +329,7 @@ function renderSearch() {
     const tkN = list.filter((s) => s.src === "tk").length, osmN = list.filter((s) => s.src === "osm").length;
     if (S.searching) note = "Zoeken…";
     else if (S.searchErr) note = S.searchErr;
-    else note = [tkN ? `${tkN} met live prijs` : "", osmN ? `${osmN} zonder live prijs` : "", !S.key && S.place.cc === "DE" ? "live prijzen met sleutel (Meer)" : ""].filter(Boolean).join(" · ");
+    else note = [S.fuel === "lpg" ? "LPG: per station nog geen live prijzen, zie de prijzen bovenaan" : "", tkN && S.fuel !== "lpg" ? `${tkN} met live prijs` : "", osmN ? `${osmN} zonder live prijs` : "", !S.key && S.place.cc === "DE" ? "live prijzen met sleutel (Meer)" : ""].filter(Boolean).join(" · ");
   } else {
     title = S.key ? "Grensstrook · " + REGIONS[S.region].name : "Zoek tankstations";
     note = S.key ? (S.busy ? "Laden…" : S.error || "") : "Typ een plaats of kies er een hierboven.";
@@ -377,11 +379,11 @@ const deDay = (k, f) => { const d = S.hist[k]?.[S.region]?.[f]; return d && d[1]
 const beDay = (k, f) => S.data.history?.beAvg ? fromHist(S.data.history.beAvg, k, f) : fromHist(S.data.history?.beMax, k, f);
 function renderDays() {
   if (S.tab !== "dag") return;
-  const rows = cbsRows(), nlIdx = S.fuel === "diesel" ? 2 : 1, F = S.fuel === "e5" ? "e10" : S.fuel;
+  const rows = cbsRows(), nlIdx = S.fuel === "diesel" ? 2 : 1, F = S.fuel === "diesel" ? "diesel" : "e10";
   const days = new Set(rows.map((r) => r[0])); Object.keys(S.hist).forEach((k) => days.add(k)); ["deAvg", S.data.history?.beAvg ? "beAvg" : "beMax"].forEach((n) => (S.data.history?.[n] || []).forEach((r) => days.add(r[0])));
   const keys = [...days].sort().slice(-45), nlMap = Object.fromEntries(rows.map((r) => [r[0], r]));
   const nlS = keys.map((k) => nlMap[k]?.[nlIdx] ?? null), deS = keys.map((k) => deDay(k, F)), beS = keys.map((k) => beDay(k, F));
-  const vals = [...(S.fuel !== "e5" ? nlS : []), ...deS, ...beS].filter((v) => v != null), svg = $("chart");
+  const vals = [...(S.fuel !== "e5" && S.fuel !== "lpg" ? nlS : []), ...deS, ...beS].filter((v) => v != null), svg = $("chart");
   if (vals.length) {
     let lo = Math.min(...vals), hi = Math.max(...vals); const pv = Math.max(.03, (hi - lo) * .15); lo -= pv; hi += pv;
     const W = 400, H = 230, l = 40, r = 8, t = 10, b = 24, X = (i) => l + (keys.length < 2 ? 0 : i * (W - l - r) / (keys.length - 1)), Y = (v) => t + (hi - v) * (H - t - b) / (hi - lo);
@@ -390,9 +392,9 @@ function renderDays() {
     const path = (s) => { let d = "", pen = false; s.forEach((v, i) => { if (v == null) return; d += (pen ? "L" : "M") + X(i).toFixed(1) + " " + Y(v).toFixed(1); pen = true; }); return d; };
     const last = (s, c) => { for (let i = s.length - 1; i >= 0; i--) if (s[i] != null) return `<circle cx="${X(i)}" cy="${Y(s[i])}" r="3.5" fill="${c}"/>`; return ""; };
     svg.style.color = "var(--muted)";
-    svg.innerHTML = g + (S.fuel !== "e5" ? `<path d="${path(nlS)}" fill="none" stroke="var(--nl)" stroke-width="2.5"/>${last(nlS, "var(--nl)")}` : "") + `<path d="${path(beS)}" fill="none" stroke="var(--be)" stroke-width="2.5" stroke-dasharray="5 3"/>${last(beS, "var(--be)")}<path d="${path(deS)}" fill="none" stroke="var(--de)" stroke-width="2.5"/>${last(deS, "var(--de)")}`;
+    svg.innerHTML = g + (S.fuel !== "e5" && S.fuel !== "lpg" ? `<path d="${path(nlS)}" fill="none" stroke="var(--nl)" stroke-width="2.5"/>${last(nlS, "var(--nl)")}` : "") + `<path d="${path(beS)}" fill="none" stroke="var(--be)" stroke-width="2.5" stroke-dasharray="5 3"/>${last(beS, "var(--be)")}<path d="${path(deS)}" fill="none" stroke="var(--de)" stroke-width="2.5"/>${last(deS, "var(--de)")}`;
   }
-  $("dayNote").textContent = `${FUELNAME[S.fuel]}${S.fuel === "e5" ? " (lijnen tonen E10)" : ""}`;
+  $("dayNote").textContent = `${FUELNAME[S.fuel]}${S.fuel === "e5" || S.fuel === "lpg" ? " (lijnen tonen E10)" : ""}`;
   const delta = (k, i) => { const x = rows.findIndex((r) => r[0] === k); if (x < 1) return ""; const d = Math.round((rows[x][i] - rows[x - 1][i]) * 1000) / 10; return `<span class="${d > 0 ? "neg" : d < 0 ? "pos" : ""}">${d > 0 ? "+" : d < 0 ? "−" : "±"}${fmt(Math.abs(d), 1)}</span>`; };
   $("dayBody").innerHTML = [...keys].reverse().slice(0, 14).map((k) => { const n = nlMap[k];
     return `<tr><td>${dayLabel(k)}</td><td class="n">${fmt(n?.[1])}</td><td class="n">${n ? delta(k, 1) : ""}</td><td class="n">${fmt(n?.[2])}</td><td class="n">${n ? delta(k, 2) : ""}</td><td class="n">${fmt(beDay(k, "e10"))}</td><td class="n">${fmt(beDay(k, "diesel"))}</td><td class="n">${fmt(deDay(k, "e10"))}</td><td class="n">${fmt(deDay(k, "diesel"))}</td></tr>`; }).join("");
@@ -404,7 +406,7 @@ function deCross() { let bd = Infinity, name = ""; for (const r of Object.values
 function options() {
   if (!S.home) return [];
   const out = [], nb = nearestCross();
-  if (beLow()) out.push({ s: { id: "opt-be", src: "opt", cc: "BE", brand: "België", name: "", street: "grensovergang", place: nb.name, lat: BE_CROSS.find((c) => c[0] === nb.name)[1], lng: BE_CROSS.find((c) => c[0] === nb.name)[2], ...(() => { const pv = S.data.be?.prov?.[BE_PROV[nb.name]]; return { e10: pv?.e10 ?? beLow("e10"), diesel: pv?.diesel ?? beLow("diesel"), e5: pv?.e5 ?? beLow("e5") }; })(), isOpen: true }, label: `België, ${nb.name}`, note: "laagste prijs in de provincie" });
+  if (beLow()) out.push({ s: { id: "opt-be", src: "opt", cc: "BE", brand: "België", name: "", street: "grensovergang", place: nb.name, lat: BE_CROSS.find((c) => c[0] === nb.name)[1], lng: BE_CROSS.find((c) => c[0] === nb.name)[2], ...(() => { const pv = S.data.be?.prov?.[BE_PROV[nb.name]]; return { e10: pv?.e10 ?? beLow("e10"), diesel: pv?.diesel ?? beLow("diesel"), e5: pv?.e5 ?? beLow("e5"), lpg: pv?.lpg ?? beLow("lpg") }; })(), isOpen: true }, label: `België, ${nb.name}`, note: "laagste prijs in de provincie" });
   const b = bestDE();
   if (b) out.push({ s: b, label: `${b.brand || b.name}, ${town(b)}`, note: "live" });
   else if (deBorder()) { let bd = Infinity, pt = null, rn = ""; for (const r of Object.values(REGIONS)) for (const p of r.pts) { const d = haversine([S.home.lat, S.home.lng], p); if (d < bd) { bd = d; pt = p; rn = r.name; } }
@@ -528,8 +530,29 @@ $("fAdd").addEventListener("click", () => {
 $("fBody").addEventListener("click", (e) => { const b = e.target.closest("[data-delfill]"); if (b) { S.fills.splice(+b.dataset.delfill, 1); store.set("tw_fills", S.fills); render(); } });
 
 // alarm, sleutel, thema
-$("alertP").addEventListener("change", () => { const v = parseFloat($("alertP").value); if (v > .5 && v < 5) S.alert[S.fuel] = v; else delete S.alert[S.fuel]; store.set("tw_alert", S.alert); S.alertHit = null; delete S.alertLast[S.fuel]; checkAlert(); $("alertMsg").textContent = S.alert[S.fuel] ? "Alarm staat aan." : "Alarm uit."; render(); });
-$("alertPerm").addEventListener("click", async () => { if (!("Notification" in window)) { $("alertMsg").textContent = "Op iPhone werkt dit alleen als de app op je beginscherm staat."; return; } const r = await Notification.requestPermission(); $("alertMsg").textContent = r === "granted" ? "Meldingen staan aan." : "Meldingen niet toegestaan."; });
+// Prijsalarm via onze server: werkt ook als de app dicht is (pushmelding). Alleen het abonnement, je bedragen en een grove locatie worden bewaard.
+const pushKan = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+const b64ToBytes = (s) => { const p = "=".repeat((4 - s.length % 4) % 4), b = atob((s + p).replace(/-/g, "+").replace(/_/g, "/")); return Uint8Array.from(b, (c) => c.charCodeAt(0)); };
+async function pushSub() { if (!pushKan) return null; try { const r = await navigator.serviceWorker.getRegistration(); return r ? await r.pushManager.getSubscription() : null; } catch (e) { return null; } }
+const thuisGrof = () => S.home ? [Math.round(S.home.lat * 10) / 10, Math.round(S.home.lng * 10) / 10] : null;
+async function alarmSync(sub) { sub = sub || await pushSub(); if (!sub) return false; try { const r = await fetch("/api/alarm", { method: Object.keys(S.alert).length ? "POST" : "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sub: sub.toJSON(), alarmen: S.alert, thuis: thuisGrof() }) }); return r.ok; } catch (e) { return false; } }
+function alarmTekst() { const l = Object.entries(S.alert).map(([f, v]) => `${FUELNAME[f]} onder € ${fmt(v)}`); return l.length ? (S.pushOn ? "🔔 Alarm staat aan: " : "Alarm ingesteld: ") + l.join(", ") + "." : ""; }
+async function alarmAan() {
+  const v = parseFloat(String($("alertP").value).replace(",", ".")); if (!(v > .5 && v < 4)) { $("alertMsg").textContent = "Vul een prijs in, bijvoorbeeld 2,099."; $("alertP").focus(); return; }
+  S.alert[S.fuel] = v; store.set("tw_alert", S.alert);
+  if (!pushKan) { $("alertMsg").textContent = IOS ? "Op iPhone werkt dit als je Tankwijzer op je beginscherm zet: tik op deel ⬆️ en kies Zet op beginscherm. Open hem daarna vanaf je beginscherm." : "Je browser ondersteunt geen meldingen."; return; }
+  try {
+    if ((await Notification.requestPermission()) !== "granted") { $("alertMsg").textContent = "Meldingen zijn niet toegestaan. Zet ze aan in de instellingen van je browser."; return; }
+    const reg = await navigator.serviceWorker.register("sw.js"); await navigator.serviceWorker.ready;
+    const { sleutel } = await (await fetch("/api/alarm")).json(); if (!sleutel) throw new Error();
+    const sub = (await reg.pushManager.getSubscription()) || await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64ToBytes(sleutel) });
+    S.pushOn = await alarmSync(sub); gc("alarm/aan/" + S.fuel, "Prijsalarm aan");
+    $("alertMsg").textContent = S.pushOn ? alarmTekst() + " Je krijgt bericht zodra het zover is (hoogstens twee keer per dag)." : "Aanzetten lukte niet. Probeer het later nog eens.";
+  } catch (e) { $("alertMsg").textContent = "Aanzetten lukte niet. Probeer het later nog eens."; }
+}
+$("alertPerm").addEventListener("click", alarmAan);
+$("alertP").addEventListener("change", () => { const v = parseFloat(String($("alertP").value).replace(",", ".")); if (!(v > .5 && v < 4)) { delete S.alert[S.fuel]; store.set("tw_alert", S.alert); alarmSync(); $("alertMsg").textContent = alarmTekst() || "Alarm uit."; } });
+pushSub().then((sub) => { S.pushOn = !!sub && Object.keys(S.alert).length > 0; if (S.pushOn) alarmSync(sub); $("alertMsg").textContent = alarmTekst(); });
 // Oude eigen sleutel en demodata uit eerdere versies opruimen; live prijzen werken nu voor iedereen.
 if (store.get("tw_key", "")) { try { localStorage.removeItem("tw_key"); } catch (e) {} S.cache = {}; store.set("tw_cache", {}); }
 $("clearCache").addEventListener("click", () => { S.cache = {}; S.hist = {}; S.cbs = null; store.set("tw_cache", {}); store.set("tw_hist", {}); store.set("tw_cbs", null); loadCBS(); update("list"); });

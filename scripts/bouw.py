@@ -39,20 +39,23 @@ print("prijzen van", D.get("updated"))
 CBS = []
 try:
     k = (datetime.date.today() - datetime.timedelta(days=60)).strftime("%Y%m%d")
-    j = haal("https://opendata.cbs.nl/ODataApi/odata/80416ned/TypedDataSet?$filter=" + urllib.parse.quote(f"Perioden ge '{k}'") + "&$select=Perioden,BenzineEuro95_1,Diesel_2")
-    CBS = sorted([r["Perioden"], r["BenzineEuro95_1"], r["Diesel_2"]] for r in j.get("value", []) if r.get("BenzineEuro95_1"))
+    j = haal("https://opendata.cbs.nl/ODataApi/odata/80416ned/TypedDataSet?$filter=" + urllib.parse.quote(f"Perioden ge '{k}'") + "&$select=Perioden,BenzineEuro95_1,Diesel_2,Lpg_3")
+    CBS = sorted([r["Perioden"], r["BenzineEuro95_1"], r["Diesel_2"], r.get("Lpg_3")] for r in j.get("value", []) if r.get("BenzineEuro95_1"))
 except Exception as e: print("CBS niet bereikbaar:", e)
 if not CBS:
     m = re.search(r"const CBS_FALLBACK = (\[[\s\S]*?\]);", open(os.path.join(ROOT, "site", "app.js")).read())
     CBS = json.loads(m.group(1))
 def nl_prijs(f):
     if f == "e5": return (D.get("nl", {}).get("advies", {}) or {}).get("e5")
+    if f == "lpg":
+        r = next((r for r in reversed(CBS) if len(r) > 3 and r[3]), None)
+        return r[3] if r else None
     i = 1 if f == "e10" else 2
     last = CBS[-1]; ah = D.get("nl", {}).get("adviesHist", [])
     a0 = next((r for r in ah if r[0] == last[0]), None); a1 = ah[-1] if ah else None
     if a0 and a1 and a1[0] > last[0] and a0[i] and a1[i]: return round(last[i] + (a1[i] - a0[i]), 3)
     return last[i]
-NL = {f: nl_prijs(f) for f in ("e10", "diesel", "e5")}
+NL = {f: nl_prijs(f) for f in ("e10", "diesel", "e5", "lpg")}
 be, de = D.get("be", {}), D.get("de", {})
 BEMAX, BELOW, BEAVG, BEPROV = be.get("max", {}), be.get("low", {}), be.get("avg", {}), be.get("prov", {})
 DEB, DEP = de.get("border", {}), de.get("points", {})
@@ -166,6 +169,7 @@ fh, fl = faq(vr)
 inhoud = (kort(kort_pv) + f'<p class="meta">Bijgewerkt: <span id="bijgewerkt">{esc(datum(D.get("updated", "")[:10]))}</span> · prijzen in euro per liter</p>' + tabel +
           (f'<div class="tegels"><div><span>Volle tank E10 in België</span><b>{eur(sp_be)}</b><small>goedkoper dan in NL</small></div><div><span>Volle tank E10 in Duitsland</span><b>{eur(sp_de)}</b><small>goedkoper dan in NL</small></div></div>' if sp_be and sp_de else "") +
           '<p class="note">Besparing voor 50 liter, vóór de kosten van het omrijden. Tankwijzer rekent je netto besparing uit vanaf je eigen locatie.</p>' +
+          (f'<h2>LPG</h2><p>Nederland gemiddeld ± € {p3(NL["lpg"])} · België maximumprijs € <span data-k="be.max.lpg">{p3(BEMAX.get("lpg"))}</span> · laagste Belgische grensprovincie € <span data-k="be.low.lpg">{p3(BELOW.get("lpg"))}</span> per liter. In Duitsland zijn er geen live LPG-prijzen.</p>' if BEMAX.get("lpg") else "") +
           punten + prov + fh)
 schrijf("/gids/prijzen-vandaag.html", pagina("/gids/prijzen-vandaag.html", f"Benzineprijs vandaag in Nederland, België en Duitsland ({MAAND})",
     f"Euro95 vandaag vanaf € {p3(goedkoopst_e10[1])} in {goedkoopst_e10[0]}, in Nederland ± € {p3(NL['e10'])}. Live grensprijzen Duitsland, Belgische maximumprijs en provincieprijzen naast elkaar.",
