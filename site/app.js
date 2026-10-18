@@ -192,11 +192,24 @@ async function searchPlace(place) {
     if (S.key) list = list.filter((s) => !(s.src === "osm" && s.cc === "DE"));
     list.forEach((s) => { s.dist = haversine([place.lat, place.lng], [s.lat, s.lng]); });
     S.found = list.filter((s) => s.src === "tk" || s.dist <= 6);
-    await meldingenErbij(place, S.found);
+    await Promise.all([googleErbij(place, S.found), meldingenErbij(place, S.found)]);
     const fails = res.filter((r) => r.status === "rejected");
     if (fails.length && !S.found.length) S.searchErr = "Zoeken lukte niet. Controleer je internet en probeer opnieuw.";
   } catch (e) { S.searchErr = "Zoeken lukte niet. Probeer het opnieuw."; }
   S.searching = false; render();
+}
+// Pompprijzen per station in NL/BE via Google (onze server bewaart ze 12 uur per gebied, zodat het gratis blijft).
+async function googleErbij(place, list) {
+  if (!place.lat || place.cc === "DE") return;
+  try {
+    const j = await getJSON(`/api/nl-prijzen?lat=${place.lat.toFixed(1)}&lng=${place.lng.toFixed(1)}`, {}, 14000);
+    for (const g of j.stations || []) {
+      let st = list.find((x) => x.src === "osm" && haversine([x.lat, x.lng], [g.lat, g.lng]) < 0.12);
+      if (!st) { st = { id: g.id, src: "osm", cc: place.cc || "NL", name: g.naam, brand: g.naam, street: g.adres, place: "", lat: g.lat, lng: g.lng, e5: null, e10: null, diesel: null, isOpen: true, hwy: false, border: null, dist: haversine([place.lat, place.lng], [g.lat, g.lng]) }; if (st.dist > 7) continue; list.push(st); }
+      st.gp = g.prijzen;
+      for (const [f, x] of Object.entries(g.prijzen)) if (!st.meld?.[f] || st.meld[f].t < x.t) { st[f] = x.p; st.bron = { ...(st.bron || {}), [f]: "google" }; }
+    }
+  } catch (e) {}
 }
 // Prijzen die bezoekers zelf gemeld hebben (NL/BE, hoogstens 48 uur oud) bij de stations zetten.
 async function meldingenErbij(place, list) {
@@ -204,10 +217,10 @@ async function meldingenErbij(place, list) {
   try {
     const j = await getJSON(`/api/melding?lat=${place.lat.toFixed(1)}&lng=${place.lng.toFixed(1)}`, {}, 8000);
     const by = new Map((j.stations || []).map((m) => [m.id, m]));
-    for (const st of list) { const m = by.get(st.id); if (!m) continue; st.meld = m.prijzen; for (const [f, x] of Object.entries(m.prijzen)) st[f] = x.p; }
+    for (const st of list) { const m = by.get(st.id); if (!m) continue; st.meld = m.prijzen; for (const [f, x] of Object.entries(m.prijzen)) if (!st.gp?.[f] || st.gp[f].t < x.t) { st[f] = x.p; st.bron = { ...(st.bron || {}), [f]: "melding" }; } }
   } catch (e) {}
 }
-const geleden = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 60 ? `${Math.max(1, m)} min geleden` : m < 1440 ? `${Math.round(m / 60)} uur geleden` : "gisteren"; };
+const geleden = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 60 ? `${Math.max(1, m)} min geleden` : m < 1440 ? `${Math.round(m / 60)} uur geleden` : m < 2880 ? "gisteren" : `${Math.round(m / 1440)} dagen geleden`; };
 async function meldPrijs(id) {
   const st = S.found.find((x) => x.id === id); if (!st) return;
   const v = prompt(`Wat kost ${FUELNAME[S.fuel]} bij ${st.brand || st.name || "dit station"}? Bijvoorbeeld 2,349`, st.meld?.[S.fuel] ? fmt(st.meld[S.fuel].p) : "");
@@ -218,7 +231,7 @@ async function meldPrijs(id) {
     const r = await fetch("/api/melding", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: st.id, naam: [st.brand || st.name, st.street, town(st)].filter(Boolean).join(", "), lat: st.lat, lng: st.lng, cc: st.cc, fuel: S.fuel, prijs: p }) });
     const j = await r.json();
     if (!r.ok) { alert(j.fout || "Melden lukte niet."); return; }
-    st.meld = { ...(st.meld || {}), [S.fuel]: { p, t: Date.now() } }; st[S.fuel] = p; gc("melding/" + st.cc, "Prijs gemeld"); render();
+    st.meld = { ...(st.meld || {}), [S.fuel]: { p, t: Date.now() } }; st[S.fuel] = p; st.bron = { ...(st.bron || {}), [S.fuel]: "melding" }; gc("melding/" + st.cc, "Prijs gemeld"); render();
   } catch (e) { alert("Melden lukte niet. Controleer je internet."); }
 }
 async function doSearch(q) {
@@ -339,7 +352,7 @@ function card(s, med) {
   }
   return `<div class="sc" data-id="${s.id}">
     <div class="nm"><b>${flag}${esc(s.brand || s.name)}${s.hwy ? '<span class="tag">Snelweg</span>' : ""}${s.unmanned ? '<span class="tag ok">Onbemand</span>' : ""}</b><span>${esc([s.street, town(s)].filter(Boolean).join(", ") || "Adres onbekend")}</span></div>
-    <div class="pr">${p ? fmt(p) : "–"}<small>${s.meld?.[S.fuel] ? "gemeld " + geleden(s.meld[S.fuel].t) : p ? "live" : ref ? "gem. " + fmt(ref) : "geen prijs"}</small></div>
+    <div class="pr">${p ? fmt(p) : "–"}<small>${s.bron?.[S.fuel] === "google" ? "Google · " + geleden(s.gp[S.fuel].t) : s.bron?.[S.fuel] === "melding" ? "gemeld " + geleden(s.meld[S.fuel].t) : p ? "live" : ref ? "gem. " + fmt(ref) : "geen prijs"}</small></div>
     <div class="meta"><button class="star${fav ? " on" : ""}" data-fav="${s.id}" aria-label="Favoriet">${fav ? "★" : "☆"}</button>${s.src === "tk" ? `<span class="pill ${cls}"><i class="dot"></i>${s.isOpen ? CLS[cls] : "Gesloten"}</span>` : ""}${s.dist != null ? `<span>${fmt(s.dist, 1)} km</span>` : s.border != null ? `<span>${fmt(s.border, 1)} km van grens</span>` : ""}${n != null && S.home ? `<span class="net ${n >= 0 ? "pos" : "neg"}">netto ${eur(n)}</span>` : ""}</div>
     ${detail}
     <div class="acts">${navBtns(s)}</div>${s.src === "osm" ? `<button class="meldbtn" data-meld="${esc(s.id)}">${s.meld?.[S.fuel] ? "Andere prijs gezien? Melden" : "Prijs gezien? Meld hem voor anderen"}</button>` : ""}
@@ -353,7 +366,8 @@ function renderSearch() {
     const tkN = list.filter((s) => s.src === "tk").length, osmN = list.filter((s) => s.src === "osm").length;
     if (S.searching) note = "Zoeken…";
     else if (S.searchErr) note = S.searchErr;
-    else note = [S.fuel === "lpg" ? "LPG: per station nog geen live prijzen, zie de prijzen bovenaan" : "", tkN && S.fuel !== "lpg" ? `${tkN} met live prijs` : "", osmN ? `${osmN} zonder live prijs` : "", !S.key && S.place.cc === "DE" ? "live prijzen met sleutel (Meer)" : ""].filter(Boolean).join(" · ");
+    const gN = list.filter((s) => s.bron?.[S.fuel] === "google").length, mN = list.filter((s) => s.bron?.[S.fuel] === "melding").length;
+    if (!S.searching && !S.searchErr) note = [tkN && S.fuel !== "lpg" ? `${tkN} met live prijs` : "", gN ? `${gN} met pompprijs via Google` : "", mN ? `${mN} met gemelde prijs` : "", osmN - gN - mN > 0 ? `${osmN - gN - mN} zonder prijs` : "", S.fuel === "lpg" && !gN && !mN ? "LPG: nog geen prijzen per station" : "", !S.key && S.place.cc === "DE" ? "live prijzen met sleutel (Meer)" : ""].filter(Boolean).join(" · ");
   } else {
     title = S.key ? "Grensstrook · " + REGIONS[S.region].name : "Zoek tankstations";
     note = S.key ? (S.busy ? "Laden…" : S.error || "") : "Typ een plaats of kies er een hierboven.";
