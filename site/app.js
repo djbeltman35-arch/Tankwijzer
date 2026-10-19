@@ -179,6 +179,8 @@ async function osmStations(lat, lng, radius) {
       unmanned: t.automated === "yes" || t.self_service === "only" || /onbemand|tankautomat/i.test(t.name || ""), border: null };
   }).filter((s) => s.lat && s.lng);
 }
+// Na zoeken direct naar de lijst met tankstations scrollen (en het toetsenbord sluiten).
+function naarLijst() { try { document.activeElement?.blur(); } catch (e) {} requestAnimationFrame(() => document.querySelector(".reshead")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" })); }
 async function searchPlace(place) {
   S.mode = "search"; S.place = { ...place, ts: Date.now() }; S.found = []; S.searching = true; S.searchErr = ""; S.open = null; render();
   try {
@@ -196,7 +198,7 @@ async function searchPlace(place) {
     const fails = res.filter((r) => r.status === "rejected");
     if (fails.length && !S.found.length) S.searchErr = "Zoeken lukte niet. Controleer je internet en probeer opnieuw.";
   } catch (e) { S.searchErr = "Zoeken lukte niet. Probeer het opnieuw."; }
-  S.searching = false; render();
+  S.searching = false; render(); naarLijst();
 }
 // Pompprijzen per station in NL/BE via Google (onze server bewaart ze 12 uur per gebied, zodat het gratis blijft).
 async function googleErbij(place, list) {
@@ -236,7 +238,7 @@ async function meldPrijs(id) {
 }
 async function doSearch(q) {
   q = q.trim(); if (!q) return;
-  S.searching = true; S.mode = "search"; S.place = { name: q }; S.found = []; S.searchErr = ""; render();
+  S.searching = true; S.mode = "search"; S.place = { name: q }; S.found = []; S.searchErr = ""; render(); naarLijst();
   try {
     const hits = await geocode(q);
     if (!hits.length) { S.searching = false; S.searchErr = `Geen plaats gevonden voor "${q}".`; render(); return; }
