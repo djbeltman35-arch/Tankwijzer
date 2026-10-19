@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://goedkopertanken.netlify.app/og.png"><meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{{LDJSON}}</script>
 <script data-goatcounter="https://goedkopertanken.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<meta name="theme-color" content="#13201f">
+<meta name="theme-color" content="#0f3440">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -25,21 +25,21 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
 :root{
-  --bg:#eef1f3;--surface:#fff;--ink:#14262e;--muted:#5b6d74;--line:#d6dde0;
-  --accent:#0b6e75;--accent-ink:#fff;--led-bg:#13201f;--led:#ffb627;--led-dim:#6b5a33;
+  --bg:#f1f5f4;--surface:#fff;--ink:#11272f;--muted:#566b72;--line:#d9e2e1;
+  --accent:#0a7c74;--accent-ink:#fff;--led-bg:#0f3440;--band:#0f3440;--board:#0a2730;--led:#ffb627;--led-dim:#6b5a33;
   --good:#1f8a4c;--mid:#c77a0a;--bad:#c2392f;--good-bg:#e3f4ea;--mid-bg:#fbf0dc;--bad-bg:#fbe5e3;
   --nl:#c2392f;--de:#0b6e75;--be:#b58900;--brand:#9b1b1f;
   --f-display:"Barlow Condensed","Arial Narrow",sans-serif;--f-body:"Figtree",system-ui,sans-serif;--f-num:"JetBrains Mono",ui-monospace,monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0f181b;--surface:#172428;--ink:#e6eef0;--muted:#93a6ad;--line:#2a3b40;
-  --accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0a1211;--led:#ffbe3d;--led-dim:#5d4d2a;
+  --bg:#0c1a1f;--surface:#132529;--ink:#e6eef0;--muted:#93a6ad;--line:#25393e;
+  --accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0b2129;--band:#0b2129;--board:#071820;--led:#ffbe3d;--led-dim:#5d4d2a;
   --good:#4cc77f;--mid:#f0a53a;--bad:#f06a5d;--good-bg:#15301f;--mid-bg:#33270f;--bad-bg:#371815;
   --nl:#f06a5d;--de:#3cc3c9;--be:#f0c23a;--brand:#e5636a;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0f181b;--surface:#172428;--ink:#e6eef0;--muted:#93a6ad;--line:#2a3b40;
-  --accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0a1211;--led:#ffbe3d;--led-dim:#5d4d2a;
+  --bg:#0c1a1f;--surface:#132529;--ink:#e6eef0;--muted:#93a6ad;--line:#25393e;
+  --accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0b2129;--band:#0b2129;--board:#071820;--led:#ffbe3d;--led-dim:#5d4d2a;
   --good:#4cc77f;--mid:#f0a53a;--bad:#f06a5d;--good-bg:#15301f;--mid-bg:#33270f;--bad-bg:#371815;
   --nl:#f06a5d;--de:#3cc3c9;--be:#f0c23a;--brand:#e5636a;color-scheme:dark}
 *{box-sizing:border-box}
@@ -220,10 +220,50 @@ details.more summary{font-weight:700;cursor:pointer}
 @media (max-width:420px){.routebox .nums{grid-template-columns:repeat(2,1fr)}}
 .reshead select{font:600 .9rem var(--f-body);color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:0 .6rem;height:44px}
 .filters select{font:600 .9rem var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.4rem .5rem}
+
+/* v5: prijzenbord-ontwerp */
+:root[data-theme="dark"]{--band:#0b2129;--board:#071820;--led-bg:#0b2129;--bg:#0c1a1f;--surface:#132529}
+.hero{background:var(--band);color:#e9f1f0;padding-top:env(safe-area-inset-top,0px);border-bottom:4px solid var(--led)}
+.hero-in{max-width:900px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-right,0px)) 22px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:16px}
+body{padding-top:0}
+.hero h1{font-size:2.3rem;letter-spacing:.01em;color:#fff}
+.hero h1 b.brand{color:var(--led)}
+.hero h1 .sub{color:#bcd3d1;font-weight:600;font-size:.92rem}
+.hero h1 .sub::before{background:#4cd18a;box-shadow:0 0 0 3px rgba(76,209,138,.25)}
+.hero .status{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#cfe0de}
+.hero .seg{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+.hero .seg button{color:#dbe8e6}
+.hero .seg button[aria-pressed="true"]{background:var(--led);color:#1a1405}
+.hero .pumps{gap:0;background:var(--board);border-radius:16px;border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 2px 12px rgba(0,0,0,.35);overflow:hidden}
+.hero .pump{background:transparent;border-radius:0;padding:14px 14px 12px}
+.hero .pump+.pump{border-left:1px solid rgba(255,255,255,.08)}
+.hero .led{text-shadow:0 0 14px rgba(255,182,39,.35)}
+.verdict{border:0;border-left:6px solid var(--line);box-shadow:0 1px 0 var(--line),0 6px 20px rgba(15,52,64,.07);border-radius:14px}
+.verdict.good{border-left-color:var(--good)} .verdict.bad{border-left-color:var(--bad)}
+.big{background:var(--led);color:#1a1405}
+.big.sec{background:var(--surface);color:var(--ink)}
+.search input{border-radius:14px;box-shadow:0 2px 0 var(--line)}
+.search .big{border-radius:14px}
+.chiprow button{background:var(--surface)}
+.chiprow button.on{background:var(--band);border-color:var(--band);color:#fff}
+.mijnauto{border:0;box-shadow:inset 0 0 0 2px var(--accent)}
+.sc{border:0;box-shadow:0 1px 0 var(--line),0 4px 16px rgba(15,52,64,.06);gap:8px 12px;padding:14px}
+.sc .nm b{font-size:1.05rem}
+.sc .pr{background:var(--board);color:var(--led);border-radius:10px;padding:.35rem .6rem .3rem;align-self:start;min-width:5.6rem}
+.sc .pr small{color:#9fb7b4;font-size:.68rem}
+.sc .acts .big.g,.nav2 .big.g{background:#1a73e8;color:#fff}
+.reshead h2{font-size:1.5rem}
+.card{border:0;box-shadow:0 1px 0 var(--line),0 4px 16px rgba(15,52,64,.06)}
+.card.free{border-left:5px solid var(--good)}
+.nav{background:var(--band)}
+.nav button.save .ring{border-color:var(--band);color:#1a1405}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sc,:root:not([data-theme="light"]) .card,:root:not([data-theme="light"]) .verdict{box-shadow:0 0 0 1px var(--line)}}
+:root[data-theme="dark"] .sc,:root[data-theme="dark"] .card,:root[data-theme="dark"] .verdict{box-shadow:0 0 0 1px var(--line)}
+@media (max-width:520px){.hero h1{font-size:2rem}.hero .pump{padding:12px 10px 10px}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<header class="hero"><div class="hero-in">
   <div class="top">
     <h1><span>Tank<b class="brand">wijzer</b></span> <span class="sub">Live prijzen België &amp; Duitsland</span></h1>
     <span class="status" id="status"><i></i><span id="statusTxt">Laden…</span></span>
@@ -239,6 +279,8 @@ details.more summary{font-weight:700;cursor:pointer}
     <div class="pump"><div class="lab"><i class="flag be"></i>BE</div><div class="led" id="ledBE">–</div><div class="src" id="srcBE"></div></div>
     <div class="pump"><div class="lab"><i class="flag de"></i>DE</div><div class="led" id="ledDE">–</div><div class="src" id="srcDE"></div></div>
   </section>
+</div></header>
+<div class="wrap">
   <div class="verdict" id="verdict" style="flex-wrap:wrap"><div class="vnum" id="vBig">–</div><div style="flex:1;min-width:180px"><strong id="vHead"></strong><div class="note" id="vSub"></div></div>
     <div class="nav2" style="width:100%"><a class="big g" id="vRoute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg><span class="bl"><b>Google Maps</b><small>Android Auto · CarPlay</small></span></a><a class="big a" id="vApple" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg><span class="bl"><b>Apple Kaarten</b><small>CarPlay</small></span></a></div></div>
   <div id="alertBanner" class="banner hit" hidden></div>
