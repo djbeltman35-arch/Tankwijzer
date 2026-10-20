@@ -1,12 +1,12 @@
 {
- "updated": "2026-10-19T17:01:10+02:00",
+ "updated": "2026-10-20T08:01:14+02:00",
  "nl": {
   "advies": {
-   "e10": 2.661,
-   "diesel": 2.696,
-   "e5": 2.884,
-   "lpg": 1.287,
-   "date": "20261019",
+   "e10": 2.643,
+   "diesel": 2.694,
+   "e5": 2.869,
+   "lpg": 1.293,
+   "date": "20261020",
    "src": "UnitedConsumers landelijke adviesprijs"
   },
   "adviesHist": [
@@ -29,6 +29,11 @@
     "20261019",
     2.661,
     2.696
+   ],
+   [
+    "20261020",
+    2.643,
+    2.694
    ]
   ]
  },
@@ -55,7 +60,7 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "low": {
-   "date": "20261019",
+   "date": "20261020",
    "where": {
     "e10": "Luik",
     "e5": "Antwerpen",
@@ -69,7 +74,7 @@
    "lpg": 0.831
   },
   "prov": {
-   "date": "20261019",
+   "date": "20261020",
    "Antwerpen": {
     "e10": 1.864,
     "e5": 2.001,
@@ -147,13 +152,13 @@
   },
   "border": {
    "e10": 2.029,
-   "diesel": 2.208,
+   "diesel": 2.199,
    "e5": 2.088,
-   "date": "20261019",
-   "at": "2026-10-19T15:01:10.163Z",
+   "date": "20261020",
+   "at": "2026-10-20T06:01:14.460Z",
    "where": {
-    "e10": "SB Automatenstation, Selfkant-Havert",
-    "diesel": "Tank & Waschhof Timmermanns, Nettetal"
+    "e10": "Supermarkt-Tankstelle, AACHEN",
+    "diesel": "PM, Nettetal"
    },
    "n": 118,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
@@ -164,8 +169,8 @@
    "src": "gemiddelde Noordrijn-Westfalen"
   },
   "points": {
-   "date": "20261019",
-   "at": "2026-10-19T15:01:10.162Z",
+   "date": "20261020",
+   "at": "2026-10-20T06:01:14.460Z",
    "Kleve": {
     "e10": 2.119,
     "e10Waar": "JET, KALKARER STR. 49",
@@ -178,28 +183,28 @@
    "Emmerich": {
     "e10": 2.109,
     "e10Waar": "JET, REESER STR. 57",
-    "diesel": 2.229,
+    "diesel": 2.219,
     "dieselWaar": "JET, REESER STR. 57",
     "e5": 2.169,
     "e5Waar": "JET, REESER STR. 57",
     "n": 7
    },
    "Bocholt": {
-    "e10": 2.109,
+    "e10": 2.089,
     "e10Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "diesel": 2.219,
+    "diesel": 2.209,
     "dieselWaar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "e5": 2.159,
-    "e5Waar": "Raiffeisen, Raiffeisenring 12 - 14",
+    "e5": 2.149,
+    "e5Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
     "n": 12
    },
    "Gronau": {
-    "e10": 2.139,
+    "e10": 2.119,
     "e10Waar": "SB, Gronauer Str. 90-94",
-    "diesel": 2.254,
-    "dieselWaar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
-    "e5": 2.194,
-    "e5Waar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
+    "diesel": 2.239,
+    "dieselWaar": "Markant (Tankautomat), Nienborger Str. 28",
+    "e5": 2.179,
+    "e5Waar": "SB, Gronauer Str. 90-94",
     "n": 14
    },
    "Bad Bentheim": {
@@ -212,56 +217,56 @@
     "n": 8
    },
    "Nordhorn": {
-    "e10": 2.199,
+    "e10": 2.179,
     "e10Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
     "diesel": 2.259,
     "dieselWaar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
-    "e5": 2.259,
+    "e5": 2.239,
     "e5Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
     "n": 9
    },
    "Bunde": {
-    "e10": 2.179,
+    "e10": 2.149,
     "e10Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "diesel": 2.249,
+    "diesel": 2.229,
     "dieselWaar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "e5": 2.239,
+    "e5": 2.209,
     "e5Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
     "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 2.149,
-    "e10Waar": "Tankstelle, Lobbericher Straße 67",
-    "diesel": 2.208,
-    "dieselWaar": "Tank & Waschhof Timmermanns, Wevelinghoven 14",
-    "e5": 2.209,
-    "e5Waar": "Tankstelle, Lobbericher Straße 67",
+    "e10": 2.119,
+    "e10Waar": "PM, Geldrische Str. 65a",
+    "diesel": 2.199,
+    "dieselWaar": "PM, Geldrische Str. 65a",
+    "e5": 2.179,
+    "e5Waar": "PM, Geldrische Str. 65a",
     "n": 13
    },
    "Aken": {
-    "e10": 2.039,
+    "e10": 2.029,
     "e10Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
-    "diesel": 2.319,
+    "diesel": 2.219,
     "dieselWaar": "EMOVA, Gut-Dämme-Straße 22",
-    "e5": 2.099,
+    "e5": 2.089,
     "e5Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
     "n": 33
    },
    "Selfkant": {
     "e10": 2.029,
     "e10Waar": "SB Automatenstation, Hauptstraße 96-98",
-    "diesel": 2.228,
-    "dieselWaar": "TinQ, Raiffeisenstr. 1",
+    "diesel": 2.209,
+    "dieselWaar": "SB Automatenstation, Hauptstraße 96-98",
     "e5": 2.088,
     "e5Waar": "TinQ, Raiffeisenstr. 1",
     "n": 7
    }
   },
   "borderMid": {
-   "e10": 2.139,
-   "diesel": 2.269,
-   "e5": 2.189,
-   "date": "20261019",
+   "e10": 2.119,
+   "diesel": 2.229,
+   "e5": 2.179,
+   "date": "20261020",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
  },
@@ -312,7 +317,12 @@
    [
     "20261019",
     2.029,
-    2.208
+    2.209
+   ],
+   [
+    "20261020",
+    2.029,
+    2.199
    ]
   ],
   "beMax": [
@@ -384,9 +394,16 @@
     "20261019",
     1.856,
     2.244
+   ],
+   [
+    "20261020",
+    1.856,
+    2.244
    ]
   ]
  },
- "_ts": 1792422070164,
- "_log": []
+ "_ts": 1792476074462,
+ "_log": [
+  "BE max mislukt: pagina veranderd"
+ ]
 }
