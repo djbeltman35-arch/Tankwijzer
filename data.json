@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-23T08:01:16+02:00",
+ "updated": "2026-10-23T17:00:49+02:00",
  "nl": {
   "advies": {
-   "e10": 2.597,
-   "diesel": 2.711,
+   "e10": 2.592,
+   "diesel": 2.712,
    "e5": 2.814,
    "lpg": 1.314,
    "date": "20261023",
@@ -47,26 +47,26 @@
    ],
    [
     "20261023",
-    2.597,
-    2.711
+    2.592,
+    2.712
    ]
   ]
  },
  "be": {
   "max": {
-   "e10": 2.064,
-   "e5": 2.201,
+   "e10": 2.002,
+   "e5": 2.163,
    "diesel": 2.444,
-   "lpg": 1.079,
-   "date": "20261020",
+   "lpg": null,
+   "date": "20261023",
    "src": "officiële maximumprijs (FOD Economie)"
   },
   "next": {
    "e10": 2.002,
    "e5": 2.163,
    "diesel": 2.444,
-   "lpg": 1.071,
-   "date": "20261021"
+   "lpg": null,
+   "date": "20261024"
   },
   "avg": {
    "e10": 1.989,
@@ -139,8 +139,8 @@
     "lpg": 0.979
    },
    "Limburg": {
-    "e10": 1.804,
-    "e5": 2.003,
+    "e10": 1.797,
+    "e5": 1.993,
     "diesel": 2.241,
     "lpg": 0.933
    },
@@ -166,14 +166,14 @@
    "src": "ADAC-gemiddelde Duitsland"
   },
   "border": {
-   "e10": 2.049,
-   "diesel": 2.189,
-   "e5": 2.109,
+   "e10": 2.059,
+   "diesel": 2.209,
+   "e5": 2.119,
    "date": "20261023",
-   "at": "2026-10-23T06:01:16.152Z",
+   "at": "2026-10-23T15:00:49.912Z",
    "where": {
-    "e10": "bft, Aachen",
-    "diesel": "STAR, Aachen"
+    "e10": "SB, Aachen",
+    "diesel": "Supermarkt-Tankstelle, AACHEN"
    },
    "n": 118,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
@@ -185,102 +185,102 @@
   },
   "points": {
    "date": "20261023",
-   "at": "2026-10-23T06:01:16.151Z",
+   "at": "2026-10-23T15:00:49.911Z",
    "Kleve": {
-    "e10": 2.089,
-    "e10Waar": "STAR, Bedburger Weide 20",
-    "diesel": 2.219,
-    "dieselWaar": "STAR, Bedburger Weide 20",
+    "e10": 2.099,
+    "e10Waar": "JET, KALKARER STR. 49",
+    "diesel": 2.229,
+    "dieselWaar": "Kuster Energy, Dieselstr. 8",
     "e5": 2.149,
-    "e5Waar": "STAR, Bedburger Weide 20",
+    "e5Waar": "Kuster Energy, Dieselstr. 8",
     "n": 10
    },
    "Emmerich": {
-    "e10": 2.119,
+    "e10": 2.099,
     "e10Waar": "JET, REESER STR. 57",
-    "diesel": 2.239,
+    "diesel": 2.219,
     "dieselWaar": "Kuster Energy, Werner-Heisenberg-Straße 18",
-    "e5": 2.179,
+    "e5": 2.159,
     "e5Waar": "JET, REESER STR. 57",
     "n": 7
    },
    "Bocholt": {
-    "e10": 2.069,
-    "e10Waar": "CLASSIC, Schaffeldstr. 1",
+    "e10": 2.089,
+    "e10Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
     "diesel": 2.239,
-    "dieselWaar": "CLASSIC, Schaffeldstr. 1",
-    "e5": 2.129,
-    "e5Waar": "CLASSIC, Schaffeldstr. 1",
+    "dieselWaar": "JET, AN DER KOENIGSMUEHLE 13",
+    "e5": 2.149,
+    "e5Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
     "n": 12
    },
    "Gronau": {
-    "e10": 2.099,
+    "e10": 2.069,
     "e10Waar": "SB, Gronauer Str. 90-94",
     "diesel": 2.239,
-    "dieselWaar": "Markant (Tankautomat), Nienborger Str. 28",
-    "e5": 2.159,
+    "dieselWaar": "SB, Gronauer Str. 90-94",
+    "e5": 2.129,
     "e5Waar": "SB, Gronauer Str. 90-94",
     "n": 14
    },
    "Bad Bentheim": {
-    "e10": 2.129,
-    "e10Waar": "Raiffeisen, Postweg 9",
-    "diesel": 2.249,
+    "e10": 2.159,
+    "e10Waar": "SB, Bahnhofstraße 7",
+    "diesel": 2.259,
     "dieselWaar": "Raiffeisen, Postweg 9",
-    "e5": 2.189,
-    "e5Waar": "Raiffeisen, Postweg 9",
+    "e5": 2.219,
+    "e5Waar": "SB, Bahnhofstraße 7",
     "n": 8
    },
    "Nordhorn": {
-    "e10": 2.139,
-    "e10Waar": "Tankstelle Becker, Richterskamp 5",
-    "diesel": 2.239,
-    "dieselWaar": "Tankstelle Becker, Richterskamp 5",
-    "e5": 2.199,
-    "e5Waar": "Tankstelle Becker, Richterskamp 5",
+    "e10": 2.129,
+    "e10Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
+    "diesel": 2.229,
+    "dieselWaar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
+    "e5": 2.189,
+    "e5Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
     "n": 9
    },
    "Bunde": {
-    "e10": 2.129,
+    "e10": 2.209,
     "e10Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "diesel": 2.249,
+    "diesel": 2.279,
     "dieselWaar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "e5": 2.189,
+    "e5": 2.269,
     "e5Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
     "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 2.139,
+    "e10": 2.099,
     "e10Waar": "TAP, Kaldenkirchener Str. 52",
     "diesel": 2.229,
-    "dieselWaar": "TAP, Kaldenkirchener Str. 52",
-    "e5": 2.199,
+    "dieselWaar": "PM, Geldrische Str. 65a",
+    "e5": 2.159,
     "e5Waar": "TAP, Kaldenkirchener Str. 52",
     "n": 13
    },
    "Aken": {
-    "e10": 2.049,
-    "e10Waar": "bft, Von-Coels-Str. 137-139",
-    "diesel": 2.189,
-    "dieselWaar": "STAR, Roermonder Straße 504",
-    "e5": 2.109,
-    "e5Waar": "bft, Von-Coels-Str. 137-139",
+    "e10": 2.059,
+    "e10Waar": "SB, Lütticher Straße 575",
+    "diesel": 2.209,
+    "dieselWaar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
+    "e5": 2.119,
+    "e5Waar": "SB, Habsburger Allee 3",
     "n": 33
    },
    "Selfkant": {
-    "e10": 2.059,
+    "e10": 2.159,
     "e10Waar": "SB Automatenstation, Hauptstraße 96-98",
-    "diesel": 2.219,
+    "diesel": 2.279,
     "dieselWaar": "SB Automatenstation, Hauptstraße 96-98",
-    "e5": 2.119,
-    "e5Waar": "SB Automatenstation, Hauptstraße 96-98",
+    "e5": 2.208,
+    "e5Waar": "TinQ, Raiffeisenstr. 1",
     "n": 7
    }
   },
   "borderMid": {
-   "e10": 2.139,
+   "e10": 2.129,
    "diesel": 2.249,
-   "e5": 2.189,
+   "e5": 2.179,
    "date": "20261023",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
@@ -351,8 +351,8 @@
    ],
    [
     "20261023",
-    2.049,
-    2.189
+    2.059,
+    2.209
    ]
   ],
   "beMax": [
@@ -389,6 +389,11 @@
    [
     "20261020",
     2.064,
+    2.444
+   ],
+   [
+    "20261023",
+    2.002,
     2.444
    ]
   ],
@@ -457,8 +462,6 @@
    ]
   ]
  },
- "_ts": 1792735276153,
- "_log": [
-  "BE max mislukt: pagina veranderd"
- ]
+ "_ts": 1792767649915,
+ "_log": []
 }
