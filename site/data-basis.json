@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T10:30:43+01:00",
+ "updated": "2026-10-25T16:00:44+01:00",
  "nl": {
   "advies": {
    "e10": 2.58,
@@ -178,16 +178,16 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "border": {
-   "e10": 2.039,
-   "diesel": 2.199,
-   "e5": 2.089,
+   "e10": 2.059,
+   "diesel": 2.229,
+   "e5": 2.099,
    "date": "20261025",
-   "at": "2026-10-25T09:30:43.268Z",
+   "at": "2026-10-25T15:00:44.985Z",
    "where": {
-    "e10": "JET, AACHEN",
+    "e10": "SB, Aachen",
     "diesel": "JET, KLEVE"
    },
-   "n": 113,
+   "n": 111,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
   },
   "nrw": {
@@ -197,41 +197,41 @@
   },
   "points": {
    "date": "20261025",
-   "at": "2026-10-25T09:30:43.267Z",
+   "at": "2026-10-25T15:00:44.984Z",
    "Kleve": {
-    "e10": 2.129,
+    "e10": 2.089,
     "e10Waar": "JET, KALKARER STR. 49",
-    "diesel": 2.199,
+    "diesel": 2.229,
     "dieselWaar": "JET, KALKARER STR. 49",
-    "e5": 2.179,
+    "e5": 2.139,
     "e5Waar": "Kuster Energy, Dieselstr. 8",
     "n": 10
    },
    "Emmerich": {
-    "e10": 2.109,
+    "e10": 2.139,
     "e10Waar": "JET, REESER STR. 57",
-    "diesel": 2.229,
-    "dieselWaar": "Kuster Energy, Werner-Heisenberg-Straße 18",
-    "e5": 2.169,
+    "diesel": 2.269,
+    "dieselWaar": "JET, REESER STR. 57",
+    "e5": 2.199,
     "e5Waar": "JET, REESER STR. 57",
     "n": 7
    },
    "Bocholt": {
     "e10": 2.099,
     "e10Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "diesel": 2.239,
+    "diesel": 2.249,
     "dieselWaar": "Freie Tankstelle Bißlich, Franzstraße 29",
     "e5": 2.159,
     "e5Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "n": 12
+    "n": 11
    },
    "Gronau": {
-    "e10": 2.099,
+    "e10": 2.139,
     "e10Waar": "SB, Gronauer Str. 90-94",
-    "diesel": 2.269,
-    "dieselWaar": "Markant (Tankautomat), Nienborger Str. 28",
-    "e5": 2.159,
-    "e5Waar": "SB, Gronauer Str. 90-94",
+    "diesel": 2.274,
+    "dieselWaar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
+    "e5": 2.194,
+    "e5Waar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
     "n": 14
    },
    "Bad Bentheim": {
@@ -253,46 +253,46 @@
     "n": 9
    },
    "Bunde": {
-    "e10": 2.149,
+    "e10": 2.209,
     "e10Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "diesel": 2.269,
+    "diesel": 2.309,
     "dieselWaar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "e5": 2.209,
+    "e5": 2.269,
     "e5Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
     "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 2.129,
-    "e10Waar": "PM, Geldrische Str. 65a",
-    "diesel": 2.229,
-    "dieselWaar": "PM, Geldrische Str. 65a",
-    "e5": 2.189,
-    "e5Waar": "PM, Geldrische Str. 65a",
-    "n": 10
+    "e10": 2.229,
+    "e10Waar": "TAP, Kaldenkirchener Str. 52",
+    "diesel": 2.259,
+    "dieselWaar": "TAP, Kaldenkirchener Str. 52",
+    "e5": 2.289,
+    "e5Waar": "TAP, Kaldenkirchener Str. 52",
+    "n": 9
    },
    "Aken": {
-    "e10": 2.039,
-    "e10Waar": "JET, JUELICHER STR. 394",
-    "diesel": 2.219,
-    "dieselWaar": "EMOVA, Gut-Dämme-Straße 22",
-    "e5": 2.089,
+    "e10": 2.059,
+    "e10Waar": "SB, Krefelderstr. 54",
+    "diesel": 2.339,
+    "dieselWaar": "SB, Habsburger Allee 3",
+    "e5": 2.099,
     "e5Waar": "SB, Krefelderstr. 54",
     "n": 31
    },
    "Selfkant": {
-    "e10": 2.059,
-    "e10Waar": "STAR, Landstraße 4",
-    "diesel": 2.229,
+    "e10": 2.158,
+    "e10Waar": "TinQ, Raiffeisenstr. 1",
+    "diesel": 2.289,
     "dieselWaar": "SB Automatenstation, Hauptstraße 96-98",
-    "e5": 2.109,
-    "e5Waar": "SB Automatenstation, Hauptstraße 96-98",
+    "e5": 2.188,
+    "e5Waar": "TinQ, Raiffeisenstr. 1",
     "n": 7
    }
   },
   "borderMid": {
-   "e10": 2.129,
-   "diesel": 2.239,
-   "e5": 2.179,
+   "e10": 2.159,
+   "diesel": 2.309,
+   "e5": 2.209,
    "date": "20261025",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
@@ -373,8 +373,8 @@
    ],
    [
     "20261025",
-    2.039,
-    2.199
+    2.059,
+    2.229
    ]
   ],
   "beMax": [
@@ -506,11 +506,11 @@
   "deMid": [
    [
     "20261025",
-    2.129,
-    2.239
+    2.159,
+    2.309
    ]
   ]
  },
- "_ts": 1792920643269,
+ "_ts": 1792940444986,
  "_log": []
 }
