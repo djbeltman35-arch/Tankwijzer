@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-25T10:01:50+01:00",
+ "updated": "2026-10-25T10:30:43+01:00",
  "nl": {
   "advies": {
    "e10": 2.58,
@@ -81,6 +81,7 @@
   "avg": {
    "e10": 1.989,
    "diesel": 2.351,
+   "lpg": 1.079,
    "date": "20261019",
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
@@ -170,17 +171,18 @@
  },
  "de": {
   "avg": {
-   "e10": 2.126,
-   "diesel": 2.233,
-   "date": "20261007",
-   "src": "ADAC-gemiddelde Duitsland"
+   "e5": 2.179,
+   "diesel": 2.266,
+   "lpg": 1.095,
+   "date": "20261019",
+   "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "border": {
    "e10": 2.039,
    "diesel": 2.199,
    "e5": 2.089,
    "date": "20261025",
-   "at": "2026-10-25T09:01:50.369Z",
+   "at": "2026-10-25T09:30:43.268Z",
    "where": {
     "e10": "JET, AACHEN",
     "diesel": "JET, KLEVE"
@@ -195,7 +197,7 @@
   },
   "points": {
    "date": "20261025",
-   "at": "2026-10-25T09:01:50.368Z",
+   "at": "2026-10-25T09:30:43.267Z",
    "Kleve": {
     "e10": 2.129,
     "e10Waar": "JET, KALKARER STR. 49",
@@ -226,8 +228,8 @@
    "Gronau": {
     "e10": 2.099,
     "e10Waar": "SB, Gronauer Str. 90-94",
-    "diesel": 2.274,
-    "dieselWaar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
+    "diesel": 2.269,
+    "dieselWaar": "Markant (Tankautomat), Nienborger Str. 28",
     "e5": 2.159,
     "e5Waar": "SB, Gronauer Str. 90-94",
     "n": 14
@@ -289,7 +291,7 @@
   },
   "borderMid": {
    "e10": 2.129,
-   "diesel": 2.249,
+   "diesel": 2.239,
    "e5": 2.179,
    "date": "20261025",
    "src": "middenprijs open grensstations (Tankerkönig)"
@@ -500,10 +502,15 @@
     1.794,
     2.234
    ]
+  ],
+  "deMid": [
+   [
+    "20261025",
+    2.129,
+    2.239
+   ]
   ]
  },
- "_ts": 1792918910370,
- "_log": [
-  "BE gemiddelde mislukt: pagina veranderd"
- ]
+ "_ts": 1792920643269,
+ "_log": []
 }
