@@ -5,6 +5,7 @@ export const BRONNEN = {
   beMax: 'https://carbu.com/belgie/maximumprijs',
   beProv: 'https://carbu.com/belgie//bestPrice/Belgie/BE/0',
   beAvg: 'https://www.fuel-prices.eu/Belgium/nl',
+  deAvg: 'https://www.fuel-prices.eu/Germany/nl',
 };
 const MAANDEN = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
 const KORT = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
@@ -53,13 +54,22 @@ export function beProv(h) {
   return Object.keys(uit).length >= 4 ? uit : null;
 }
 
-// fuel-prices.eu: wekelijks gemiddelde pompprijs België (EU Oil Bulletin).
-export function beAvg(h) {
-  const m = String(h).match(/Oliebulletin, (\d{1,2}) ([a-z]{3}) (\d{4})\): diesel €([\d,]+)\/L, benzine 95 €([\d,]+)\/L/);
-  if (!m || !KORT.includes(m[2])) return null;
-  const r = { e10: getal(m[5]), diesel: getal(m[4]), date: dmy(m[1], KORT.indexOf(m[2]) + 1, m[3]) };
-  return r.e10 && r.diesel ? r : null;
+// fuel-prices.eu: wekelijks gemiddelde pompprijs (EU Weekly Oil Bulletin), per land.
+// Nieuwe opmaak (okt 2026): tegels "<brandstof> … › € 1,989/l", datum in JSON-LD dateModified.
+// De oude opmaak ("Oliebulletin, 19 okt 2026): diesel €x/L, benzine 95 €y/L") blijft als terugval.
+export function euBulletin(h) {
+  const s = String(h), t = tekst(h);
+  const oud = s.match(/Oliebulletin, (\d{1,2}) ([a-z]{3}) (\d{4})\): diesel €([\d,]+)\/L, benzine 95 €([\d,]+)\/L/);
+  if (oud && KORT.includes(oud[2])) return { e10: getal(oud[5]), diesel: getal(oud[4]), date: dmy(oud[1], KORT.indexOf(oud[2]) + 1, oud[3]) };
+  const dt = t.match(new RegExp(`(?:maandag|[Bb]ulletin van|week van) (\\d{1,2}) (${MAANDEN.join('|')}) (\\d{4})`));
+  const dm = dt ? [null, dt[3], String(MAANDEN.indexOf(dt[2]) + 1).padStart(2, '0'), dt[1].padStart(2, '0')] : s.match(/"dateModified":"(\d{4})-(\d{2})-(\d{2})"/);
+  if (!dm) return null;
+  const tegel = re => { const m = t.match(new RegExp(re + '[^€›]{0,100}› € ([\\d,]+)/l')); return m ? getal(m[1]) : null; };
+  const r = { e10: tegel('Benzine 95 E10'), e5: tegel('Super E5'), diesel: tegel('Diesel'), lpg: tegel('LPG'), date: dm[1] + dm[2] + dm[3] };
+  return r.diesel && (r.e10 || r.e5) ? r : null;
 }
+export function beAvg(h) { const r = euBulletin(h); return r && r.e10 && r.diesel ? { e10: r.e10, diesel: r.diesel, lpg: r.lpg ?? null, date: r.date } : null; }
+export function deAvg(h) { const r = euBulletin(h); return r && r.diesel && r.e5 ? { e5: r.e5, diesel: r.diesel, lpg: r.lpg ?? null, date: r.date } : null; }
 
 // Duitse grensstrook: punten net over de grens; per punt de stations binnen 5 km via Tankerkönig.
 export const GRENS_DE = [

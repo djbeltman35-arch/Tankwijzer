@@ -281,7 +281,7 @@ function nlPrice(f = S.fuel) {
   const d = prev ? Math.round((last[i] - prev[i]) * 1000) / 10 : null;
   return { p: last[i], src: `Gem. · ${dayLabel(last[0])}${d ? ` · ${d > 0 ? "+" : "−"}${fmt(Math.abs(d), 1)}` : ""}` };
 }
-const refPrice = (cc) => cc === "BE" ? (S.fuel === "lpg" ? beLow() : beAvg()) : cc === "DE" ? (S.data.de?.avg?.[S.fuel] ?? deBorder()) : nlPrice().p;
+const refPrice = (cc) => cc === "BE" ? (S.fuel === "lpg" ? beLow() : beAvg()) : cc === "DE" ? (S.data.de?.avg?.[S.fuel] ?? S.data.de?.borderMid?.[S.fuel] ?? deBorder()) : nlPrice().p;
 
 // ---------- berekeningen ----------
 function tripKm(s) { return S.home ? haversine([S.home.lat, S.home.lng], [s.lat, s.lng]) * 2 * ROAD : null; }
@@ -415,12 +415,12 @@ function getPos(timeout = 8000) {
 // ---------- dagprijzen ----------
 const hIdx = (f) => f === "diesel" ? 2 : 1;
 const fromHist = (arr, k, f) => { const r = (arr || []).find((x) => x[0] === k); return r ? r[hIdx(f)] : null; };
-const deDay = (k, f) => { const d = S.hist[k]?.[S.region]?.[f]; return d && d[1] ? d[0] / d[1] : fromHist(S.data.history?.deAvg, k, f); };
+const deDay = (k, f) => { const d = S.hist[k]?.[S.region]?.[f]; return d && d[1] ? d[0] / d[1] : fromHist(S.data.history?.deMid, k, f) ?? fromHist(S.data.history?.deAvg, k, f); };
 const beDay = (k, f) => S.data.history?.beAvg ? fromHist(S.data.history.beAvg, k, f) : fromHist(S.data.history?.beMax, k, f);
 function renderDays() {
   if (S.tab !== "dag") return;
   const rows = cbsRows(), nlIdx = S.fuel === "diesel" ? 2 : 1, F = S.fuel === "diesel" ? "diesel" : "e10";
-  const days = new Set(rows.map((r) => r[0])); Object.keys(S.hist).forEach((k) => days.add(k)); ["deAvg", S.data.history?.beAvg ? "beAvg" : "beMax"].forEach((n) => (S.data.history?.[n] || []).forEach((r) => days.add(r[0])));
+  const days = new Set(rows.map((r) => r[0])); Object.keys(S.hist).forEach((k) => days.add(k)); ["deMid", "deAvg", S.data.history?.beAvg ? "beAvg" : "beMax"].forEach((n) => (S.data.history?.[n] || []).forEach((r) => days.add(r[0])));
   const keys = [...days].sort().slice(-45), nlMap = Object.fromEntries(rows.map((r) => [r[0], r]));
   const nlS = keys.map((k) => nlMap[k]?.[nlIdx] ?? null), deS = keys.map((k) => deDay(k, F)), beS = keys.map((k) => beDay(k, F));
   const vals = [...(S.fuel !== "e5" && S.fuel !== "lpg" ? nlS : []), ...deS, ...beS].filter((v) => v != null), svg = $("chart");

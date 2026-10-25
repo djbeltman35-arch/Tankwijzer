@@ -59,6 +59,8 @@ NL = {f: nl_prijs(f) for f in ("e10", "diesel", "e5", "lpg")}
 be, de = D.get("be", {}), D.get("de", {})
 BEMAX, BELOW, BEAVG, BEPROV = be.get("max", {}), be.get("low", {}), be.get("avg", {}), be.get("prov", {})
 DEB, DEP = de.get("border", {}), de.get("points", {})
+DEAVG = de.get("avg", {}) if str(de.get("avg", {}).get("src", "")).startswith("EU") else {}  # alleen het EU-weekgemiddelde, niet het oude ADAC-cijfer
+BENEXT = be.get("next", {}) if str(be.get("next", {}).get("date", "")) > str(BEMAX.get("date", "")) else {}
 
 MAANDEN = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"]
 def datum(k):
@@ -149,7 +151,7 @@ rijen = [("Nederland", "gemiddelde pompprijs (schatting)", NL["e10"], NL["diesel
          ("België", "laagste prijs grensprovincies", BELOW.get("e10"), BELOW.get("diesel"), BELOW.get("e5"), "be.low", "be"),
          ("België", "gemiddelde pompprijs (week " + datum(BEAVG.get("date")) + ")", BEAVG.get("e10"), BEAVG.get("diesel"), None, "be.avg", "be"),
          ("Duitsland", "goedkoopste station aan de grens", DEB.get("e10"), DEB.get("diesel"), DEB.get("e5"), "de.border", "de"),
-         ("Duitsland", "middenprijs grensstations", (de.get("borderMid") or {}).get("e10"), (de.get("borderMid") or {}).get("diesel"), (de.get("borderMid") or {}).get("e5"), "de.borderMid", "de")]
+         ("Duitsland", "middenprijs grensstations", (de.get("borderMid") or {}).get("e10"), (de.get("borderMid") or {}).get("diesel"), (de.get("borderMid") or {}).get("e5"), "de.borderMid", "de")] + ([("Duitsland", "landelijk gemiddelde (week " + datum(DEAVG.get("date")) + ")", None, DEAVG.get("diesel"), DEAVG.get("e5"), "de.avg", "de")] if DEAVG.get("diesel") else [])
 def cel(v, k, f): return f'<td class="p"><span{f" data-k=\"{k}.{f}\"" if k else ""}>{p3(v)}</span></td>'
 tabel = ('<div class="tw"><table class="pt"><thead><tr><th>Land</th><th class="p">Euro95/E10</th><th class="p">Diesel</th><th class="p">Super 98/E5</th></tr></thead><tbody>' +
          "".join(f'<tr><td><i class="flag {fl}"></i><b>{l}</b><span class="sub">{esc(o)}</span></td>{cel(a, k, "e10")}{cel(b, k, "diesel")}{cel(c, k, "e5")}</tr>' for l, o, a, b, c, k, fl in rijen) + "</tbody></table></div>")
@@ -169,7 +171,7 @@ fh, fl = faq(vr)
 inhoud = (kort(kort_pv) + f'<p class="meta">Bijgewerkt: <span id="bijgewerkt">{esc(datum(D.get("updated", "")[:10]))}</span> · prijzen in euro per liter</p>' + tabel +
           (f'<div class="tegels"><div><span>Volle tank E10 in België</span><b>{eur(sp_be)}</b><small>goedkoper dan in NL</small></div><div><span>Volle tank E10 in Duitsland</span><b>{eur(sp_de)}</b><small>goedkoper dan in NL</small></div></div>' if sp_be and sp_de else "") +
           '<p class="note">Besparing voor 50 liter, vóór de kosten van het omrijden. Tankwijzer rekent je netto besparing uit vanaf je eigen locatie.</p>' +
-          (f'<h2>LPG</h2><p>Nederland gemiddeld ± € {p3(NL["lpg"])} · België maximumprijs € <span data-k="be.max.lpg">{p3(BEMAX.get("lpg"))}</span> · laagste Belgische grensprovincie € <span data-k="be.low.lpg">{p3(BELOW.get("lpg"))}</span> per liter. In Duitsland zijn er geen live LPG-prijzen.</p>' if BEMAX.get("lpg") else "") +
+          (f'<h2>LPG</h2><p>Nederland ' + (f'gemiddeld ± € {p3(NL["lpg"])}' if NL["lpg"] else f'adviesprijs € {p3((D.get("nl", {}).get("advies") or {}).get("lpg"))}') + (f' · België maximumprijs € <span data-k="be.max.lpg">{p3(BEMAX.get("lpg"))}</span>' if BEMAX.get("lpg") else "") + f' · laagste Belgische grensprovincie € <span data-k="be.low.lpg">{p3(BELOW.get("lpg"))}</span>' + (f' · Duitsland landelijk gemiddelde € {p3(DEAVG.get("lpg"))} (week {esc(datum(DEAVG.get("date")))})' if DEAVG.get("lpg") else "") + ' per liter. <a href="/gids/lpg-prijs-vandaag.html">Alles over LPG-prijzen</a>.</p>' if BELOW.get("lpg") or NL["lpg"] else "") +
           punten + prov + fh)
 schrijf("/gids/prijzen-vandaag.html", pagina("/gids/prijzen-vandaag.html", f"Benzineprijs vandaag in Nederland, België en Duitsland ({MAAND})",
     f"Euro95 vandaag vanaf € {p3(goedkoopst_e10[1])} in {goedkoopst_e10[0]}, in Nederland ± € {p3(NL['e10'])}. Live grensprijzen Duitsland, Belgische maximumprijs en provincieprijzen naast elkaar.",
@@ -261,20 +263,66 @@ artikel("tanken-in-duitsland", f"Tanken in Duitsland: de 12-uurregel en prijzen 
      ("Is de brandstofbelasting in Duitsland verlaagd?", "Ja, van 1 oktober tot en met 31 december 2026 met 14,04 cent per liter, ongeveer 16,7 cent inclusief btw."),
      ("Is diesel goedkoper in Duitsland of in België?", "Het verschil is klein en wisselt. Benzine is meestal goedkoper in België.")],
     [("ADAC", "https://www.adac.de/verkehr/tanken-kraftstoff-antrieb/"), ("Markttransparenzstelle via Tankerkönig", "https://creativecommons.tankerkoenig.de/")])
-artikel("tanken-in-belgie", f"Tanken in België: maximumprijs en besparing ({MAAND})", "Tanken in België",
+def pijl(nu, straks):
+    if nu is None or straks is None: return ""
+    d = round((straks - nu) * 1000) / 10
+    return " (gelijk)" if d == 0 else f" ({'+' if d > 0 else '−'}{('%.1f' % abs(d)).replace('.', ',')} ct)"
+def morgen_zin():
+    if not BENEXT.get("e10") or not BEMAX.get("e10"): return ""
+    de10, ddi = BENEXT["e10"] - BEMAX["e10"], (BENEXT.get("diesel") or 0) - (BEMAX.get("diesel") or 0)
+    if abs(de10) < 0.0005 and abs(ddi) < 0.0005: return f"Morgen ({datum(BENEXT.get('date'))}) blijft de maximumprijs gelijk."
+    return f"Morgen ({datum(BENEXT.get('date'))}) wordt de maximumprijs € {p3(BENEXT['e10'])} voor E10{pijl(BEMAX['e10'], BENEXT['e10'])} en € {p3(BENEXT.get('diesel'))} voor diesel{pijl(BEMAX.get('diesel'), BENEXT.get('diesel'))}."
+MORGEN = morgen_zin()
+BEHIST = [r for r in D.get("history", {}).get("beMax", []) if r[1] or r[2]][-10:]
+behist_html = ('<h2>Maximumprijs: de laatste wijzigingen</h2><div class="tw"><table class="pt"><thead><tr><th>Vanaf</th><th class="p">E10</th><th class="p">Diesel</th></tr></thead><tbody>' +
+    "".join(f'<tr><td>{esc(datum(r[0]))}</td><td class="p">{p3(r[1])}</td><td class="p">{p3(r[2])}</td></tr>' for i, r in enumerate(reversed(BEHIST)) if i == len(BEHIST) - 1 or r[1:] != list(reversed(BEHIST))[i + 1][1:]) +
+    '</tbody></table></div>') if len(BEHIST) > 1 else ""
+artikel("tanken-in-belgie", f"Maximumprijs België vandaag en morgen: tanken in België ({MAAND})", "Tanken in België: maximumprijs vandaag en morgen",
     f"In België geldt een maximumprijs per liter. Vandaag: E10 max € {p3(BEMAX.get('e10'))}, maar in de grensprovincies al vanaf € {p3(BELOW.get('e10'))}.",
     f"België heeft een maximumprijs voor brandstof. Vandaag is dat € {p3(BEMAX.get('e10'))} voor Euro95 (E10) en € {p3(BEMAX.get('diesel'))} voor diesel. Veel stations zitten daar ruim onder: in de grensprovincies kost E10 vandaag vanaf € {p3(BELOW.get('e10'))}.",
     f'''<h2>Hoe werkt de maximumprijs?</h2><p>De Belgische overheid (FOD Economie) stelt elke werkdag een maximumprijs per liter vast, op basis van de olieprijzen. Tankstations mogen daar niet boven gaan, maar wel onder. Vooral onbemande stations zitten vaak flink lager.</p>
 <h2>Prijzen vandaag</h2><div class="tw"><table class="pt"><tbody>
 <tr><td>Maximumprijs ({esc(datum(BEMAX.get("date")))})</td><td class="p">E10 <span data-k="be.max.e10">{p3(BEMAX.get("e10"))}</span></td><td class="p">diesel <span data-k="be.max.diesel">{p3(BEMAX.get("diesel"))}</span></td></tr>
+{f'<tr><td>Maximumprijs morgen ({esc(datum(BENEXT.get("date")))})</td><td class="p">E10 <span data-k="be.next.e10">{p3(BENEXT.get("e10"))}</span></td><td class="p">diesel <span data-k="be.next.diesel">{p3(BENEXT.get("diesel"))}</span></td></tr>' if BENEXT.get("e10") else ""}
 <tr><td>Laagste prijs grensprovincies</td><td class="p">E10 <span data-k="be.low.e10">{p3(BELOW.get("e10"))}</span></td><td class="p">diesel <span data-k="be.low.diesel">{p3(BELOW.get("diesel"))}</span></td></tr>
 <tr><td>Nederland, gemiddelde pompprijs (schatting)</td><td class="p">E10 {p3(NL["e10"])}</td><td class="p">diesel {p3(NL["diesel"])}</td></tr></tbody></table></div>
 {f"<p>Een volle tank van 50 liter E10 is in een Belgische grensprovincie vandaag ongeveer {eur((NL['e10'] - BELOW['e10']) * 50)} goedkoper dan in Nederland, vóór de kosten van het omrijden.</p>" if BELOW.get("e10") and NL["e10"] else ""}
+{f"<p><b>{esc(MORGEN)}</b></p>" if MORGEN else ""}{behist_html}
 <h2>Tips</h2><ul><li>Vergelijk stations, niet alleen de maximumprijs.</li><li>Een prijswijziging staat meestal een dag van tevoren vast. Gaat de prijs morgen omhoog, tank dan vandaag. Tankwijzer laat het zien.</li><li>E10 heet in België "Euro 95 E10".</li><li>Hoogstens 10 liter extra in een reservekan; meer moet je aangeven bij de douane.</li></ul>''',
     [("Wat is de maximumprijs in België?", f"Vandaag € {p3(BEMAX.get('e10'))} per liter voor Euro95 (E10) en € {p3(BEMAX.get('diesel'))} voor diesel. Tankstations mogen er niet boven, wel onder."),
+     *([("Wat is de maximumprijs in België morgen?", MORGEN + " De FOD Economie maakt een wijziging meestal een dag van tevoren bekend.")] if MORGEN else []),
      ("Is tanken in België goedkoper dan in Nederland?", f"Ja. In de grensprovincies kost E10 vandaag vanaf € {p3(BELOW.get('e10'))}, in Nederland ongeveer € {p3(NL['e10'])}."),
      ("Mag ik een jerrycan vullen in België?", "Een reservekan van hoogstens 10 liter mag je belastingvrij meenemen. Meer moet je aangeven bij de Nederlandse douane.")],
     [("carbu.com", "https://carbu.com/belgie/maximumprijs"), ("FOD Economie", "https://economie.fgov.be/nl/themas/energie/energieprijzen/maximumprijzen")])
+# ---------- LPG ----------
+NLADV = (D.get("nl", {}).get("advies") or {})
+LPG_BE, LPG_DE = BELOW.get("lpg"), DEAVG.get("lpg")
+LPG_NL, LPG_NLW = (NL["lpg"], "het Nederlandse gemiddelde") if NL["lpg"] else (NLADV.get("lpg"), "de Nederlandse adviesprijs")
+if LPG_NL and LPG_BE:
+    LPG_L, LPG_KM, LPG_VERBR = 40, 30, 9.0  # 40 liter tanken, 30 km extra heen en terug, 9 liter LPG per 100 km
+    lpg_bruto = (LPG_NL - LPG_BE) * LPG_L
+    lpg_rit = LPG_KM * LPG_VERBR / 100 * LPG_NL
+    lpg_prov = "".join(f'<tr><td>{esc(n)}</td>{cel(v.get("lpg"), "be.prov." + n, "lpg")}</tr>' for n, v in BEPROV.items() if isinstance(v, dict) and v.get("lpg"))
+    artikel("lpg-prijs-vandaag", f"LPG-prijs vandaag: Nederland, België en Duitsland ({MAAND})", "LPG-prijs vandaag",
+        f"LPG kost in Nederland {'gemiddeld' if NL['lpg'] else 'volgens de adviesprijs'} € {p3(LPG_NL)} per liter, in de Belgische grensprovincies vandaag vanaf € {p3(LPG_BE)}. Prijzen, besparing en de juiste vulnippel.",
+        f"LPG (autogas) kost in Nederland {'gemiddeld' if NL['lpg'] else 'volgens de adviesprijs'} € {p3(LPG_NL)} per liter. In de Belgische grensprovincies tank je het vandaag vanaf € {p3(LPG_BE)} ({esc(BELOW.get('where', {}).get('lpg') or 'grensprovincie')})" + (f", in Duitsland is het landelijk gemiddelde € {p3(LPG_DE)}." if LPG_DE else "."),
+        f'''<h2>LPG-prijzen vandaag</h2><div class="tw"><table class="pt"><tbody>
+{f'<tr><td><i class="flag nl"></i>Nederland, gemiddelde pompprijs (CBS)</td><td class="p">{p3(NL["lpg"])}</td></tr>' if NL["lpg"] else ""}
+{f'<tr><td><i class="flag nl"></i>Nederland, adviesprijs ({esc(datum(NLADV.get("date")))})</td><td class="p">{p3(NLADV.get("lpg"))}</td></tr>' if NLADV.get("lpg") else ""}
+<tr><td><i class="flag be"></i>België, laagste prijs grensprovincies</td><td class="p"><span data-k="be.low.lpg">{p3(LPG_BE)}</span></td></tr>
+{f'<tr><td><i class="flag be"></i>België, maximumprijs</td><td class="p"><span data-k="be.max.lpg">{p3(BEMAX.get("lpg"))}</span></td></tr>' if BEMAX.get("lpg") else ""}
+{f'<tr><td><i class="flag de"></i>Duitsland, landelijk gemiddelde (week {esc(datum(DEAVG.get("date")))})</td><td class="p">{p3(LPG_DE)}</td></tr>' if LPG_DE else ""}
+</tbody></table></div><p class="note">Prijzen in euro per liter. De adviesprijs is de landelijke richtprijs; aan de pomp betaal je meestal minder.</p>
+<h2>Wat scheelt het?</h2><p>Tank je {LPG_L} liter LPG in een Belgische grensprovincie, dan betaal je vandaag ongeveer {eur(lpg_bruto)} minder dan bij {LPG_NLW}. Rijd je daarvoor {LPG_KM} km extra (heen en terug), dan kost die rit bij 9 liter LPG per 100 km ongeveer {eur(lpg_rit)}. Netto blijft er dan ongeveer {eur(lpg_bruto - lpg_rit)} over.</p>
+<p>Tankwijzer rekent je besparing uit vanaf je eigen locatie: kies LPG bij brandstof.</p>
+{f'<h2>LPG in België per provincie</h2><div class="tw"><table class="pt"><thead><tr><th>Provincie</th><th class="p">LPG</th></tr></thead><tbody>{lpg_prov}</tbody></table></div>' if lpg_prov else ""}
+<h2>Neem je vulnippel mee</h2><p>In Nederland tank je LPG met een bajonetaansluiting. In België en Duitsland heb je een Europa-vulnippel (ACME) nodig als verloopstuk. Die is te koop bij de ANWB en in bouwmarkten. Zonder verloopstuk kun je daar geen LPG tanken.</p>
+<h2>Tips</h2><ul><li>Niet elk tankstation verkoopt LPG. Controleer dat voordat je omrijdt.</li><li>In Duitsland zijn LPG-prijzen niet live: de Markttransparenzstelle registreert alleen benzine en diesel.</li><li>Belgische LPG-prijzen verschillen per provincie{f": vandaag is {esc(BELOW.get('where', {}).get('lpg'))} de goedkoopste grensprovincie" if BELOW.get('where', {}).get('lpg') else ""}.</li></ul>''',
+        [("Wat kost LPG vandaag?", f"In Nederland {'gemiddeld' if NL['lpg'] else 'volgens de adviesprijs'} € {p3(LPG_NL)} per liter. In de Belgische grensprovincies vandaag vanaf € {p3(LPG_BE)}."),
+         ("Is LPG goedkoper in België?", f"Ja, vandaag ongeveer {round((LPG_NL - LPG_BE) * 100)} cent per liter goedkoper dan {LPG_NLW}. Of het loont hangt af van hoe ver je moet omrijden."),
+         ("Welke LPG-vulnippel heb ik nodig in België en Duitsland?", "Een Europa-vulnippel (ACME). In Nederland gebruik je de bajonetaansluiting."),
+         ("Waarom staan er geen live LPG-prijzen van Duitse stations?", "De Duitse Markttransparenzstelle verzamelt alleen prijzen van benzine en diesel." + (" Daarom tonen we voor LPG het landelijke weekgemiddelde uit het EU Oil Bulletin." if LPG_DE else ""))],
+        [("CBS", "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/80416ned/table"), ("carbu.com", "https://carbu.com/belgie/"), ("EU Weekly Oil Bulletin", "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en"), ("ANWB", "https://www.anwb.nl/webwinkel/p/48004/lpg-vulnippel-europa")])
 artikel("jerrycan-brandstof-meenemen-grens", "Jerrycan met benzine of diesel meenemen over de grens: wat mag?", "Jerrycan meenemen over de grens: wat mag?",
     "Je tank mag vol, en één reservekan van hoogstens 10 liter mag belastingvrij mee. Meer moet je aangeven bij de douane. Alle regels op een rij.",
     "Je eigen tank mag je in België of Duitsland gewoon vol tanken. Daarnaast mag je één reservekan van hoogstens 10 liter belastingvrij meenemen naar Nederland. Meer moet je aangeven bij de douane.",
@@ -340,7 +388,7 @@ fh, fl = faq(vr_home)
 seo = (f'<section class="seo" aria-label="Uitleg"><div class="card"><h2>Waar tank je vandaag het goedkoopst?</h2><p>{esc(kort_pv)}</p>'
        '<p>Tankwijzer zet de live prijzen van Duitse grensstations, de Belgische maximum- en provincieprijzen en de Nederlandse pompprijs naast elkaar. '
        'Je ziet meteen wat je bespaart, ook na aftrek van de rit vanaf je eigen locatie. Navigeren gaat met één tik via Google Maps of Apple Kaarten, ook in je auto.</p>'
-       '<ul class="gidslinks"><li><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a></li><li><a href="/gids/grensplaatsen.html">Grensplaatsen</a></li><li><a href="/gids/tanken-in-duitsland.html">Tanken in Duitsland</a></li><li><a href="/gids/tanken-in-belgie.html">Tanken in België</a></li><li><a href="/gids/jerrycan-brandstof-meenemen-grens.html">Jerrycan</a></li><li><a href="/gids/goedkoop-tanken-tips.html">8 tips</a></li></ul></div>'
+       '<ul class="gidslinks"><li><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a></li><li><a href="/gids/grensplaatsen.html">Grensplaatsen</a></li><li><a href="/gids/tanken-in-duitsland.html">Tanken in Duitsland</a></li><li><a href="/gids/tanken-in-belgie.html">Tanken in België</a></li><li><a href="/gids/lpg-prijs-vandaag.html">LPG-prijs</a></li><li><a href="/gids/jerrycan-brandstof-meenemen-grens.html">Jerrycan</a></li><li><a href="/gids/goedkoop-tanken-tips.html">8 tips</a></li></ul></div>'
        f'<div class="card">{fh}</div></section>')
 ld_home = [{"@context": "https://schema.org", "@type": "WebApplication", "name": "Tankwijzer", "url": BASE + "/", "applicationCategory": "TravelApplication", "operatingSystem": "Alle (web-app)", "inLanguage": "nl",
             "description": "Live benzine- en dieselprijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Erik", "email": "erik@beltman.email"}},

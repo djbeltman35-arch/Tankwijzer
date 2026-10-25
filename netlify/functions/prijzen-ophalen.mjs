@@ -1,9 +1,10 @@
 // Elk half uur: dagprijzen ophalen en bewaren in Netlify Blobs (store "prijzen", sleutel "data").
 // Nederland: landelijke adviesprijs (UnitedConsumers). België: maximumprijs, laagste prijs per provincie (carbu.com)
-// en weekgemiddelde (EU Oil Bulletin). Duitsland: goedkoopste station in de grensstrook, live via Tankerkönig.
+// en weekgemiddelde (EU Oil Bulletin). Duitsland: goedkoopste station in de grensstrook, live via Tankerkönig,
+// en het landelijke weekgemiddelde (EU Oil Bulletin).
 // Lukt een bron niet, dan blijven de vorige waarden staan. Zo kost bijwerken niets en loopt het altijd door.
 import { getStore } from '@netlify/blobs';
-import { BRONNEN, nlAdvies, beMax, beProv, beAvg, GRENS_DE } from '../bronnen.mjs';
+import { BRONNEN, nlAdvies, beMax, beProv, beAvg, deAvg, GRENS_DE } from '../bronnen.mjs';
 import { controleerAlarmen } from '../alarm.mjs';
 import basis from '../../site/data-basis.json' with { type: 'json' };
 
@@ -53,6 +54,10 @@ export async function verzamel(oud, key, log = console.log) {
     const r = beAvg(await haal(BRONNEN.beAvg)); if (!r) throw new Error('pagina veranderd');
     if (!d.be.avg?.date || r.date >= d.be.avg.date) { d.be.avg = { ...r, src: 'EU Weekly Oil Bulletin, gemiddelde pompprijs' }; d.history.beAvg = hist(d.history.beAvg, r.date, r.e10, r.diesel); }
   });
+  await stap('DE gemiddelde', async () => {
+    const r = deAvg(await haal(BRONNEN.deAvg)); if (!r) throw new Error('pagina veranderd');
+    if (!d.de.avg?.date || r.date >= d.de.avg.date) d.de.avg = { ...r, src: 'EU Weekly Oil Bulletin, gemiddelde pompprijs' };
+  });
   if (key) await stap('DE grens', async () => {
     const st = new Map(), punten = {};
     for (const [plaats, lat, lng] of GRENS_DE) {
@@ -76,6 +81,7 @@ export async function verzamel(oud, key, log = console.log) {
       src: 'goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)' };
     d.de.borderMid = { e10: gem('e10'), diesel: gem('diesel'), e5: gem('e5'), date: datum, src: 'middenprijs open grensstations (Tankerkönig)' };
     d.history.deBorder = hist(d.history.deBorder, datum, d.de.border.e10, d.de.border.diesel);
+    d.history.deMid = hist(d.history.deMid, datum, d.de.borderMid.e10, d.de.borderMid.diesel);
   });
   d.updated = tijdNL();
   return d;
