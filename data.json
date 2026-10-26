@@ -1,12 +1,12 @@
 {
- "updated": "2026-10-25T16:00:44+01:00",
+ "updated": "2026-10-26T07:01:23+01:00",
  "nl": {
   "advies": {
    "e10": 2.58,
    "diesel": 2.714,
    "e5": 2.804,
    "lpg": 1.316,
-   "date": "20261025",
+   "date": "20261026",
    "src": "UnitedConsumers landelijke adviesprijs"
   },
   "adviesHist": [
@@ -59,6 +59,11 @@
     "20261025",
     2.58,
     2.714
+   ],
+   [
+    "20261026",
+    2.58,
+    2.714
    ]
   ]
  },
@@ -68,7 +73,7 @@
    "e5": 2.163,
    "diesel": 2.444,
    "lpg": null,
-   "date": "20261025",
+   "date": "20261026",
    "src": "officiële maximumprijs (FOD Economie)"
   },
   "next": {
@@ -86,7 +91,7 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "low": {
-   "date": "20261025",
+   "date": "20261026",
    "where": {
     "e10": "Luik",
     "e5": "Antwerpen",
@@ -96,11 +101,11 @@
    "src": "laagste prijs grensprovincies (Antwerpen, Limburg, Luik)",
    "e10": 1.794,
    "e5": 1.963,
-   "diesel": 2.234,
-   "lpg": 0.933
+   "diesel": 2.241,
+   "lpg": 0.831
   },
   "prov": {
-   "date": "20261025",
+   "date": "20261026",
    "Antwerpen": {
     "e10": 1.802,
     "e5": 1.963,
@@ -152,8 +157,8 @@
    "Limburg": {
     "e10": 1.797,
     "e5": 1.993,
-    "diesel": 2.234,
-    "lpg": 0.933
+    "diesel": 2.241,
+    "lpg": 0.831
    },
    "Luxemburg": {
     "e10": 1.859,
@@ -178,16 +183,16 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "border": {
-   "e10": 2.059,
-   "diesel": 2.229,
-   "e5": 2.099,
-   "date": "20261025",
-   "at": "2026-10-25T15:00:44.985Z",
+   "e10": 2.039,
+   "diesel": 2.199,
+   "e5": 2.089,
+   "date": "20261026",
+   "at": "2026-10-26T06:01:23.926Z",
    "where": {
-    "e10": "SB, Aachen",
+    "e10": "JET, AACHEN",
     "diesel": "JET, KLEVE"
    },
-   "n": 111,
+   "n": 112,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
   },
   "nrw": {
@@ -196,42 +201,42 @@
    "src": "gemiddelde Noordrijn-Westfalen"
   },
   "points": {
-   "date": "20261025",
-   "at": "2026-10-25T15:00:44.984Z",
+   "date": "20261026",
+   "at": "2026-10-26T06:01:23.926Z",
    "Kleve": {
     "e10": 2.089,
     "e10Waar": "JET, KALKARER STR. 49",
-    "diesel": 2.229,
+    "diesel": 2.199,
     "dieselWaar": "JET, KALKARER STR. 49",
     "e5": 2.139,
     "e5Waar": "Kuster Energy, Dieselstr. 8",
     "n": 10
    },
    "Emmerich": {
-    "e10": 2.139,
+    "e10": 2.099,
     "e10Waar": "JET, REESER STR. 57",
-    "diesel": 2.269,
-    "dieselWaar": "JET, REESER STR. 57",
-    "e5": 2.199,
+    "diesel": 2.229,
+    "dieselWaar": "Kuster Energy, Werner-Heisenberg-Straße 18",
+    "e5": 2.159,
     "e5Waar": "JET, REESER STR. 57",
     "n": 7
    },
    "Bocholt": {
     "e10": 2.099,
     "e10Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "diesel": 2.249,
+    "diesel": 2.239,
     "dieselWaar": "Freie Tankstelle Bißlich, Franzstraße 29",
     "e5": 2.159,
     "e5Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "n": 11
+    "n": 12
    },
    "Gronau": {
-    "e10": 2.139,
+    "e10": 2.109,
     "e10Waar": "SB, Gronauer Str. 90-94",
     "diesel": 2.274,
     "dieselWaar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
-    "e5": 2.194,
-    "e5Waar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
+    "e5": 2.169,
+    "e5Waar": "SB, Gronauer Str. 90-94",
     "n": 14
    },
    "Bad Bentheim": {
@@ -250,50 +255,50 @@
     "dieselWaar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
     "e5": 2.219,
     "e5Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
-    "n": 9
+    "n": 8
    },
    "Bunde": {
-    "e10": 2.209,
+    "e10": 2.149,
     "e10Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "diesel": 2.309,
+    "diesel": 2.279,
     "dieselWaar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "e5": 2.269,
+    "e5": 2.209,
     "e5Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
     "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 2.229,
-    "e10Waar": "TAP, Kaldenkirchener Str. 52",
-    "diesel": 2.259,
+    "e10": 2.139,
+    "e10Waar": "Tank & Waschhof Timmermanns, Wevelinghoven 14",
+    "diesel": 2.239,
     "dieselWaar": "TAP, Kaldenkirchener Str. 52",
-    "e5": 2.289,
-    "e5Waar": "TAP, Kaldenkirchener Str. 52",
-    "n": 9
+    "e5": 2.199,
+    "e5Waar": "Tank & Waschhof Timmermanns, Wevelinghoven 14",
+    "n": 12
    },
    "Aken": {
-    "e10": 2.059,
-    "e10Waar": "SB, Krefelderstr. 54",
-    "diesel": 2.339,
-    "dieselWaar": "SB, Habsburger Allee 3",
-    "e5": 2.099,
+    "e10": 2.039,
+    "e10Waar": "JET, JUELICHER STR. 394",
+    "diesel": 2.229,
+    "dieselWaar": "SB, Roermonder Straße 110 A",
+    "e5": 2.089,
     "e5Waar": "SB, Krefelderstr. 54",
     "n": 31
    },
    "Selfkant": {
-    "e10": 2.158,
-    "e10Waar": "TinQ, Raiffeisenstr. 1",
-    "diesel": 2.289,
+    "e10": 2.059,
+    "e10Waar": "STAR, Landstraße 4",
+    "diesel": 2.229,
     "dieselWaar": "SB Automatenstation, Hauptstraße 96-98",
-    "e5": 2.188,
-    "e5Waar": "TinQ, Raiffeisenstr. 1",
-    "n": 7
+    "e5": 2.109,
+    "e5Waar": "SB Automatenstation, Hauptstraße 96-98",
+    "n": 5
    }
   },
   "borderMid": {
-   "e10": 2.159,
-   "diesel": 2.309,
-   "e5": 2.209,
-   "date": "20261025",
+   "e10": 2.119,
+   "diesel": 2.249,
+   "e5": 2.169,
+   "date": "20261026",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
  },
@@ -374,7 +379,12 @@
    [
     "20261025",
     2.059,
-    2.229
+    2.199
+   ],
+   [
+    "20261026",
+    2.039,
+    2.199
    ]
   ],
   "beMax": [
@@ -425,6 +435,11 @@
    ],
    [
     "20261025",
+    2.002,
+    2.444
+   ],
+   [
+    "20261026",
     2.002,
     2.444
    ]
@@ -501,16 +516,28 @@
     "20261025",
     1.794,
     2.234
+   ],
+   [
+    "20261026",
+    1.794,
+    2.241
    ]
   ],
   "deMid": [
    [
     "20261025",
-    2.159,
-    2.309
+    2.129,
+    2.259
+   ],
+   [
+    "20261026",
+    2.119,
+    2.249
    ]
   ]
  },
- "_ts": 1792940444986,
- "_log": []
+ "_ts": 1792994483928,
+ "_log": [
+  "BE max mislukt: pagina veranderd"
+ ]
 }
