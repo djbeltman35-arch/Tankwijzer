@@ -1,10 +1,10 @@
 {
- "updated": "2026-10-28T07:00:57+01:00",
+ "updated": "2026-10-28T16:00:59+01:00",
  "nl": {
   "advies": {
-   "e10": 2.555,
-   "diesel": 2.721,
-   "e5": 2.769,
+   "e10": 2.553,
+   "diesel": 2.714,
+   "e5": 2.764,
    "lpg": 1.323,
    "date": "20261028",
    "src": "UnitedConsumers landelijke adviesprijs"
@@ -72,8 +72,8 @@
    ],
    [
     "20261028",
-    2.555,
-    2.721
+    2.553,
+    2.714
    ]
   ]
  },
@@ -123,7 +123,7 @@
     "lpg": 0.991
    },
    "Vlaams-Brabant": {
-    "e10": 1.793,
+    "e10": 1.788,
     "e5": 2.045,
     "diesel": 2.249,
     "lpg": 1.021
@@ -141,37 +141,37 @@
     "lpg": 1.021
    },
    "West-Vlaanderen": {
-    "e10": 1.785,
-    "e5": 2.045,
+    "e10": 1.799,
+    "e5": 2.049,
     "diesel": 2.266,
     "lpg": 0.992
    },
    "Oost-Vlaanderen": {
     "e10": 1.788,
     "e5": 1.949,
-    "diesel": 2.255,
+    "diesel": 2.276,
     "lpg": 1.001
    },
    "Henegouwen": {
-    "e10": 1.795,
-    "e5": 2.045,
-    "diesel": 2.269,
+    "e10": 1.789,
+    "e5": 2.049,
+    "diesel": 2.289,
     "lpg": 0.991
    },
    "Luik": {
     "e10": 1.78,
-    "e5": 2.04,
+    "e5": 2.044,
     "diesel": 2.266,
     "lpg": 0.979
    },
    "Limburg": {
     "e10": 1.783,
-    "e5": 1.979,
+    "e5": 1.999,
     "diesel": 2.259,
     "lpg": 0.831
    },
    "Luxemburg": {
-    "e10": 1.855,
+    "e10": 1.849,
     "e5": 2.069,
     "diesel": 2.344,
     "lpg": 1.071
@@ -194,15 +194,15 @@
   },
   "border": {
    "e10": 1.989,
-   "diesel": 2.229,
-   "e5": 2.039,
+   "diesel": 2.248,
+   "e5": 2.049,
    "date": "20261028",
-   "at": "2026-10-28T06:00:57.372Z",
+   "at": "2026-10-28T15:00:59.639Z",
    "where": {
-    "e10": "JET, AACHEN",
-    "diesel": "Tank & Waschhof Timmermanns, Nettetal"
+    "e10": "SB Automatenstation, Selfkant-Havert",
+    "diesel": "TinQ, Gangelt"
    },
-   "n": 112,
+   "n": 118,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
   },
   "nrw": {
@@ -212,102 +212,102 @@
   },
   "points": {
    "date": "20261028",
-   "at": "2026-10-28T06:00:57.371Z",
+   "at": "2026-10-28T15:00:59.639Z",
    "Kleve": {
-    "e10": 2.059,
+    "e10": 2.099,
     "e10Waar": "JET, KALKARER STR. 49",
-    "diesel": 2.239,
+    "diesel": 2.249,
     "dieselWaar": "JET, KALKARER STR. 49",
-    "e5": 2.119,
-    "e5Waar": "JET, KALKARER STR. 49",
+    "e5": 2.149,
+    "e5Waar": "Kuster Energy, Dieselstr. 8",
     "n": 10
    },
    "Emmerich": {
     "e10": 2.099,
     "e10Waar": "JET, REESER STR. 57",
-    "diesel": 2.239,
-    "dieselWaar": "Kuster Energy, Werner-Heisenberg-Straße 18",
+    "diesel": 2.249,
+    "dieselWaar": "JET, REESER STR. 57",
     "e5": 2.159,
     "e5Waar": "JET, REESER STR. 57",
     "n": 7
    },
    "Bocholt": {
-    "e10": 2.029,
+    "e10": 2.039,
     "e10Waar": "CLASSIC, Schaffeldstr. 1",
-    "diesel": 2.279,
-    "dieselWaar": "AVIA, Dinxperloer Str. 64-68",
-    "e5": 2.089,
+    "diesel": 2.259,
+    "dieselWaar": "STAR, Dingdener Straße 184",
+    "e5": 2.099,
     "e5Waar": "CLASSIC, Schaffeldstr. 1",
     "n": 12
    },
    "Gronau": {
-    "e10": 2.029,
+    "e10": 2.109,
     "e10Waar": "SB, Gronauer Str. 90-94",
-    "diesel": 2.239,
-    "dieselWaar": "Markant (Tankautomat), Nienborger Str. 28",
-    "e5": 2.089,
-    "e5Waar": "SB, Gronauer Str. 90-94",
+    "diesel": 2.249,
+    "dieselWaar": "SB, Gronauer Str. 90-94",
+    "e5": 2.169,
+    "e5Waar": "K+K Klaas & Kock, Ochtruper Strasse 127",
     "n": 14
    },
    "Bad Bentheim": {
-    "e10": 2.089,
+    "e10": 2.169,
     "e10Waar": "SB, Bahnhofstraße 7",
-    "diesel": 2.259,
+    "diesel": 2.309,
     "dieselWaar": "Raiffeisen, Postweg 9",
-    "e5": 2.149,
+    "e5": 2.229,
     "e5Waar": "SB, Bahnhofstraße 7",
     "n": 8
    },
    "Nordhorn": {
     "e10": 2.149,
-    "e10Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
-    "diesel": 2.259,
-    "dieselWaar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
+    "e10Waar": "Tankstelle Becker, Richterskamp 5",
+    "diesel": 2.269,
+    "dieselWaar": "Tankstelle Becker, Richterskamp 5",
     "e5": 2.209,
-    "e5Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
-    "n": 8
+    "e5Waar": "Tankstelle Becker, Richterskamp 5",
+    "n": 9
    },
    "Bunde": {
-    "e10": 2.189,
+    "e10": 2.169,
     "e10Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "diesel": 2.299,
+    "diesel": 2.309,
     "dieselWaar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "e5": 2.249,
+    "e5": 2.229,
     "e5Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
     "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 2.079,
-    "e10Waar": "PM, Geldrische Str. 65a",
-    "diesel": 2.229,
-    "dieselWaar": "Tank & Waschhof Timmermanns, Wevelinghoven 14",
-    "e5": 2.139,
-    "e5Waar": "PM, Geldrische Str. 65a",
-    "n": 12
+    "e10": 2.169,
+    "e10Waar": "TAP, Kaldenkirchener Str. 52",
+    "diesel": 2.329,
+    "dieselWaar": "TAP, Kaldenkirchener Str. 52",
+    "e5": 2.229,
+    "e5Waar": "TAP, Kaldenkirchener Str. 52",
+    "n": 13
    },
    "Aken": {
-    "e10": 1.989,
-    "e10Waar": "JET, JUELICHER STR. 394",
-    "diesel": 2.229,
-    "dieselWaar": "STAR, Roermonder Straße 504",
-    "e5": 2.039,
-    "e5Waar": "SB, Krefelderstr. 54",
-    "n": 31
+    "e10": 1.999,
+    "e10Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
+    "diesel": 2.319,
+    "dieselWaar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
+    "e5": 2.059,
+    "e5Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
+    "n": 33
    },
    "Selfkant": {
-    "e10": 1.999,
+    "e10": 1.989,
     "e10Waar": "SB Automatenstation, Hauptstraße 96-98",
-    "diesel": 2.268,
+    "diesel": 2.248,
     "dieselWaar": "TinQ, Raiffeisenstr. 1",
-    "e5": 2.059,
+    "e5": 2.049,
     "e5Waar": "SB Automatenstation, Hauptstraße 96-98",
-    "n": 5
+    "n": 7
    }
   },
   "borderMid": {
-   "e10": 2.089,
-   "diesel": 2.269,
-   "e5": 2.149,
+   "e10": 2.129,
+   "diesel": 2.319,
+   "e5": 2.179,
    "date": "20261028",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
@@ -404,7 +404,7 @@
    [
     "20261028",
     1.989,
-    2.229
+    2.248
    ]
   ],
   "beMax": [
@@ -581,11 +581,11 @@
    ],
    [
     "20261028",
-    2.089,
-    2.269
+    2.129,
+    2.319
    ]
   ]
  },
- "_ts": 1793167257374,
+ "_ts": 1793199659640,
  "_log": []
 }
