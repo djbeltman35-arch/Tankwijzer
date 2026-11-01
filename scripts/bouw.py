@@ -87,9 +87,13 @@ PLAATSEN = [
     ("Kleve", "kleve", "DE", 51.788, 6.138, "Kleve"), ("Emmerich", "emmerich", "DE", 51.832, 6.246, "Emmerich"), ("Bocholt", "bocholt", "DE", 51.838, 6.615, "Bocholt"),
     ("Gronau", "gronau", "DE", 52.212, 7.023, "Gronau"), ("Bad Bentheim", "bad-bentheim", "DE", 52.303, 7.159, "Bad Bentheim"), ("Nordhorn", "nordhorn", "DE", 52.433, 7.068, "Nordhorn"),
     ("Bunde", "bunde", "DE", 53.183, 7.270, "Bunde"), ("Kaldenkirchen", "kaldenkirchen", "DE", 51.318, 6.196, "Kaldenkirchen"), ("Aken", "aken", "DE", 50.776, 6.084, "Aken"),
+    ("Elten", "elten", "DE", 51.868, 6.158, "Elten"), ("Straelen", "straelen", "DE", 51.442, 6.266, "Straelen"), ("Goch", "goch", "DE", 51.678, 6.161, "Goch"),
+    ("Herzogenrath", "herzogenrath", "DE", 50.870, 6.096, "Herzogenrath"), ("Emlichheim", "emlichheim", "DE", 52.612, 6.850, "Emlichheim"),
     ("Lanaken", "lanaken", "BE", 50.893, 5.648, "Limburg"), ("Wezet (Visé)", "vise", "BE", 50.737, 5.698, "Luik"), ("Maaseik", "maaseik", "BE", 51.098, 5.784, "Limburg"),
-    ("Hamont-Achel", "hamont-achel", "BE", 51.252, 5.547, "Limburg"), ("Lommel", "lommel", "BE", 51.230, 5.313, "Limburg"), ("Poppel", "poppel", "BE", 51.449, 5.040, "Antwerpen"),
+    ("Hamont-Achel", "hamont-achel", "BE", 51.252, 5.547, "Limburg"), ("Lommel", "lommel", "BE", 51.230, 5.313, "Limburg"), ("Poppel", "poppel", "BE", 51.449, 5.040, "Antwerpen"), ("Baarle-Hertog", "baarle-hertog", "BE", 51.441, 4.927, "Antwerpen"),
     ("Meer (Hoogstraten)", "meer-hoogstraten", "BE", 51.447, 4.735, "Antwerpen"), ("Essen", "essen", "BE", 51.468, 4.468, "Antwerpen"), ("Zelzate", "zelzate", "BE", 51.199, 3.811, "Oost-Vlaanderen")]
+# Een Duitse plaats zonder eigen meetpunt in de data (nog) niet tonen: anders zou de goedkoopste prijs van de hele grens er staan.
+PLAATSEN = [p for p in PLAATSEN if p[2] != "DE" or (DEP.get(p[5]) or {}).get("e10")]
 def hav(a, b):
     R = 6371; la1, lo1, la2, lo2 = map(math.radians, (a[0], a[1], b[0], b[1]))
     h = math.sin((la2 - la1) / 2) ** 2 + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2
@@ -196,7 +200,7 @@ for land in ("DE", "BE"):
         lijst += f'<tr><td><a href="/gids/tanken-in-{pl[1]}.html"><b>{esc(pl[0])}</b></a><span class="sub">vanuit {esc(r[0][0])}</span></td><td class="p">{p3(p)}</td><td class="p">{p3(pd)}</td><td class="p">{eur(beste) if beste is not None else "–"}</td></tr>'
     lijst += "</tbody></table></div>"
 kort_gp = "Tank je vlak over de grens, dan bespaar je vaak een tientje of meer per volle tank. Hieronder per grensplaats de prijs van vandaag en wat een volle tank oplevert vanuit de dichtstbijzijnde Nederlandse plaats, na aftrek van de rit."
-schrijf("/gids/grensplaatsen.html", pagina("/gids/grensplaatsen.html", f"Goedkoop tanken over de grens: 18 grensplaatsen vergeleken ({MAAND})",
+schrijf("/gids/grensplaatsen.html", pagina("/gids/grensplaatsen.html", f"Goedkoop tanken over de grens: {len(PLAATSEN)} grensplaatsen vergeleken ({MAAND})",
     "Tanken in Kleve, Emmerich, Gronau, Aken, Lanaken, Poppel en meer: de prijs van vandaag per grensplaats en wat je bespaart na aftrek van de rit.",
     "Tanken over de grens: alle grensplaatsen", kort(kort_gp) + lijst + '<p class="note">* Besparing met 50 liter Euro95 tegenover de Nederlandse pompprijs, vanuit de dichtstbijzijnde Nederlandse plaats, na aftrek van de brandstof voor de heen- en terugrit (1 op 15).</p>',
     [SPEAK("/gids/grensplaatsen.html", "Grensplaatsen")], [("Home", "/"), ("Tankgids", "/gids/"), ("Grensplaatsen", None)]))
