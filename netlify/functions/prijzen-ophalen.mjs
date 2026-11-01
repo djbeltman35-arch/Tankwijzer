@@ -60,10 +60,15 @@ export async function verzamel(oud, key, log = console.log) {
   });
   if (key) await stap('DE grens', async () => {
     const st = new Map(), punten = {};
-    for (const [plaats, lat, lng] of GRENS_DE) {
+    // In groepjes van 5 tegelijk: zo blijft de hele run ruim binnen de tijdslimiet van een geplande functie.
+    const haalPunt = async ([plaats, lat, lng]) => {
       const r = await fetch(`https://creativecommons.tankerkoenig.de/json/list.php?lat=${lat}&lng=${lng}&rad=6&sort=dist&type=all&apikey=${key}`, { signal: AbortSignal.timeout(15000) });
       const j = await r.json(); if (!j.ok) throw new Error(j.message || 'fout');
-      const hier = (j.stations || []).filter(s => s.isOpen && !SNELWEG.test(`${s.name} ${s.street}`));
+      return [plaats, (j.stations || []).filter(s => s.isOpen && !SNELWEG.test(`${s.name} ${s.street}`))];
+    };
+    const lijsten = [];
+    for (let i = 0; i < GRENS_DE.length; i += 5) lijsten.push(...await Promise.all(GRENS_DE.slice(i, i + 5).map(haalPunt)));
+    for (const [plaats, hier] of lijsten) {
       for (const s of hier) st.set(s.id, s);
       // Per grensplaats het goedkoopste open station, voor de plaatspagina's.
       const p = {};
