@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-04T16:00:51+01:00",
+ "updated": "2026-11-05T07:30:41+01:00",
  "nl": {
   "advies": {
-   "e10": 2.509,
-   "diesel": 2.672,
-   "e5": 2.729,
+   "e10": 2.489,
+   "diesel": 2.652,
+   "e5": 2.694,
    "lpg": 1.335,
-   "date": "20261104",
+   "date": "20261105",
    "src": "UnitedConsumers landelijke adviesprijs"
   },
   "adviesHist": [
@@ -109,6 +109,11 @@
     "20261104",
     2.509,
     2.672
+   ],
+   [
+    "20261105",
+    2.489,
+    2.652
    ]
   ]
  },
@@ -118,11 +123,11 @@
    "e5": 2.03,
    "diesel": 2.452,
    "lpg": 1.109,
-   "date": "20261104",
+   "date": "20261105",
    "src": "officiële maximumprijs (FOD Economie)"
   },
   "next": {
-   "date": "20261104"
+   "date": "20261105"
   },
   "avg": {
    "e10": 1.953,
@@ -132,7 +137,7 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "low": {
-   "date": "20261104",
+   "date": "20261105",
    "where": {
     "e10": "Luik",
     "e5": "Limburg",
@@ -146,7 +151,7 @@
    "lpg": 0.963
   },
   "prov": {
-   "date": "20261104",
+   "date": "20261105",
    "Antwerpen": {
     "e10": 1.705,
     "e5": 1.92,
@@ -155,7 +160,7 @@
    },
    "Vlaams-Brabant": {
     "e10": 1.705,
-    "e5": 1.926,
+    "e5": 1.83,
     "diesel": 2.249,
     "lpg": 1.059
    },
@@ -184,8 +189,8 @@
     "lpg": 1.039
    },
    "Henegouwen": {
-    "e10": 1.706,
-    "e5": 1.929,
+    "e10": 1.705,
+    "e5": 1.83,
     "diesel": 2.247,
     "lpg": 1.029
    },
@@ -208,7 +213,7 @@
     "lpg": 1.109
    },
    "Namen": {
-    "e10": 1.709,
+    "e10": 1.706,
     "e5": 1.929,
     "diesel": 2.245,
     "lpg": 1.019
@@ -225,15 +230,15 @@
   },
   "border": {
    "e10": 1.929,
-   "diesel": 2.209,
+   "diesel": 2.179,
    "e5": 1.989,
-   "date": "20261104",
-   "at": "2026-11-04T15:00:51.751Z",
+   "date": "20261105",
+   "at": "2026-11-05T06:30:41.867Z",
    "where": {
     "e10": "Supermarkt-Tankstelle, AACHEN",
-    "diesel": "Kuster Energy, Emmerich"
+    "diesel": "PM, Straelen"
    },
-   "n": 151,
+   "n": 149,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
   },
   "nrw": {
@@ -242,51 +247,51 @@
    "src": "gemiddelde Noordrijn-Westfalen"
   },
   "points": {
-   "date": "20261104",
-   "at": "2026-11-04T15:00:51.750Z",
+   "date": "20261105",
+   "at": "2026-11-05T06:30:41.866Z",
    "Kleve": {
-    "e10": 2.109,
+    "e10": 2.019,
     "e10Waar": "JET, KALKARER STR. 49",
-    "diesel": 2.239,
+    "diesel": 2.189,
     "dieselWaar": "JET, KALKARER STR. 49",
-    "e5": 2.169,
+    "e5": 2.079,
     "e5Waar": "JET, KALKARER STR. 49",
     "n": 10
    },
    "Emmerich": {
-    "e10": 2.089,
+    "e10": 2.059,
     "e10Waar": "JET, REESER STR. 57",
-    "diesel": 2.209,
+    "diesel": 2.199,
     "dieselWaar": "Kuster Energy, Werner-Heisenberg-Straße 18",
-    "e5": 2.149,
+    "e5": 2.119,
     "e5Waar": "JET, REESER STR. 57",
     "n": 7
    },
    "Bocholt": {
-    "e10": 2.089,
-    "e10Waar": "JET, AN DER KOENIGSMUEHLE 13",
-    "diesel": 2.219,
-    "dieselWaar": "JET, AN DER KOENIGSMUEHLE 13",
-    "e5": 2.149,
-    "e5Waar": "JET, AN DER KOENIGSMUEHLE 13",
+    "e10": 2.029,
+    "e10Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
+    "diesel": 2.199,
+    "dieselWaar": "Freie Tankstelle Bißlich, Franzstraße 29",
+    "e5": 2.089,
+    "e5Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
     "n": 12
    },
    "Gronau": {
-    "e10": 2.039,
+    "e10": 2.029,
     "e10Waar": "JET, ENSCHEDER STR. 67",
     "diesel": 2.249,
     "dieselWaar": "K+K Klaas & Kock, Ochtruper Strasse 127",
-    "e5": 2.099,
+    "e5": 2.089,
     "e5Waar": "JET, ENSCHEDER STR. 67",
     "n": 14
    },
    "Bad Bentheim": {
-    "e10": 2.029,
-    "e10Waar": "Raiffeisen, Postweg 9",
+    "e10": 2.019,
+    "e10Waar": "freie Tankstelle, Eisenbahnstraße 4",
     "diesel": 2.259,
     "dieselWaar": "Raiffeisen, Postweg 9",
-    "e5": 2.089,
-    "e5Waar": "Raiffeisen, Postweg 9",
+    "e5": 2.079,
+    "e5Waar": "freie Tankstelle, Eisenbahnstraße 4",
     "n": 8
    },
    "Nordhorn": {
@@ -299,75 +304,75 @@
     "n": 9
    },
    "Bunde": {
-    "e10": 2.109,
+    "e10": 2.089,
     "e10Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
     "diesel": 2.249,
     "dieselWaar": "Heinrich Albers OHG, Neuschanzer Straße 31",
-    "e5": 2.169,
+    "e5": 2.149,
     "e5Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
     "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 2.069,
-    "e10Waar": "TAP, Kaldenkirchener Str. 52",
-    "diesel": 2.229,
-    "dieselWaar": "Markenfreie TS, Werner-Jaeger-Str. 13",
-    "e5": 2.129,
-    "e5Waar": "TAP, Kaldenkirchener Str. 52",
-    "n": 13
+    "e10": 2.039,
+    "e10Waar": "Tank & Waschhof Timmermanns, Wevelinghoven 14",
+    "diesel": 2.209,
+    "dieselWaar": "AVIA XPress, Neustraße 20",
+    "e5": 2.099,
+    "e5Waar": "Tankstelle, Lobbericher Straße 67",
+    "n": 12
    },
    "Aken": {
     "e10": 1.929,
     "e10Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
-    "diesel": 2.269,
+    "diesel": 2.209,
     "dieselWaar": "EMOVA, Gut-Dämme-Straße 22",
     "e5": 1.989,
     "e5Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
-    "n": 33
+    "n": 32
    },
    "Selfkant": {
-    "e10": 2.119,
-    "e10Waar": "Shell, Suestrastr. 63",
-    "diesel": 2.329,
+    "e10": 1.939,
+    "e10Waar": "SB Automatenstation, Hauptstraße 96-98",
+    "diesel": 2.219,
     "dieselWaar": "SB Automatenstation, Hauptstraße 96-98",
-    "e5": 2.168,
+    "e5": 1.998,
     "e5Waar": "TinQ, Raiffeisenstr. 1",
     "n": 7
    },
    "Elten": {
-    "e10": 2.089,
+    "e10": 2.059,
     "e10Waar": "STAR, Beeker Straße 250",
-    "diesel": 2.219,
+    "diesel": 2.209,
     "dieselWaar": "STAR, Beeker Straße 250",
-    "e5": 2.149,
+    "e5": 2.119,
     "e5Waar": "STAR, Beeker Straße 250",
     "n": 4
    },
    "Straelen": {
-    "e10": 2.089,
+    "e10": 1.969,
     "e10Waar": "PM, Gelderner Str. 47",
-    "diesel": 2.239,
+    "diesel": 2.179,
     "dieselWaar": "PM, Gelderner Str. 47",
-    "e5": 2.149,
+    "e5": 2.029,
     "e5Waar": "PM, Gelderner Str. 47",
     "n": 6
    },
    "Goch": {
-    "e10": 2.089,
+    "e10": 2.029,
     "e10Waar": "bft, Klever Str. 10",
-    "diesel": 2.219,
+    "diesel": 2.199,
     "dieselWaar": "bft, Klever Str. 10",
-    "e5": 2.149,
+    "e5": 2.089,
     "e5Waar": "bft, Klever Str. 10",
     "n": 7
    },
    "Herzogenrath": {
-    "e10": 2.039,
-    "e10Waar": "JET, AACHENER STR. 86",
-    "diesel": 2.279,
-    "dieselWaar": "JET, AACHENER STR. 86",
-    "e5": 2.099,
-    "e5Waar": "JET, AACHENER STR. 86",
+    "e10": 1.939,
+    "e10Waar": "PM, Kirchrather Str. 110-112",
+    "diesel": 2.219,
+    "dieselWaar": "PM, Kirchrather Str. 110-112",
+    "e5": 1.999,
+    "e5Waar": "PM, Kirchrather Str. 110-112",
     "n": 17
    },
    "Emlichheim": {
@@ -381,10 +386,10 @@
    }
   },
   "borderMid": {
-   "e10": 2.099,
-   "diesel": 2.269,
-   "e5": 2.149,
-   "date": "20261104",
+   "e10": 2.029,
+   "diesel": 2.229,
+   "e5": 2.089,
+   "date": "20261105",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
  },
@@ -514,8 +519,13 @@
    ],
    [
     "20261104",
+    1.939,
+    2.179
+   ],
+   [
+    "20261105",
     1.929,
-    2.209
+    2.179
    ]
   ],
   "beMax": [
@@ -616,6 +626,11 @@
    ],
    [
     "20261104",
+    1.905,
+    2.452
+   ],
+   [
+    "20261105",
     1.905,
     2.452
    ]
@@ -747,6 +762,11 @@
     "20261104",
     1.697,
     2.249
+   ],
+   [
+    "20261105",
+    1.697,
+    2.249
    ]
   ],
   "deMid": [
@@ -802,11 +822,16 @@
    ],
    [
     "20261104",
-    2.099,
-    2.269
+    2.039,
+    2.239
+   ],
+   [
+    "20261105",
+    2.029,
+    2.229
    ]
   ]
  },
- "_ts": 1793804451753,
+ "_ts": 1793860241869,
  "_log": []
 }
