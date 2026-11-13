@@ -121,7 +121,7 @@ ANDERE_SITES = [
 # ---------- sjabloon ----------
 FONTS = '<link rel="preload" href="/fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/jetbrains-mono-500.woff2" as="font" type="font/woff2" crossorigin><style>@font-face{font-family:\'Barlow Condensed\';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/barlow-condensed-600.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'Barlow Condensed\';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/barlow-condensed-700.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'Barlow Condensed\';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/barlow-condensed-800.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'Figtree\';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/figtree-400.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'JetBrains Mono\';font-style:normal;font-weight:500 700;font-display:swap;src:url(/fonts/jetbrains-mono-500.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}</style>'
 GC = '<script data-goatcounter="https://goedkopertanken.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
-NAV = [("/", "Tankwijzer"), ("/gids/prijzen-vandaag.html", "Prijzen vandaag"), ("/gids/grensplaatsen.html", "Grensplaatsen"), ("/gids/", "Tankgids")]
+NAV = [("/", "Tankwijzer"), ("/gids/prijzen-vandaag.html", "Prijzen vandaag"), ("/gids/grensplaatsen.html", "Grensplaatsen"), ("/tankstation/", "Tankstations"), ("/gids/", "Tankgids")]
 FOOT = ('<footer class="foot"><p class="free">Tankwijzer is gratis en onafhankelijk: geen reclame, geen betaalde plekken, geen commissie. Ik verdien er geen cent aan.</p>'
         '<nav><a href="/">Tankwijzer openen</a><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a><a href="/gids/grensplaatsen.html">Grensplaatsen</a><a href="/gids/">Tankgids</a><a href="/gids/over.html">Over en privacy</a></nav>'
         '<section class="apps" aria-labelledby="apps-kop"><h2 id="apps-kop">Meer gratis sites van Erik</h2><ul><li><a href="https://boodschappenvergelijk.nl/">Goedkope Boodschappen</a><span>Boodschappen en aanbiedingen vergelijken bij 11 supermarkten.</span></li><li><a href="https://vluchtwijzer.netlify.app/">Vluchtwijzer</a><span>Goedkope vliegtickets vanaf vliegvelden in Nederland, België en Duitsland.</span></li><li><a href="https://vakantietoppers.netlify.app/">Vakantiewijzer</a><span>Pakketreizen, hotels, vakantieparken en campings vergelijken.</span></li><li><a href="https://euroroadrules.eu/">EuroRoadRules</a><span>Vignetten, tol en milieuzones in heel Europa, ook voor je route.</span></li><li><a href="https://foutcodezoeker.nl/">Foutcodezoeker</a><span>Foutcodes en storingen van apparaten zelf opzoeken en oplossen.</span></li><li><a href="https://allesoporde.netlify.app/">Op Orde</a><span>Gratis app voor je deadlines, toeslagen en vaste lasten.</span></li></ul></section>'
@@ -192,6 +192,118 @@ schrijf("/gids/prijzen-vandaag.html", pagina("/gids/prijzen-vandaag.html", f"Ben
     [("Home", "/"), ("Tankgids", "/gids/"), ("Prijzen vandaag", None)]))
 gemaakt.append(("/gids/prijzen-vandaag.html", "0.9"))
 
+# ---------- tankstations (Duitse grensstations, één pagina per station) ----------
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from stations import laad as laad_stations
+try: ST = laad_stations(live=True)
+except Exception as e: print("stations niet geladen:", e); ST = []
+_gs = open(os.path.join(ROOT, "site", "geo.js")).read()
+GRENS = [tuple(map(float, x)) for x in re.findall(r"\[(\d+\.\d+),(\d+\.\d+)\]", _gs[_gs.index("const BORDER"):_gs.index("];", _gs.index("const BORDER"))])]
+def grensafstand(lat, lng):
+    """Kortste afstand in km tot de grens (lijnstukken, vlakke benadering)."""
+    best = 1e9; k = math.cos(math.radians(lat))
+    for (a1, b1), (a2, b2) in zip(GRENS, GRENS[1:]):
+        x, y = (lng - b1) * k, lat - a1; dx, dy = (b2 - b1) * k, a2 - a1
+        t = max(0, min(1, (x * dx + y * dy) / ((dx * dx + dy * dy) or 1)))
+        best = min(best, math.hypot(x - t * dx, y - t * dy) * 111.32)
+    return best
+SNELWEG = re.compile(r"\b(bab|autobahn|rasthof|raststätte|rastst|autohof|a\s?\d{1,3}\b)", re.I)
+MERKEN = {"ARAL": "Aral", "ESSO": "Esso", "STAR": "Star", "AVIA": "Avia", "AGIP": "Agip", "ENI": "Eni", "WESTFALEN": "Westfalen", "RAIFFEISEN": "Raiffeisen", "TOTAL": "Total", "TOTALENERGIES": "TotalEnergies", "HEM": "HEM", "JET": "JET", "BFT": "bft", "PM": "PM", "OIL!": "OIL!", "Q1": "Q1", "SB": "SB"}
+def netjes(t):
+    t = (t or "").strip()
+    return t.title().replace("Str.", "str.").replace("Strasse", "straße") if t.isupper() and len(t) > 3 else t
+def merknaam(s):
+    b = (s.get("brand") or "").strip()
+    if not b or b.lower() in ("freie tankstelle", "sonstige", "sb"): return netjes(s.get("name")) or "Tankstation"
+    return MERKEN.get(b.upper(), netjes(b))
+def slugify(t):
+    t = t.lower()
+    for a, b in (("ä", "ae"), ("ö", "oe"), ("ü", "ue"), ("ß", "ss"), ("é", "e"), ("è", "e")): t = t.replace(a, b)
+    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", t)).strip("-")[:80]
+DE_PL = [p for p in PLAATSEN if p[2] == "DE"]
+for s in ST:
+    s["merk"], s["plaats"] = merknaam(s), netjes(s["place"])
+    s["straat"] = (netjes(s["street"]) + (" " + s["nr"] if s.get("nr") and s["nr"] not in s["street"] else "")).strip()
+    s["hwy"] = bool(SNELWEG.search(f'{s["name"]} {s["street"]}'))
+    s["grens"] = grensafstand(s["lat"], s["lng"])
+    s["bij"] = min(DE_PL, key=lambda p: hav((p[3], p[4]), (s["lat"], s["lng"]))) if DE_PL else None
+    s["basis"] = slugify(f'{s["merk"]} {s["plaats"]} {s["straat"] or s["id"][:8]}')
+_tel = {}
+for s in ST: _tel[s["basis"]] = _tel.get(s["basis"], 0) + 1
+for s in ST: s["pad"] = f'/tankstation/{s["basis"]}{"-" + s["id"][:6] if _tel[s["basis"]] > 1 else ""}.html'
+def st_rij(s, ref=None):
+    afst = f'<span class="sub">{esc(s["straat"])}, {esc(s["plaats"])}' + (f' · {hav((ref["lat"], ref["lng"]), (s["lat"], s["lng"])):.1f} km'.replace(".", ",") if ref else "") + (" · snelweg" if s["hwy"] else "") + "</span>"
+    return f'<tr><td><a href="{s["pad"]}"><b>{esc(s["merk"])}</b></a>{afst}</td><td class="p">{p3(s.get("e10"))}</td><td class="p">{p3(s.get("diesel"))}</td></tr>'
+def st_tabel(lijst, ref=None):
+    return ('<div class="tw"><table class="pt"><thead><tr><th>Tankstation</th><th class="p">E10</th><th class="p">Diesel</th></tr></thead><tbody>' + "".join(st_rij(s, ref) for s in lijst) + "</tbody></table></div>")
+STJS = ('<script>(function(){var el=document.getElementById("stlive");if(!el)return;var id=el.dataset.id;fetch("/api/tk/prices.php?ids="+id).then(function(r){return r.json()}).then(function(j){var p=j&&j.prices&&j.prices[id];if(!p)return;'
+        '["e10","diesel","e5"].forEach(function(f){var v=p[f],e=document.querySelector("[data-st="+f+"]");if(e&&typeof v==="number"&&v>.5)e.textContent=v.toFixed(3).replace(".",",")});'
+        'el.textContent=p.status==="open"?"Nu open · live prijs":p.status==="closed"?"Nu gesloten · laatst bekende prijs":"Laatst bekende prijs";el.className="meta "+(p.status==="open"?"open":"dicht")}).catch(function(){});'
+        # openingstijden: pas ophalen als iemand de pagina opent (zoals Tankerkönig vraagt), vertaald naar het Nederlands
+        'var o=document.getElementById("stopen");if(o)fetch("/api/tk/detail.php?id="+id).then(function(r){return r.json()}).then(function(j){var s=j&&j.station;if(!s)return;'
+        'var nl=function(t){return t.replace(/Feiertag/g,"feestdag").replace(/täglich/gi,"dagelijks").replace(/Samstag/g,"za").replace(/Sonntag/g,"zo").replace(/Montag/g,"ma").replace(/Freitag/g,"vr").replace(/\\bMo\\b/g,"ma").replace(/\\bDi\\b/g,"di").replace(/\\bMi\\b/g,"wo").replace(/\\bDo\\b/g,"do").replace(/\\bFr\\b/g,"vr").replace(/\\bSa\\b/g,"za").replace(/\\bSo\\b/g,"zo")};'
+        'var u=function(t){return(t||"").slice(0,5)};var r=s.wholeDay?["<li>Dag en nacht open</li>"]:(s.openingTimes||[]).map(function(x){return"<li>"+nl(x.text).replace(/[<>&]/g,"")+": "+u(x.start)+" – "+u(x.end)+"</li>"});'
+        'if(r.length)o.innerHTML="<h2>Openingstijden</h2><ul>"+r.join("")+"</ul>"}).catch(function(){})})();</script>')
+for s in ST:
+    m, pl, st = s["merk"], s["plaats"], s["straat"]
+    e10, dz, e5 = s.get("e10"), s.get("diesel"), s.get("e5")
+    hoofd = e10 or e5 or dz
+    verschil = (NL["e10"] - e10) if e10 and NL["e10"] else None
+    steden = sorted(((n, hav((s["lat"], s["lng"]), (a, b))) for n, a, b in NLSTEDEN), key=lambda x: x[1])
+    steden = [x for x in steden if x[1] <= 60][:4] or steden[:3]
+    rijen = "".join(f'<tr><td>{esc(n)}</td><td class="p">{round(km * OMRIJ * 2)} km</td>' + "".join(
+        (lambda b: f'<td class="p {"pos" if (b or 0) > 0 else "neg"}">{eur(b) if b is not None else "–"}{"" if (b or 0) >= 0 else " verlies"}</td>')(besparing(NL[f], s.get(f), km * OMRIJ * 2)) for f in ("e10", "diesel")) + "</tr>"
+        for n, km in steden)
+    buren = sorted((x for x in ST if x is not s), key=lambda x: hav((s["lat"], s["lng"]), (x["lat"], x["lng"])))[:6]
+    goedkoper = [x for x in buren if x.get("e10") and e10 and x["e10"] < e10 - 0.005 and hav((s["lat"], s["lng"]), (x["lat"], x["lng"])) < 5]
+    kortst = (f"Bij {m} aan de {st} in {pl} kost Euro95 (E10) € {p3(e10)} per liter en diesel € {p3(dz)}"
+              + (f", zo'n {abs(verschil) * 100:.0f} cent per liter {'minder' if verschil > 0 else 'meer'} dan gemiddeld in Nederland." if verschil else ".")).replace(" in E10 € –", "")
+    bij = s["bij"]
+    weet = [f"Dit station ligt ongeveer {s['grens']:.0f} km van de Nederlandse grens.".replace("ongeveer 0 km", "vlak bij"),
+            "Duitse tankstations mogen hun prijs maar één keer per dag verhogen, om 12:00 uur. Vlak daarvoor tank je meestal het goedkoopst."]
+    if s["hwy"]: weet.insert(0, "Dit is een station aan de snelweg (Autobahn). Die zijn meestal flink duurder; rij liever een afslag eraf.")
+    if goedkoper: weet.append(f"In de buurt is {merknaam(goedkoper[0])} ({goedkoper[0]['straat']}) nu goedkoper: E10 € {p3(goedkoper[0]['e10'])}.")
+    vr = [(f"Wat kost tanken bij {m} in {pl}?", f"Euro95 (E10) € {p3(e10)}, Super E5 € {p3(e5)} en diesel € {p3(dz)} per liter (laatst bekende prijs van {NU})."),
+          (f"Is tanken bij {m} in {pl} goedkoper dan in Nederland?", (f"Ja, E10 is hier ongeveer {verschil * 100:.0f} cent per liter goedkoper dan de gemiddelde Nederlandse pompprijs van € {p3(NL['e10'])}." if verschil and verschil > 0 else f"Vandaag niet of nauwelijks: de gemiddelde Nederlandse pompprijs is € {p3(NL['e10'])}.")),
+          (f"Wanneer tank je het goedkoopst in {pl}?", "Vlak vóór 12:00 uur. Duitse stations mogen hun prijs alleen om 12 uur verhogen; verlagen mag de hele dag.")]
+    fh, fl = faq(vr)
+    tegels = ('<div class="tegels">' + "".join(f'<div><span>{lbl}</span><b><span data-st="{f}">{p3(s.get(f))}</span></b><small>NL ± {p3(NL[f])}</small></div>'
+              for f, lbl in (("e10", "Euro95 / E10"), ("diesel", "Diesel"), ("e5", "Super E5")) if s.get(f)) + "</div>")
+    q = urllib.parse.quote(f'{s["lat"]},{s["lng"]}')
+    route = (f'<p class="knoppen"><a class="knop" href="https://www.google.com/maps/dir/?api=1&amp;destination={q}&amp;travelmode=driving">Route met Google Maps</a> '
+             f'<a class="knop sec" href="https://maps.apple.com/?daddr={q}&amp;dirflg=d">Route met Apple Kaarten</a></p>')
+    inhoud = (kort(esc(kortst)) + f'<p class="meta" id="stlive" data-id="{s["id"]}">Laatst bekende prijs ({esc(NU)})</p>' + tegels +
+              f'<p><b>Adres:</b> {esc(st)}, {esc(s.get("pc") or "")} {esc(pl)}, Duitsland</p>' + route + '<div id="stopen"></div>' +
+              f'<h2>Wat levert een volle tank op?</h2><p>{LITERS} liter, na aftrek van de brandstof voor heen en terug (1 op 15).</p>'
+              f'<div class="tw"><table class="pt"><thead><tr><th>Vanuit</th><th class="p">Rit</th><th class="p">E10</th><th class="p">Diesel</th></tr></thead><tbody>{rijen}</tbody></table></div>'
+              '<h2>Goed om te weten</h2><ul>' + "".join(f"<li>{esc(t)}</li>" for t in weet) + "</ul>"
+              f'<h2>Andere tankstations in de buurt</h2>{st_tabel(buren, s)}' + fh +
+              (f'<p class="meta"><a href="/gids/tanken-in-{bij[1]}.html">Alles over tanken in {esc(bij[0])}</a> · <a href="/tankstation/">Alle grensstations</a></p>' if bij else "") +
+              '<p class="bronnen">Prijzen: Markttransparenzstelle für Kraftstoffe via Tankerkönig (CC BY 4.0), elk half uur bijgewerkt. De prijs aan de pomp is leidend.</p>' + STJS)
+    titel = f"{m} {pl}, {st}: prijs vandaag" + (f" E10 € {p3(e10)}" if e10 else (f" diesel € {p3(dz)}" if dz else ""))
+    omschr = f"Actuele prijs bij {m}, {st} in {pl}: E10 € {p3(e10)}, diesel € {p3(dz)}, Super E5 € {p3(e5)}. Vergelijk met Nederland en zie wat een volle tank je oplevert."
+    ld_st = {"@context": "https://schema.org", "@type": "GasStation", "name": f"{m} {pl}", "url": BASE + s["pad"],
+             "address": {"@type": "PostalAddress", "streetAddress": st, "postalCode": s.get("pc") or "", "addressLocality": pl, "addressCountry": "DE"},
+             "geo": {"@type": "GeoCoordinates", "latitude": s["lat"], "longitude": s["lng"]}, **({"brand": {"@type": "Brand", "name": m}} if s.get("brand") else {})}
+    kr = [("Home", "/"), ("Tankstations", "/tankstation/")] + ([(f"Tanken in {bij[0]}", f"/gids/tanken-in-{bij[1]}.html")] if bij else []) + [(f"{m} {st}", None)]
+    schrijf(s["pad"], pagina(s["pad"], titel, omschr, f"{m} {pl} – {st}", inhoud, [fl, ld_st, SPEAK(s["pad"], f"{m} {pl}")], kr))
+    gemaakt.append((s["pad"], "0.6"))
+# overzicht van alle grensstations, per grensplaats
+if ST:
+    blok = ""
+    for p in DE_PL:
+        hier = sorted([s for s in ST if s["bij"] is p], key=lambda s: (s.get("e10") or 9))
+        if hier: blok += f'<h2 id="{p[1]}">Tankstations bij {esc(p[0])}</h2>' + st_tabel(hier) + f'<p class="meta"><a href="/gids/tanken-in-{p[1]}.html">Meer over tanken in {esc(p[0])}</a></p>'
+    beste = min((s for s in ST if s.get("e10") and not s["hwy"]), key=lambda s: s["e10"], default=None)
+    kort_st = (f"Hier staan alle {len(ST)} Duitse tankstations vlak over de Nederlandse grens, met hun prijs. "
+               + (f"Het goedkoopste voor Euro95 (E10) is nu {beste['merk']} in {beste['plaats']}: € {p3(beste['e10'])} per liter." if beste else ""))
+    snel = '<p class="meta">Spring naar: ' + " · ".join(f'<a href="#{p[1]}">{esc(p[0])}</a>' for p in DE_PL if any(s["bij"] is p for s in ST)) + "</p>"
+    schrijf("/tankstation/", pagina("/tankstation/", f"Alle tankstations aan de Duitse grens met prijs ({MAAND})",
+        f"{len(ST)} Duitse tankstations vlak over de grens met de prijs van vandaag: Kleve, Emmerich, Gronau, Aken, Kaldenkirchen en meer.",
+        "Tankstations aan de Duitse grens", kort(esc(kort_st)) + snel + blok + '<p class="bronnen">Prijzen: Markttransparenzstelle für Kraftstoffe via Tankerkönig (CC BY 4.0).</p>',
+        [SPEAK("/tankstation/", "Tankstations aan de Duitse grens")], [("Home", "/"), ("Tankstations", None)]))
+    gemaakt.append(("/tankstation/", "0.8"))
+
 # ---------- grensplaatsen ----------
 def pl_regels(pl, f="e10"):
     naam, slug, cc, lat, lng, k = pl
@@ -238,6 +350,7 @@ for pl in PLAATSEN:
               f'<h2>Wat levert een volle tank op?</h2><p>{LITERS} liter, na aftrek van de brandstof voor heen en terug (1 op 15).</p>'
               f'<div class="tw"><table class="pt"><thead><tr><th>Vanuit</th><th class="p">Rit</th><th class="p">E10</th><th class="p">Diesel</th></tr></thead><tbody>{rows}</tbody></table></div>'
               f'<h2>Tips voor tanken in {esc(naam)}</h2><ul>' + "".join(f"<li>{esc(t)}</li>" for t in tips) + "</ul>" +
+              ((lambda hier: f'<h2>Tankstations in en rond {esc(naam)}</h2>' + st_tabel(hier) if hier else "")(sorted([x for x in ST if x["bij"] is pl], key=lambda x: (x.get("e10") or 9))) if cc == "DE" else "") +
               f'<p><a class="knop sec" href="/?q={urllib.parse.quote(naam.split(" (")[0])}">Bekijk alle tankstations in {esc(naam)}</a></p>' + fh +
               '<p class="meta"><a href="/gids/grensplaatsen.html">Alle grensplaatsen vergelijken</a> · <a href="/gids/tanken-in-' + ("duitsland" if cc == "DE" else "belgie") + f'.html">Meer over tanken in {landnaam}</a></p>')
     pad = f"/gids/tanken-in-{slug}.html"
@@ -426,6 +539,7 @@ llms = [f"# Tankwijzer", "", "> Gratis Nederlandse web-app die benzine-, diesel-
         f"- [Grensplaatsen]({BASE}/gids/grensplaatsen.html): alle grensplaatsen in Duitsland en België met prijs en besparing",
         f"- [Prijsgegevens als JSON]({BASE}/data.json): actuele dagprijzen (open data)", "", "## Tankgids"]
 llms += [f"- [{k}]({BASE}{p}): {o}" for p, k, o in ART]
+llms += [f"- [Alle Duitse grensstations met prijs]({BASE}/tankstation/): {len(ST)} tankstations, elk met een eigen pagina"]
 llms += ["", "## Tanken per grensplaats"] + [f"- [Tanken in {pl[0]}]({BASE}/gids/tanken-in-{pl[1]}.html)" for pl in PLAATSEN]
 llms += ["", "## Meer gratis sites van Erik"] + [f"- [{n}]({u}): {o}" for u, n, o in ANDERE_SITES]
 open(os.path.join(OUT, "llms.txt"), "w").write("\n".join(llms) + "\n")

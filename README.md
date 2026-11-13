@@ -12,6 +12,7 @@ Geen reclame, geen account, geen cookies, geen verdienmodel.
 - **netlify/functions/data.mjs**: `/data.json`, de actuele dagprijzen voor app en gids.
 - **.github/workflows/prijzen.yml**: twee keer per dag `/data.json` in `site/data-basis.json` zetten, zodat Netlify de gidspagina's opnieuw bouwt.
 - **site/fonts/**: lettertypen op de eigen site (sneller dan Google Fonts, geen extra verbinding).
+- **Pagina per tankstation** (/tankstation/): alle Duitse grensstations, gemaakt door bouw.py uit scripts/stations.py (live via /api/tk, met site/stations-basis.json als reserve; de workflow werkt die twee keer per dag bij). Prijs en openingstijden worden live geladen als iemand de pagina opent.
 - **llms.txt** (gemaakt door bouw.py): samenvatting met de prijzen van vandaag voor AI-zoekmachines. Na elke prijsupdate meldt de workflow de belangrijkste pagina's via IndexNow aan Bing (dat ook ChatGPT en Copilot voedt).
 - Bezoekersstatistiek: GoatCounter (goedkopertanken.goatcounter.com), zonder cookies.
 
