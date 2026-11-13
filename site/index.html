@@ -55,7 +55,7 @@ h1 .sub::before{content:"";width:8px;height:8px;border-radius:50%;background:var
 h2{font-family:var(--f-display);font-weight:600;font-size:1.45rem;margin:0;line-height:1.1}
 h3{font-size:1rem;margin:0}
 .note{font-size:.85rem;color:var(--muted);margin:0}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}.top h1{min-width:0}.top .status{flex:none;white-space:nowrap}
 .status{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.3rem .75rem}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
 .status.live i{background:var(--good)} .status.stale i{background:var(--mid)} .status.err i{background:var(--bad)}
@@ -72,10 +72,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 .flag.de{background:linear-gradient(#000 33%,#dd0000 33% 66%,#ffce00 66%)}
 .led{font-family:var(--f-num);font-weight:700;color:var(--led);font-size:clamp(1.3rem,5vw,2.4rem);line-height:1.1;font-variant-numeric:tabular-nums}
 .led small{font-size:.4em;color:var(--led-dim);margin-left:3px}
-.pump .src{font-size:.72rem;color:#93a39f;overflow-wrap:anywhere}
+.pump .src{font-size:.72rem;line-height:1.4;min-height:2.8em;color:#93a39f;overflow-wrap:anywhere}
 .verdict{border-radius:14px;padding:12px 14px;display:flex;gap:12px;align-items:center;border:1px solid var(--line);background:var(--surface)}
+#vHead{display:block}#vSub{min-height:2.6em}
 .linkbtn{border:0;background:none;padding:0;font:inherit;font-weight:700;color:var(--accent);text-decoration:underline;cursor:pointer}
-.verdict .vnum{font-family:var(--f-display);font-weight:700;font-size:2.1rem;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.verdict .vnum{min-width:2.7em;text-align:center;font-family:var(--f-display);font-weight:700;font-size:2.1rem;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
 .verdict.good .vnum{color:var(--good)} .verdict.bad .vnum{color:var(--bad)}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .banner{border-radius:12px;padding:12px 14px;background:var(--mid-bg);color:var(--ink);border:1px solid color-mix(in srgb,var(--mid) 40%,transparent);display:flex;flex-direction:column;gap:8px}
@@ -283,7 +284,7 @@ body{padding-top:0}
   </section>
 </div></header>
 <div class="wrap">
-  <div class="verdict" id="verdict" style="flex-wrap:wrap"><div class="vnum" id="vBig">–</div><div style="flex:1;min-width:180px"><strong id="vHead"></strong><div class="note" id="vSub"></div></div>
+  <div class="verdict" id="verdict" style="flex-wrap:wrap"><div class="vnum" id="vBig">–</div><div style="flex:1;min-width:180px"><strong id="vHead">Prijzen vergelijken…</strong><div class="note" id="vSub">Netto besparing vanaf je huidige locatie, na rijkosten</div></div>
     <div class="nav2" style="width:100%"><a class="big g" id="vRoute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg><span class="bl"><b>Google Maps</b><small>Android Auto · CarPlay</small></span></a><a class="big a" id="vApple" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg><span class="bl"><b>Apple Kaarten</b><small>CarPlay</small></span></a></div></div>
   <div id="alertBanner" class="banner hit" hidden></div>
 
