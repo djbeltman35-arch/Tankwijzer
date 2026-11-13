@@ -27,7 +27,7 @@ p,li{max-width:70ch}
 .pt thead th{border-top:none;font-size:.82rem;color:var(--muted);background:color-mix(in srgb,var(--line) 35%,transparent)}
 .pt .p{text-align:right;white-space:nowrap;font:700 1rem var(--f-num)}
 .pt .sub{display:block;font-size:.8rem;color:var(--muted);font-weight:400}
-.pt .pos{color:var(--good)}.pt .neg{color:var(--bad)}
+.pt .pos{color:color-mix(in srgb,var(--good) 80%,#000)}.pt .neg{color:var(--bad)}
 .flag{display:inline-block;width:18px;height:12px;border-radius:2px;margin-right:7px;vertical-align:-1px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
 .flag.nl{background:linear-gradient(#ae1c28 33%,#fff 0 66%,#21468b 0)}.flag.be{background:linear-gradient(90deg,#000 33%,#fdda24 0 66%,#ef3340 0)}.flag.de{background:linear-gradient(#000 33%,#dd0000 0 66%,#ffce00 0)}
 .tegels{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
@@ -47,3 +47,5 @@ ol.tips li{margin:6px 0}
 .foot p{margin:6px 0}.foot .free{font-weight:700;color:var(--ink)}
 .foot nav{display:flex;flex-wrap:wrap;gap:4px 16px;margin:8px 0}.foot nav a{font-weight:600;text-decoration:none}
 .foot .small{font-size:.8rem}
+
+.apps{margin:16px 0 8px}.apps h2{font-size:1.1rem;margin:0 0 8px}.apps ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}.apps li{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;margin:0}.apps li a{font-weight:700;text-decoration:none}.apps li span{font-size:.82rem;line-height:1.35}

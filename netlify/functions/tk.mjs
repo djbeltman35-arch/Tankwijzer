@@ -3,7 +3,9 @@
 // Antwoorden worden 5 minuten op het CDN bewaard, zodat Tankerkönig niet onnodig vaak wordt bevraagd.
 const API = 'https://creativecommons.tankerkoenig.de/json/';
 const BESTANDEN = { 'list.php': ['lat', 'lng', 'rad', 'sort', 'type'], 'prices.php': ['ids'], 'detail.php': ['id'] };
-const json = (data, status, extra = {}) => Response.json(data, { status, headers: { 'Access-Control-Allow-Origin': '*', ...extra } });
+const json = (data, status, extra = {}) => Response.json(data, { status, headers: extra });
+// Alleen West-Duitsland (grensregio en omgeving): zo is dit geen gratis doorgeefluik voor heel Duitsland.
+const inRegio = (lat, lng) => lat > 49.3 && lat < 54.6 && lng > 5.6 && lng < 9.8;
 
 export default async (req, context) => {
   const url = new URL(req.url);
@@ -12,6 +14,7 @@ export default async (req, context) => {
   if (!toegestaan) return json({ ok: false, message: 'onbekende opvraag' }, 404);
   const key = Netlify.env.get('TANKERKOENIG_KEY');
   if (!key) return json({ ok: false, message: 'Live Duitse prijzen zijn tijdelijk niet beschikbaar.' }, 503);
+  if (bestand === 'list.php' && !inRegio(+url.searchParams.get('lat'), +url.searchParams.get('lng'))) return json({ ok: false, message: 'Alleen de Duitse grensregio.' }, 400);
   const q = new URLSearchParams();
   for (const k of toegestaan) {
     let v = url.searchParams.get(k); if (v == null) continue;

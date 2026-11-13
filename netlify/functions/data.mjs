@@ -16,7 +16,8 @@ export default async () => {
       await store.setJSON('data', d);
     } catch (e) { d = d || basis; d._log = [...log, 'verversen mislukt: ' + e.message]; }
   }
-  return Response.json(d, { headers: { 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'public, max-age=0, must-revalidate', 'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=600' } });
+  const { _log, ...openbaar } = d;
+  return Response.json(openbaar, { headers: { 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'public, max-age=0, must-revalidate', 'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=600' } });
 };
 
 export const config = { path: '/data.json' };

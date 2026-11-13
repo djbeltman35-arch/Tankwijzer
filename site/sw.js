@@ -1,6 +1,6 @@
 // Service worker: app werkt offline (laatst bekende prijzen), live gegevens altijd via het netwerk.
-const VERSION = "tankwijzer-v22";
-const SHELL = ["./", "index.html", "app.js", "geo.js", "data.json", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
+const VERSION = "tankwijzer-v23";
+const SHELL = ["./", "index.html", "app.js", "geo.js", "data.json", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "fonts/figtree-400.woff2", "fonts/barlow-condensed-700.woff2", "fonts/jetbrains-mono-500.woff2"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

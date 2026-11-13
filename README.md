@@ -11,6 +11,8 @@ Geen reclame, geen account, geen cookies, geen verdienmodel.
 - **netlify/functions/prijzen-ophalen.mjs**: elk half uur dagprijzen ophalen (UnitedConsumers, carbu.com, fuel-prices.eu, Tankerkönig voor de Duitse grensstrook) naar Netlify Blobs.
 - **netlify/functions/data.mjs**: `/data.json`, de actuele dagprijzen voor app en gids.
 - **.github/workflows/prijzen.yml**: twee keer per dag `/data.json` in `site/data-basis.json` zetten, zodat Netlify de gidspagina's opnieuw bouwt.
+- **site/fonts/**: lettertypen op de eigen site (sneller dan Google Fonts, geen extra verbinding).
+- **llms.txt** (gemaakt door bouw.py): samenvatting met de prijzen van vandaag voor AI-zoekmachines. Na elke prijsupdate meldt de workflow de belangrijkste pagina's via IndexNow aan Bing (dat ook ChatGPT en Copilot voedt).
 - Bezoekersstatistiek: GoatCounter (goedkopertanken.goatcounter.com), zonder cookies.
 
 De oude site tankgoedkoper.netlify.app bouwt uit dezelfde repo en stuurt alles door (zie het begin van bouw.py).

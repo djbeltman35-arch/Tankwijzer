@@ -265,7 +265,12 @@ async function loadData() {
   for (const r of got) { const j = r.value; if (r.status === "fulfilled" && j?.updated && (!S.data.updated || j.updated > S.data.updated)) { S.data = j; store.set("tw_data", j); } }
   render();
 }
-const cbsRows = () => (S.cbs?.rows?.length ? S.cbs.rows : CBS_FALLBACK);
+// CBS-dagprijzen: eigen opvraag of die uit data.json (server), de nieuwste wint; anders de ingebouwde reeks.
+const cbsRows = () => {
+  const a = S.cbs?.rows?.length ? S.cbs.rows : null, b = S.data.nl?.cbs?.length ? S.data.nl.cbs : null;
+  if (a && b) return a[a.length - 1][0] >= b[b.length - 1][0] ? a : b;
+  return a || b || CBS_FALLBACK;
+};
 function cbsOn(k, f) { const i = f === "diesel" ? 2 : 1, rows = cbsRows(); let b = rows[0]; for (const r of rows) if (r[0] <= k) b = r; return b[i]; }
 const beMax = (f = S.fuel) => S.data.be?.max?.[f] ?? null;
 const beAvg = (f = S.fuel) => S.data.be?.avg?.[f] ?? beMax(f);
@@ -471,7 +476,7 @@ function renderCompare() {
     $("vHead").textContent = best.net > 0 ? `Voordeligst: ${best.label}` : "Omrijden loont nu niet";
     $("vSub").textContent = `Netto ${eur(best.net)} vanaf je huidige locatie, na rijkosten`;
   }
-  if (!S.home) $("vSub").textContent = "Zet je locatie aan voor de netto besparing na rijkosten.";
+  if (!S.home) { $("vSub").innerHTML = 'Zie je netto besparing na rijkosten: <button type="button" class="linkbtn" id="vLoc">gebruik mijn locatie</button>'; $("vLoc").onclick = () => { $("vLoc").textContent = "locatie bepalen…"; refreshLocation(true); }; }
   $("lvlLbl").textContent = $("cLvl").value + "%"; $("litLbl").textContent = L + " L";
   if (document.activeElement !== $("cNL")) $("cNL").value = S.nlOwn[S.fuel] || ""; $("cNL").placeholder = fmt(nlPrice().p);
 }
@@ -503,7 +508,7 @@ function renderFills() {
 // ---------- bediening ----------
 function showTab(t) {
   S.tab = t;
-  document.querySelectorAll("[data-tab]").forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === t));
+  document.querySelectorAll("[data-tab]").forEach((b) => b.dataset.tab === t ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
   document.querySelectorAll("[data-view]").forEach((v) => v.hidden = v.dataset.view !== t);
   window.scrollTo(0, 0); render();
 }
@@ -611,12 +616,15 @@ document.querySelectorAll("[data-theme-set]").forEach((b) => b.addEventListener(
 applyTheme();
 
 // verversen: start, terug in beeld, elke 5 minuten
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") { update(); loadCBS(); loadData(); refreshLocation(); } });
+document.addEventListener("visibilitychange", async () => { if (document.visibilityState === "visible") { update(); loadCBS(); loadData(); if (await locAllowed()) refreshLocation(); } });
 setInterval(() => { if (document.visibilityState === "visible") update(); }, 60 * 1000);
 setInterval(() => { if (document.visibilityState === "visible") loadData(); }, 30 * 60 * 1000);
 window.addEventListener("online", () => update());
 
-showTab("zoek"); loadCBS(); loadData(); update(); refreshLocation(true);
+showTab("zoek"); loadCBS(); loadData(); update();
+// Locatie alleen vanzelf ophalen als die al eerder is toegestaan; anders pas na een tik (geen vraag bij het openen).
+async function locAllowed() { try { return (await navigator.permissions.query({ name: "geolocation" })).state === "granted"; } catch (e) { return true; } }
+locAllowed().then((ok) => { if (ok) refreshLocation(true); else render(); });
 // Direct zoeken via een link uit de tankgids, bijvoorbeeld /?q=Kleve
 { const qp = new URLSearchParams(location.search).get("q"); if (qp) { $("q").value = qp; doSearch(qp); history.replaceState(null, "", location.pathname); } }
 document.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => gc("tab/" + b.dataset.tab, "Tab " + b.dataset.tab)));

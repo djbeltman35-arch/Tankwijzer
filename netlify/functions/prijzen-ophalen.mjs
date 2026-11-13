@@ -54,6 +54,12 @@ export async function verzamel(oud, key, log = console.log) {
     const r = beAvg(await haal(BRONNEN.beAvg)); if (!r) throw new Error('pagina veranderd');
     if (!d.be.avg?.date || r.date >= d.be.avg.date) { d.be.avg = { ...r, src: 'EU Weekly Oil Bulletin, gemiddelde pompprijs' }; d.history.beAvg = hist(d.history.beAvg, r.date, r.e10, r.diesel); }
   });
+  await stap('NL CBS', async () => {
+    const van = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Amsterdam' }).format(new Date(Date.now() - 75 * 864e5)).replace(/-/g, '');
+    const j = JSON.parse(await haal('https://opendata.cbs.nl/ODataApi/odata/80416ned/TypedDataSet?$filter=' + encodeURIComponent(`Perioden ge '${van}'`) + '&$select=Perioden,BenzineEuro95_1,Diesel_2,Lpg_3'));
+    const rows = (j.value || []).filter(r => r.BenzineEuro95_1 > 1 && r.BenzineEuro95_1 < 4).map(r => [r.Perioden.slice(0, 8), r.BenzineEuro95_1, r.Diesel_2, r.Lpg_3]).sort((a, b) => a[0].localeCompare(b[0]));
+    if (rows.length) d.nl.cbs = rows; else throw new Error('geen rijen');
+  });
   await stap('DE gemiddelde', async () => {
     const r = deAvg(await haal(BRONNEN.deAvg)); if (!r) throw new Error('pagina veranderd');
     if (!d.de.avg?.date || r.date >= d.de.avg.date) d.de.avg = { ...r, src: 'EU Weekly Oil Bulletin, gemiddelde pompprijs' };

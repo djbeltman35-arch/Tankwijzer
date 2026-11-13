@@ -110,13 +110,21 @@ def besparing(nl, p, km):
     if nl is None or p is None: return None
     return (nl - p) * LITERS - km * VERBRUIK / 100 * p
 
+ANDERE_SITES = [
+    ("https://boodschappenvergelijk.nl/", "Goedkope Boodschappen", "boodschappen en aanbiedingen vergelijken bij 11 supermarkten"),
+    ("https://vluchtwijzer.netlify.app/", "Vluchtwijzer", "goedkope vliegtickets vanaf vliegvelden in Nederland, België en Duitsland"),
+    ("https://vakantietoppers.netlify.app/", "Vakantiewijzer", "pakketreizen, hotels, vakantieparken en campings vergelijken"),
+    ("https://euroroadrules.eu/", "EuroRoadRules", "vignetten, tol en milieuzones in heel Europa"),
+    ("https://foutcodezoeker.nl/", "Foutcodezoeker", "foutcodes en storingen van apparaten zelf oplossen"),
+    ("https://allesoporde.netlify.app/", "Op Orde", "gratis app voor deadlines, toeslagen en vaste lasten"),
+]
 # ---------- sjabloon ----------
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap">'
+FONTS = '<link rel="preload" href="/fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/jetbrains-mono-500.woff2" as="font" type="font/woff2" crossorigin><style>@font-face{font-family:\'Barlow Condensed\';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/barlow-condensed-600.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'Barlow Condensed\';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/barlow-condensed-700.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'Barlow Condensed\';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/barlow-condensed-800.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'Figtree\';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/figtree-400.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:\'JetBrains Mono\';font-style:normal;font-weight:500 700;font-display:swap;src:url(/fonts/jetbrains-mono-500.woff2) format(\'woff2\');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}</style>'
 GC = '<script data-goatcounter="https://goedkopertanken.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
 NAV = [("/", "Tankwijzer"), ("/gids/prijzen-vandaag.html", "Prijzen vandaag"), ("/gids/grensplaatsen.html", "Grensplaatsen"), ("/gids/", "Tankgids")]
 FOOT = ('<footer class="foot"><p class="free">Tankwijzer is gratis en onafhankelijk: geen reclame, geen betaalde plekken, geen commissie. Ik verdien er geen cent aan.</p>'
         '<nav><a href="/">Tankwijzer openen</a><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a><a href="/gids/grensplaatsen.html">Grensplaatsen</a><a href="/gids/">Tankgids</a><a href="/gids/over.html">Over en privacy</a></nav>'
-        '<p class="apps">Meer van Erik: <a href="https://goedkopeboodschappen.netlify.app/">Goedkope Boodschappen</a> · <a href="https://vluchtwijzer.netlify.app/">Vluchtwijzer</a> · <a href="https://vakantietoppers.netlify.app/">Vakantiewijzer</a></p>'
+        '<section class="apps" aria-labelledby="apps-kop"><h2 id="apps-kop">Meer gratis sites van Erik</h2><ul><li><a href="https://boodschappenvergelijk.nl/">Goedkope Boodschappen</a><span>Boodschappen en aanbiedingen vergelijken bij 11 supermarkten.</span></li><li><a href="https://vluchtwijzer.netlify.app/">Vluchtwijzer</a><span>Goedkope vliegtickets vanaf vliegvelden in Nederland, België en Duitsland.</span></li><li><a href="https://vakantietoppers.netlify.app/">Vakantiewijzer</a><span>Pakketreizen, hotels, vakantieparken en campings vergelijken.</span></li><li><a href="https://euroroadrules.eu/">EuroRoadRules</a><span>Vignetten, tol en milieuzones in heel Europa, ook voor je route.</span></li><li><a href="https://foutcodezoeker.nl/">Foutcodezoeker</a><span>Foutcodes en storingen van apparaten zelf opzoeken en oplossen.</span></li><li><a href="https://allesoporde.netlify.app/">Op Orde</a><span>Gratis app voor je deadlines, toeslagen en vaste lasten.</span></li></ul></section>'
         f'<p class="small">Prijzen bijgewerkt op {esc(NU)}. Bronnen: Tankerkönig/Markttransparenzstelle (CC BY 4.0), carbu.com, UnitedConsumers, CBS, EU Oil Bulletin. De prijs aan de pomp is leidend. <a href="mailto:erik@beltman.email">Made by Erik</a></p></footer>')
 # Werkt de getallen bij zodra iemand de pagina opent (de pagina zelf wordt dagelijks opnieuw gebouwd).
 LIVEJS = '''<script>fetch("/data.json").then(r=>r.json()).then(d=>{const g=(o,p)=>p.split(".").reduce((a,k)=>a&&a[k],o);document.querySelectorAll("[data-k]").forEach(e=>{const v=g(d,e.dataset.k);if(typeof v==="number"&&v>.5)e.textContent=v.toFixed(3).replace(".",",")});const t=document.getElementById("bijgewerkt");if(t&&d.updated)t.textContent=new Date(d.updated).toLocaleString("nl-NL",{day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"})}).catch(()=>{})</script>'''
@@ -396,7 +404,11 @@ seo = (f'<section class="seo" aria-label="Uitleg"><div class="card"><h2>Waar tan
        f'<div class="card">{fh}</div></section>')
 ld_home = [{"@context": "https://schema.org", "@type": "WebApplication", "name": "Tankwijzer", "url": BASE + "/", "applicationCategory": "TravelApplication", "operatingSystem": "Alle (web-app)", "inLanguage": "nl",
             "description": "Live benzine- en dieselprijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Erik", "email": "erik@beltman.email"}},
-           fl]
+           fl,
+           {"@context": "https://schema.org", "@type": "WebSite", "name": "Tankwijzer", "alternateName": "Goedkoper tanken", "url": BASE + "/", "inLanguage": "nl",
+            "description": "Brandstofprijzen in Nederland, België en Duitsland vergelijken, met een tankgids per grensplaats.", "publisher": {"@id": BASE + "/#erik"}},
+           {"@context": "https://schema.org", "@type": "Person", "@id": BASE + "/#erik", "name": "Erik", "email": "erik@beltman.email", "url": BASE + "/gids/over.html",
+            "owns": [{"@type": "WebSite", "name": n, "url": u} for u, n, _ in ANDERE_SITES]}]
 app = app.replace("{{LDJSON}}", json.dumps(ld_home, ensure_ascii=False)).replace("<!--SEO-->", seo)
 open(os.path.join(OUT, "index.html"), "w").write(app)
 
@@ -404,5 +416,21 @@ open(os.path.join(OUT, "index.html"), "w").write(app)
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + f"<url><loc>{BASE}/</loc><lastmod>{VANDAAG.isoformat()}</lastmod><changefreq>hourly</changefreq><priority>1.0</priority></url>\n" + "".join(
     f"<url><loc>{BASE}{p}</loc><lastmod>{VANDAAG.isoformat()}</lastmod><changefreq>daily</changefreq><priority>{pr}</priority></url>\n" for p, pr in gemaakt) + "</urlset>\n"
 open(os.path.join(OUT, "sitemap.xml"), "w").write(sm)
-open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n")
+open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {BASE}/sitemap.xml\n")
+# llms.txt: korte samenvatting voor AI-zoekmachines (ChatGPT, Perplexity, Claude, Gemini), met de prijzen van vandaag
+llms = [f"# Tankwijzer", "", "> Gratis Nederlandse web-app die benzine-, diesel- en LPG-prijzen in Nederland, België en Duitsland vergelijkt, met de besparing na aftrek van de rit naar de grens. Geen reclame, geen account, geen commissie. Gemaakt door Erik.", "",
+        f"Prijzen van vandaag ({NU}): {kort_pv}", "",
+        "Bronnen: Duitse prijzen live van de Markttransparenzstelle für Kraftstoffe via Tankerkönig (CC BY 4.0), elk half uur; Belgische officiële maximumprijs (FOD Economie, via carbu.com) en laagste prijs per grensprovincie, dagelijks; Nederlandse landelijke adviesprijs (UnitedConsumers) en CBS-pompprijzen; EU Weekly Oil Bulletin.", "",
+        "## Belangrijkste pagina's", f"- [Tankwijzer-app]({BASE}/): goedkoopste tankstation zoeken en besparing berekenen vanaf je locatie",
+        f"- [Brandstofprijzen vandaag]({BASE}/gids/prijzen-vandaag.html): E10, diesel en Super 98 in NL, BE en DE naast elkaar",
+        f"- [Grensplaatsen]({BASE}/gids/grensplaatsen.html): alle grensplaatsen in Duitsland en België met prijs en besparing",
+        f"- [Prijsgegevens als JSON]({BASE}/data.json): actuele dagprijzen (open data)", "", "## Tankgids"]
+llms += [f"- [{k}]({BASE}{p}): {o}" for p, k, o in ART]
+llms += ["", "## Tanken per grensplaats"] + [f"- [Tanken in {pl[0]}]({BASE}/gids/tanken-in-{pl[1]}.html)" for pl in PLAATSEN]
+llms += ["", "## Meer gratis sites van Erik"] + [f"- [{n}]({u}): {o}" for u, n, o in ANDERE_SITES]
+open(os.path.join(OUT, "llms.txt"), "w").write("\n".join(llms) + "\n")
+# Nederlandse 404-pagina
+open(os.path.join(OUT, "404.html"), "w").write(pagina("/404.html", "Pagina niet gevonden", "Deze pagina bestaat niet (meer).", "Deze pagina bestaat niet",
+    '<p>Misschien is hij verhuisd. Hier vind je wat je zoekt:</p><ul class="links"><li><a href="/">Tankwijzer openen</a></li><li><a href="/gids/prijzen-vandaag.html">Brandstofprijzen vandaag</a></li><li><a href="/gids/grensplaatsen.html">Alle grensplaatsen</a></li><li><a href="/gids/">Tankgids</a></li></ul>',
+    None, [("Home", "/"), ("Niet gevonden", None)]).replace('<meta name="robots" content="index,follow,max-image-preview:large">', '<meta name="robots" content="noindex">'))
 print(f"klaar: {len(gemaakt) + 1} pagina's in {OUT}")
