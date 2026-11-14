@@ -1,12 +1,12 @@
 {
- "updated": "2026-11-13T16:00:49+01:00",
+ "updated": "2026-11-14T07:00:49+01:00",
  "nl": {
   "advies": {
    "e10": 2.414,
-   "diesel": 2.517,
+   "diesel": 2.525,
    "e5": 2.629,
    "lpg": 1.339,
-   "date": "20261113",
+   "date": "20261114",
    "src": "UnitedConsumers landelijke adviesprijs"
   },
   "adviesHist": [
@@ -154,6 +154,439 @@
     "20261113",
     2.414,
     2.517
+   ],
+   [
+    "20261114",
+    2.414,
+    2.525
+   ]
+  ],
+  "cbs": [
+   [
+    "20260831",
+    2.35,
+    2.326,
+    0.933
+   ],
+   [
+    "20260901",
+    2.382,
+    2.353,
+    0.935
+   ],
+   [
+    "20260902",
+    2.408,
+    2.394,
+    0.934
+   ],
+   [
+    "20260903",
+    2.438,
+    2.428,
+    0.94
+   ],
+   [
+    "20260904",
+    2.456,
+    2.445,
+    0.938
+   ],
+   [
+    "20260905",
+    2.461,
+    2.436,
+    0.936
+   ],
+   [
+    "20260906",
+    2.463,
+    2.439,
+    0.942
+   ],
+   [
+    "20260907",
+    2.466,
+    2.442,
+    0.931
+   ],
+   [
+    "20260908",
+    2.465,
+    2.455,
+    0.935
+   ],
+   [
+    "20260909",
+    2.464,
+    2.46,
+    0.929
+   ],
+   [
+    "20260910",
+    2.454,
+    2.461,
+    0.941
+   ],
+   [
+    "20260911",
+    2.426,
+    2.462,
+    0.941
+   ],
+   [
+    "20260912",
+    2.428,
+    2.482,
+    0.926
+   ],
+   [
+    "20260913",
+    2.428,
+    2.484,
+    0.936
+   ],
+   [
+    "20260914",
+    2.434,
+    2.494,
+    0.936
+   ],
+   [
+    "20260915",
+    2.458,
+    2.523,
+    0.942
+   ],
+   [
+    "20260916",
+    2.464,
+    2.539,
+    0.938
+   ],
+   [
+    "20260917",
+    2.464,
+    2.579,
+    0.938
+   ],
+   [
+    "20260918",
+    2.453,
+    2.577,
+    0.948
+   ],
+   [
+    "20260919",
+    2.447,
+    2.571,
+    0.947
+   ],
+   [
+    "20260920",
+    2.449,
+    2.572,
+    0.943
+   ],
+   [
+    "20260921",
+    2.449,
+    2.579,
+    0.946
+   ],
+   [
+    "20260922",
+    2.443,
+    2.562,
+    0.955
+   ],
+   [
+    "20260923",
+    2.441,
+    2.543,
+    0.948
+   ],
+   [
+    "20260924",
+    2.444,
+    2.539,
+    0.946
+   ],
+   [
+    "20260925",
+    2.459,
+    2.536,
+    0.951
+   ],
+   [
+    "20260926",
+    2.462,
+    2.522,
+    0.959
+   ],
+   [
+    "20260927",
+    2.463,
+    2.522,
+    0.954
+   ],
+   [
+    "20260928",
+    2.465,
+    2.526,
+    0.956
+   ],
+   [
+    "20260929",
+    2.456,
+    2.53,
+    0.953
+   ],
+   [
+    "20260930",
+    2.44,
+    2.511,
+    0.95
+   ],
+   [
+    "20261001",
+    2.437,
+    2.518,
+    0.953
+   ],
+   [
+    "20261002",
+    2.433,
+    2.519,
+    0.949
+   ],
+   [
+    "20261003",
+    2.428,
+    2.502,
+    0.961
+   ],
+   [
+    "20261004",
+    2.427,
+    2.499,
+    0.955
+   ],
+   [
+    "20261005",
+    2.432,
+    2.506,
+    0.955
+   ],
+   [
+    "20261006",
+    2.432,
+    2.496,
+    0.958
+   ],
+   [
+    "20261007",
+    2.434,
+    2.472,
+    0.958
+   ],
+   [
+    "20261008",
+    2.45,
+    2.476,
+    0.959
+   ],
+   [
+    "20261009",
+    2.455,
+    2.482,
+    0.952
+   ],
+   [
+    "20261010",
+    2.457,
+    2.477,
+    0.97
+   ],
+   [
+    "20261011",
+    2.457,
+    2.477,
+    0.964
+   ],
+   [
+    "20261012",
+    2.462,
+    2.482,
+    0.961
+   ],
+   [
+    "20261013",
+    2.458,
+    2.472,
+    0.968
+   ],
+   [
+    "20261014",
+    2.449,
+    2.458,
+    0.971
+   ],
+   [
+    "20261015",
+    2.435,
+    2.466,
+    0.973
+   ],
+   [
+    "20261016",
+    2.414,
+    2.462,
+    0.977
+   ],
+   [
+    "20261017",
+    2.39,
+    2.451,
+    0.985
+   ],
+   [
+    "20261018",
+    2.391,
+    2.451,
+    0.977
+   ],
+   [
+    "20261019",
+    2.391,
+    2.456,
+    0.984
+   ],
+   [
+    "20261020",
+    2.367,
+    2.451,
+    0.987
+   ],
+   [
+    "20261021",
+    2.35,
+    2.457,
+    0.994
+   ],
+   [
+    "20261022",
+    2.339,
+    2.458,
+    0.994
+   ],
+   [
+    "20261023",
+    2.322,
+    2.463,
+    0.999
+   ],
+   [
+    "20261024",
+    2.31,
+    2.462,
+    1.003
+   ],
+   [
+    "20261025",
+    2.31,
+    2.461,
+    0.994
+   ],
+   [
+    "20261026",
+    2.313,
+    2.469,
+    0.997
+   ],
+   [
+    "20261027",
+    2.302,
+    2.474,
+    0.998
+   ],
+   [
+    "20261028",
+    2.292,
+    2.476,
+    1.01
+   ],
+   [
+    "20261029",
+    2.291,
+    2.472,
+    1.008
+   ],
+   [
+    "20261030",
+    2.284,
+    2.457,
+    1.013
+   ],
+   [
+    "20261031",
+    2.281,
+    2.46,
+    1.011
+   ],
+   [
+    "20261101",
+    2.279,
+    2.46,
+    1.015
+   ],
+   [
+    "20261102",
+    2.284,
+    2.468,
+    1.02
+   ],
+   [
+    "20261103",
+    2.262,
+    2.44,
+    1.024
+   ],
+   [
+    "20261104",
+    2.246,
+    2.426,
+    1.028
+   ],
+   [
+    "20261105",
+    2.227,
+    2.406,
+    1.025
+   ],
+   [
+    "20261106",
+    2.204,
+    2.373,
+    1.022
+   ],
+   [
+    "20261107",
+    2.194,
+    2.359,
+    1.023
+   ],
+   [
+    "20261108",
+    2.193,
+    2.355,
+    1.036
+   ],
+   [
+    "20261109",
+    2.196,
+    2.361,
+    1.029
    ]
   ]
  },
@@ -161,17 +594,17 @@
   "max": {
    "e10": 1.842,
    "e5": 1.941,
-   "diesel": 2.369,
+   "diesel": 2.332,
    "lpg": 1.049,
-   "date": "20261113",
+   "date": "20261114",
    "src": "officiële maximumprijs (FOD Economie)"
   },
   "next": {
    "e10": 1.842,
    "e5": 1.941,
    "diesel": 2.332,
-   "lpg": 1.049,
-   "date": "20261114"
+   "lpg": null,
+   "date": "20261116"
   },
   "avg": {
    "e10": 1.844,
@@ -181,7 +614,7 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "low": {
-   "date": "20261113",
+   "date": "20261114",
    "where": {
     "e10": "Luik",
     "e5": "Limburg",
@@ -191,75 +624,75 @@
    "src": "laagste prijs grensprovincies (Antwerpen, Limburg, Luik)",
    "e10": 1.634,
    "e5": 1.796,
-   "diesel": 2.144,
+   "diesel": 2.123,
    "lpg": 0.899
   },
   "prov": {
-   "date": "20261113",
+   "date": "20261114",
    "Antwerpen": {
     "e10": 1.65,
     "e5": 1.826,
-    "diesel": 2.164,
+    "diesel": 2.127,
     "lpg": 0.969
    },
    "Vlaams-Brabant": {
     "e10": 1.642,
     "e5": 1.741,
-    "diesel": 2.156,
+    "diesel": 2.119,
     "lpg": 0.999
    },
    "Waals Brabant": {
     "e10": 1.629,
     "e5": 1.821,
-    "diesel": 2.156,
+    "diesel": 2.119,
     "lpg": 0.989
    },
    "Brussel": {
     "e10": 1.657,
     "e5": 1.901,
-    "diesel": 2.172,
+    "diesel": 2.135,
     "lpg": 0.999
    },
    "West-Vlaanderen": {
     "e10": 1.669,
     "e5": 1.839,
-    "diesel": 2.099,
+    "diesel": 2.129,
     "lpg": 0.97
    },
    "Oost-Vlaanderen": {
     "e10": 1.636,
     "e5": 1.741,
-    "diesel": 2.156,
+    "diesel": 2.119,
     "lpg": 0.979
    },
    "Henegouwen": {
     "e10": 1.636,
     "e5": 1.741,
-    "diesel": 2.164,
+    "diesel": 2.132,
     "lpg": 0.969
    },
    "Luik": {
     "e10": 1.634,
     "e5": 1.834,
-    "diesel": 2.189,
+    "diesel": 2.152,
     "lpg": 0.957
    },
    "Limburg": {
-    "e10": 1.637,
+    "e10": 1.635,
     "e5": 1.796,
-    "diesel": 2.144,
+    "diesel": 2.123,
     "lpg": 0.899
    },
    "Luxemburg": {
-    "e10": 1.706,
+    "e10": 1.695,
     "e5": 1.861,
-    "diesel": 2.219,
+    "diesel": 2.182,
     "lpg": 1.049
    },
    "Namen": {
     "e10": 1.643,
     "e5": 1.839,
-    "diesel": 2.162,
+    "diesel": 2.125,
     "lpg": 0.959
    }
   }
@@ -274,15 +707,15 @@
   },
   "border": {
    "e10": 1.889,
-   "diesel": 2.119,
+   "diesel": 2.079,
    "e5": 1.949,
-   "date": "20261113",
-   "at": "2026-11-13T15:00:49.334Z",
+   "date": "20261114",
+   "at": "2026-11-14T06:00:49.549Z",
    "where": {
-    "e10": "Supermarkt-Tankstelle, AACHEN",
-    "diesel": "KS Nordhorn Freie Tankstelle, Nordhorn"
+    "e10": "SB, Aachen",
+    "diesel": "PM, Straelen"
    },
-   "n": 151,
+   "n": 117,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
   },
   "nrw": {
@@ -291,52 +724,52 @@
    "src": "gemiddelde Noordrijn-Westfalen"
   },
   "points": {
-   "date": "20261113",
-   "at": "2026-11-13T15:00:49.333Z",
+   "date": "20261114",
+   "at": "2026-11-14T06:00:49.549Z",
    "Kleve": {
-    "e10": 1.979,
+    "e10": 1.949,
     "e10Waar": "JET, KALKARER STR. 49",
-    "diesel": 2.149,
-    "dieselWaar": "Kuster Energy, Dieselstr. 8",
-    "e5": 2.029,
+    "diesel": 2.099,
+    "dieselWaar": "JET, KALKARER STR. 49",
+    "e5": 1.999,
     "e5Waar": "Kuster Energy, Dieselstr. 8",
-    "n": 10
+    "n": 5
    },
    "Emmerich": {
-    "e10": 1.989,
-    "e10Waar": "JET, REESER STR. 57",
-    "diesel": 2.159,
+    "e10": 1.969,
+    "e10Waar": "Kuster Energy, Speelbergerstraße 50",
+    "diesel": 2.109,
     "dieselWaar": "Kuster Energy, Werner-Heisenberg-Straße 18",
-    "e5": 2.049,
-    "e5Waar": "JET, REESER STR. 57",
-    "n": 7
+    "e5": 2.019,
+    "e5Waar": "Kuster Energy, Speelbergerstraße 50",
+    "n": 5
    },
    "Bocholt": {
-    "e10": 1.949,
-    "e10Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "diesel": 2.149,
-    "dieselWaar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "e5": 2.009,
-    "e5Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
-    "n": 12
+    "e10": 1.939,
+    "e10Waar": "JET, AN DER KOENIGSMUEHLE 13",
+    "diesel": 2.109,
+    "dieselWaar": "JET, AN DER KOENIGSMUEHLE 13",
+    "e5": 1.999,
+    "e5Waar": "JET, AN DER KOENIGSMUEHLE 13",
+    "n": 7
    },
    "Gronau": {
-    "e10": 1.974,
-    "e10Waar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
+    "e10": 1.979,
+    "e10Waar": "JET, OCHTRUPER STR. 208",
     "diesel": 2.149,
     "dieselWaar": "K+K Klaas & Kock, Ochtruper Strasse 127",
-    "e5": 2.034,
-    "e5Waar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
-    "n": 14
+    "e5": 2.039,
+    "e5Waar": "K+K Klaas & Kock, Ochtruper Strasse 127",
+    "n": 8
    },
    "Bad Bentheim": {
-    "e10": 1.979,
-    "e10Waar": "freie Tankstelle, Eisenbahnstraße 4",
+    "e10": 1.939,
+    "e10Waar": "SB, Bahnhofstraße 7",
     "diesel": 2.169,
-    "dieselWaar": "freie Tankstelle, Eisenbahnstraße 4",
-    "e5": 2.039,
-    "e5Waar": "freie Tankstelle, Eisenbahnstraße 4",
-    "n": 8
+    "dieselWaar": "bft H. Gr. Höötmann Tankstellen GmbH, Euregiostr. 1",
+    "e5": 1.999,
+    "e5Waar": "SB, Bahnhofstraße 7",
+    "n": 6
    },
    "Nordhorn": {
     "e10": 1.929,
@@ -345,7 +778,7 @@
     "dieselWaar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
     "e5": 1.989,
     "e5Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
-    "n": 9
+    "n": 8
    },
    "Bunde": {
     "e10": 2.059,
@@ -357,83 +790,83 @@
     "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 2.078,
-    "e10Waar": "Tank & Waschhof Timmermanns, Wevelinghoven 14",
-    "diesel": 2.259,
-    "dieselWaar": "AVIA XPress, Neustraße 20",
-    "e5": 2.139,
-    "e5Waar": "TAP, Kaldenkirchener Str. 52",
-    "n": 13
+    "e10": 1.929,
+    "e10Waar": "PM, Geldrische Str. 65a",
+    "diesel": 2.119,
+    "dieselWaar": "PM, Geldrische Str. 65a",
+    "e5": 1.989,
+    "e5Waar": "PM, Geldrische Str. 65a",
+    "n": 9
    },
    "Aken": {
     "e10": 1.889,
-    "e10Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
-    "diesel": 2.259,
-    "dieselWaar": "EMOVA, Gut-Dämme-Straße 22",
+    "e10Waar": "SB, Roermonder Straße 110 A",
+    "diesel": 2.139,
+    "dieselWaar": "JET, AACHENER STR. 86",
     "e5": 1.949,
-    "e5Waar": "Supermarkt-Tankstelle, BRESLAUER STRASSE 35",
-    "n": 33
+    "e5Waar": "SB, Roermonder Straße 110 A",
+    "n": 27
    },
    "Selfkant": {
-    "e10": 2.019,
-    "e10Waar": "STAR, Landstraße 4",
-    "diesel": 2.299,
-    "dieselWaar": "SB Automatenstation, Hauptstraße 96-98",
-    "e5": 2.059,
+    "e10": 1.889,
+    "e10Waar": "SB Automatenstation, Hauptstraße 96-98",
+    "diesel": 2.139,
+    "dieselWaar": "TinQ, Raiffeisenstr. 1",
+    "e5": 1.949,
     "e5Waar": "TinQ, Raiffeisenstr. 1",
-    "n": 7
+    "n": 5
    },
    "Elten": {
-    "e10": 1.989,
+    "e10": 1.959,
     "e10Waar": "STAR, Beeker Straße 250",
-    "diesel": 2.169,
+    "diesel": 2.119,
     "dieselWaar": "STAR, Beeker Straße 250",
-    "e5": 2.049,
+    "e5": 2.019,
     "e5Waar": "STAR, Beeker Straße 250",
     "n": 4
    },
    "Straelen": {
-    "e10": 2.039,
+    "e10": 1.919,
     "e10Waar": "PM, Gelderner Str. 47",
-    "diesel": 2.189,
-    "dieselWaar": "Schaffers Brennstoffhandels GmbH, Dorfstr. 2",
-    "e5": 2.099,
+    "diesel": 2.079,
+    "dieselWaar": "PM, Gelderner Str. 47",
+    "e5": 1.979,
     "e5Waar": "PM, Gelderner Str. 47",
     "n": 6
    },
    "Goch": {
-    "e10": 1.989,
+    "e10": 1.959,
     "e10Waar": "bft, Klever Str. 10",
-    "diesel": 2.169,
+    "diesel": 2.109,
     "dieselWaar": "bft, Klever Str. 10",
-    "e5": 2.049,
+    "e5": 2.019,
     "e5Waar": "bft, Klever Str. 10",
     "n": 7
    },
    "Herzogenrath": {
-    "e10": 1.979,
-    "e10Waar": "JET, AACHENER STR. 86",
-    "diesel": 2.289,
-    "dieselWaar": "JET, AACHENER STR. 86",
-    "e5": 2.039,
-    "e5Waar": "JET, AACHENER STR. 86",
-    "n": 17
+    "e10": 1.899,
+    "e10Waar": "T, Geilenkirchener Str. 414",
+    "diesel": 2.129,
+    "dieselWaar": "T, Geilenkirchener Str. 414",
+    "e5": 1.959,
+    "e5Waar": "T, Geilenkirchener Str. 414",
+    "n": 16
    },
    "Emlichheim": {
-    "e10": 1.989,
+    "e10": 1.979,
     "e10Waar": "Markant, Ringer Str. 10",
     "diesel": 2.149,
     "dieselWaar": "Raiffeisen, Emlichheimer Straße 6",
     "e5": 2.039,
-    "e5Waar": "Raiffeisen, Emlichheimer Straße 6",
+    "e5Waar": "Markant, Ringer Str. 10",
     "n": 4
    }
   },
   "borderMid": {
-   "e10": 1.999,
-   "diesel": 2.199,
-   "e5": 2.049,
-   "date": "20261113",
+   "e10": 1.939,
+   "diesel": 2.159,
+   "e5": 1.999,
+   "date": "20261114",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
  },
@@ -609,7 +1042,12 @@
    [
     "20261113",
     1.889,
-    2.119
+    2.079
+   ],
+   [
+    "20261114",
+    1.889,
+    2.079
    ]
   ],
   "beMax": [
@@ -757,6 +1195,11 @@
     "20261113",
     1.842,
     2.369
+   ],
+   [
+    "20261114",
+    1.842,
+    2.332
    ]
   ],
   "beAvg": [
@@ -940,7 +1383,12 @@
    [
     "20261113",
     1.634,
-    2.144
+    2.119
+   ],
+   [
+    "20261114",
+    1.634,
+    2.123
    ]
   ],
   "deMid": [
@@ -1041,11 +1489,15 @@
    ],
    [
     "20261113",
-    1.999,
-    2.199
+    1.949,
+    2.159
+   ],
+   [
+    "20261114",
+    1.939,
+    2.159
    ]
   ]
  },
- "_ts": 1794582049336,
- "_log": []
+ "_ts": 1794636049551
 }
