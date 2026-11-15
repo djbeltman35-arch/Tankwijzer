@@ -30,25 +30,34 @@ export default async (req, context) => {
   const sleutel = bestand + '?' + q.toString();
   q.set('apikey', key);
   const reserve = getStore('tk-reserve');
-  const haal = async () => {
-    const r = await fetch(API + bestand + '?' + q, { headers: { 'User-Agent': 'Tankwijzer (goedkopertanken.netlify.app)' }, signal: AbortSignal.timeout(8000) });
+  const uitReserve = async (fout) => {
+    console.log('Tankerkönig faalt:', bestand, fout);
+    try {
+      const oud = await reserve.get(sleutel, { type: 'json' });
+      // reserve 1 minuut op het CDN, zodat we Tankerkönig niet blijven bestoken
+      if (oud && Date.now() - oud.ts < 6 * 3600e3) return json({ ...oud.j, stale: true, staleTs: oud.ts }, 200, { 'Netlify-CDN-Cache-Control': 'public, s-maxage=60', 'Netlify-Vary': `query=${toegestaan.join('|')}` });
+    } catch (e) {}
+    return null;
+  };
+  // Hapert Tankerkönig, dan 2 minuten meteen de reserve gebruiken (snel voor de bezoeker, rustig voor Tankerkönig).
+  let storingTot = 0;
+  try { storingTot = +(await reserve.get('_storing')) || 0; } catch (e) {}
+  if (Date.now() < storingTot) { const r = await uitReserve('storing actief'); if (r) return r; }
+  const haal = async (ms) => {
+    const r = await fetch(API + bestand + '?' + q, { headers: { 'User-Agent': 'Tankwijzer (goedkopertanken.netlify.app)' }, signal: AbortSignal.timeout(ms) });
     const j = await r.json();
     if (!r.ok || !j.ok) throw new Error(j.message || 'status ' + r.status);
     return j;
   };
   let j = null, fout = '';
-  for (let poging = 0; poging < 2 && !j; poging++) {
-    try { j = await haal(); } catch (e) { fout = e.message; if (poging === 0) await new Promise((r) => setTimeout(r, 700)); }
-  }
+  try { j = await haal(4000); } catch (e) { fout = e.message; }
+  if (!j && !/timeout|abort/i.test(fout)) { await new Promise((r) => setTimeout(r, 500)); try { j = await haal(3500); } catch (e) { fout = e.message; } }
   if (j) {
-    try { await reserve.setJSON(sleutel, { ts: Date.now(), j }); } catch (e) {}
+    try { await reserve.setJSON(sleutel, { ts: Date.now(), j }); if (storingTot) await reserve.delete('_storing'); } catch (e) {}
     return json(j, 200, { 'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=120', 'Netlify-Vary': `query=${toegestaan.join('|')}` });
   }
-  console.log('Tankerkönig faalt:', bestand, fout);
-  try {
-    const oud = await reserve.get(sleutel, { type: 'json' });
-    if (oud && Date.now() - oud.ts < 6 * 3600e3) return json({ ...oud.j, stale: true, staleTs: oud.ts }, 200, { 'Cache-Control': 'no-store' });
-  } catch (e) {}
+  try { await reserve.set('_storing', String(Date.now() + 120e3)); } catch (e) {}
+  const r = await uitReserve(fout); if (r) return r;
   return json({ ok: false, message: 'Tankerkönig is even niet bereikbaar.' }, 502);
 };
 
