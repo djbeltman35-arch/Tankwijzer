@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="e0d5a73bd035a1c" content="277030417ea9ada19f69ae08c41fb74b">
 <title>Goedkoop tanken: live prijzen NL, België en Duitsland | Tankwijzer</title>
 <meta name="description" content="Waar tank je vandaag het goedkoopst? Live benzine- en dieselprijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit. Gratis, zonder reclame.">
 <link rel="canonical" href="https://goedkopertanken.netlify.app/">
@@ -286,6 +287,8 @@ body{padding-top:0}
 .hero .seg{background:rgba(6,30,36,.25);border-color:rgba(255,255,255,.18)}
 .hero .pumps{box-shadow:inset 0 2px 12px rgba(0,0,0,.35),0 10px 24px rgba(6,30,36,.35)}
 @media (max-width:520px){.hero .brand b{font-size:min(34px,9vw)}.hero .mark{width:38px;height:38px}.hero .mark svg{width:24px;height:24px}.hero .status{font-size:.72rem;padding:.25rem .6rem}.hero .lead{font-size:15px}.hero h1{font-size:min(30px,8vw)}.hero .road{opacity:.55}}
+.mbr{display:none}
+@media (max-width:520px){.mbr{display:inline}.hero .pump .src{min-height:2.7em}}
 /* schaduw: witte blokken komen naar voren */
 :root{--lift:0 2px 4px rgba(15,35,58,.10),0 10px 22px rgba(15,35,58,.16),0 24px 44px rgba(15,35,58,.12);--lift-hi:0 4px 8px rgba(15,35,58,.12),0 18px 34px rgba(15,35,58,.22),0 34px 60px rgba(15,35,58,.16)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--lift:0 0 0 1px rgba(255,255,255,.06),0 8px 22px rgba(0,0,0,.45);--lift-hi:0 0 0 1px rgba(255,255,255,.1),0 14px 30px rgba(0,0,0,.55)}}
@@ -303,7 +306,7 @@ body{padding-top:0}
     <span class="status" id="status"><i></i><span id="statusTxt">Laden…</span></span>
   </div>
   <div class="intro">
-    <h1>Tank goedkoper over de grens</h1>
+    <h1>Tank goedkoper <br class="mbr">over de grens</h1>
     <p class="lead">Live prijzen in Nederland, België en Duitsland naast elkaar, met je besparing na aftrek van de rit. Gratis en zonder reclame.</p>
   </div>
   <div class="seg" role="group" aria-label="Brandstof" style="align-self:flex-start">
