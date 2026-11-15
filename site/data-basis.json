@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T07:00:51+01:00",
+ "updated": "2026-11-15T16:00:47+01:00",
  "nl": {
   "advies": {
    "e10": 2.412,
@@ -705,16 +705,16 @@
    "src": "EU Weekly Oil Bulletin, gemiddelde pompprijs"
   },
   "border": {
-   "e10": 1.889,
-   "diesel": 2.079,
-   "e5": 1.949,
+   "e10": 1.939,
+   "diesel": 2.108,
+   "e5": 1.998,
    "date": "20261115",
-   "at": "2026-11-15T06:00:51.502Z",
+   "at": "2026-11-15T15:00:47.590Z",
    "where": {
-    "e10": "SB, Aachen",
-    "diesel": "PM, Straelen"
+    "e10": "Raiffeisen, Suddendorf",
+    "diesel": "TinQ, Kranenburg-Wyler"
    },
-   "n": 88,
+   "n": 152,
    "src": "goedkoopste open grensstation (Markttransparenzstelle via Tankerkönig)"
   },
   "nrw": {
@@ -724,42 +724,42 @@
   },
   "points": {
    "date": "20261115",
-   "at": "2026-11-15T06:00:51.502Z",
+   "at": "2026-11-15T15:00:47.589Z",
    "Kleve": {
-    "e10": 1.949,
+    "e10": 1.979,
     "e10Waar": "JET, KALKARER STR. 49",
-    "diesel": 2.099,
+    "diesel": 2.129,
     "dieselWaar": "JET, KALKARER STR. 49",
-    "e5": 1.999,
+    "e5": 2.029,
     "e5Waar": "Kuster Energy, Dieselstr. 8",
-    "n": 5
+    "n": 10
    },
    "Emmerich": {
-    "e10": 1.969,
-    "e10Waar": "Kuster Energy, Speelbergerstraße 50",
-    "diesel": 2.109,
+    "e10": 1.989,
+    "e10Waar": "JET, REESER STR. 57",
+    "diesel": 2.149,
     "dieselWaar": "Kuster Energy, Werner-Heisenberg-Straße 18",
-    "e5": 2.019,
-    "e5Waar": "Kuster Energy, Speelbergerstraße 50",
-    "n": 5
+    "e5": 2.049,
+    "e5Waar": "JET, REESER STR. 57",
+    "n": 7
    },
    "Bocholt": {
-    "e10": 1.939,
-    "e10Waar": "JET, AN DER KOENIGSMUEHLE 13",
-    "diesel": 2.119,
-    "dieselWaar": "JET, AN DER KOENIGSMUEHLE 13",
-    "e5": 1.999,
-    "e5Waar": "JET, AN DER KOENIGSMUEHLE 13",
-    "n": 6
+    "e10": 1.979,
+    "e10Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
+    "diesel": 2.159,
+    "dieselWaar": "STAR, Dingdener Straße 184",
+    "e5": 2.039,
+    "e5Waar": "Freie Tankstelle Bißlich, Franzstraße 29",
+    "n": 11
    },
    "Gronau": {
-    "e10": 1.979,
-    "e10Waar": "JET, OCHTRUPER STR. 208",
+    "e10": 1.974,
+    "e10Waar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
     "diesel": 2.149,
     "dieselWaar": "K+K Klaas & Kock, Ochtruper Strasse 127",
-    "e5": 2.039,
-    "e5Waar": "Raiffeisen, Vereinsstr. / Ecke Kaiserstiege 83",
-    "n": 9
+    "e5": 2.034,
+    "e5Waar": "Autohaus Anton Segbert GmbH & Co. KG, Ochtruper Str. 94",
+    "n": 14
    },
    "Bad Bentheim": {
     "e10": 1.939,
@@ -768,84 +768,88 @@
     "dieselWaar": "freie Tankstelle, Eisenbahnstraße 4",
     "e5": 1.999,
     "e5Waar": "Raiffeisen, Postweg 9",
-    "n": 7
+    "n": 8
    },
    "Nordhorn": {
-    "e10": 1.979,
-    "e10Waar": "Tankstelle Becker, Richterskamp 5",
-    "diesel": 2.159,
-    "dieselWaar": "Tankstelle Becker, Richterskamp 5",
-    "e5": 2.039,
-    "e5Waar": "Tankstelle Becker, Richterskamp 5",
-    "n": 6
+    "e10": 1.969,
+    "e10Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
+    "diesel": 2.149,
+    "dieselWaar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
+    "e5": 2.029,
+    "e5Waar": "KS Nordhorn Freie Tankstelle, Veldhauser Strasse 69",
+    "n": 9
    },
    "Bunde": {
-    "diesel": 2.189,
-    "dieselWaar": "Raiffeisen, Boenster Str. 3",
-    "n": 1
+    "e10": 2.079,
+    "e10Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
+    "diesel": 2.209,
+    "dieselWaar": "Heinrich Albers OHG, Neuschanzer Straße 31",
+    "e5": 2.139,
+    "e5Waar": "Heinrich Albers OHG, Neuschanzer Straße 31",
+    "n": 5
    },
    "Kaldenkirchen": {
-    "e10": 1.949,
-    "e10Waar": "AVIA XPress, Neustraße 20",
-    "diesel": 2.129,
-    "dieselWaar": "ELAN, Duelkener Str. 8",
-    "e5": 2.009,
-    "e5Waar": "ELAN, Duelkener Str. 8",
-    "n": 6
+    "e10": 2.129,
+    "e10Waar": "TAP, Kaldenkirchener Str. 52",
+    "diesel": 2.309,
+    "dieselWaar": "TAP, Kaldenkirchener Str. 52",
+    "e5": 2.189,
+    "e5Waar": "TAP, Kaldenkirchener Str. 52",
+    "n": 9
    },
    "Aken": {
-    "e10": 1.889,
-    "e10Waar": "SB, Krefelderstr. 54",
-    "diesel": 2.119,
-    "dieselWaar": "JET, AACHENER STR. 86",
-    "e5": 1.949,
-    "e5Waar": "SB, Krefelderstr. 54",
-    "n": 17
+    "e10": 1.939,
+    "e10Waar": "SB, Habsburger Allee 3",
+    "diesel": 2.259,
+    "dieselWaar": "EMOVA, Gut-Dämme-Straße 22",
+    "e5": 1.999,
+    "e5Waar": "SB, Habsburger Allee 3",
+    "n": 31
    },
    "Selfkant": {
-    "e10": 1.889,
-    "e10Waar": "SB Automatenstation, Hauptstraße 96-98",
-    "diesel": 2.119,
-    "dieselWaar": "TinQ, Raiffeisenstr. 1",
-    "e5": 1.949,
-    "e5Waar": "TinQ, Raiffeisenstr. 1",
-    "n": 2
+    "e10": 2.019,
+    "e10Waar": "STAR, Landstraße 4",
+    "diesel": 2.289,
+    "dieselWaar": "SB Automatenstation, Hauptstraße 96-98",
+    "e5": 2.079,
+    "e5Waar": "STAR, Landstraße 4",
+    "n": 7
    },
    "Elten": {
     "e10": 1.989,
-    "e10Waar": "ARAL, Kattegatweg 1",
-    "diesel": 2.129,
-    "dieselWaar": "ARAL, Kattegatweg 1",
-    "e5": 2.039,
-    "e5Waar": "Kuster Energy, Ostermayerstraße 1",
-    "n": 3
+    "e10Waar": "STAR, Beeker Straße 250",
+    "diesel": 2.159,
+    "dieselWaar": "STAR, Beeker Straße 250",
+    "e5": 2.049,
+    "e5Waar": "STAR, Beeker Straße 250",
+    "n": 4
    },
    "Straelen": {
-    "e10": 1.899,
+    "e10": 2.039,
     "e10Waar": "AVIA, An der Bleiche 53",
-    "diesel": 2.079,
-    "dieselWaar": "PM, Gelderner Str. 47",
-    "e5": 1.959,
+    "diesel": 2.189,
+    "dieselWaar": "Schaffers Brennstoffhandels GmbH, Dorfstr. 2",
+    "e5": 2.099,
     "e5Waar": "AVIA, An der Bleiche 53",
-    "n": 5
-   },
-   "Goch": {
-    "e10": 1.959,
-    "e10Waar": "bft, Klever Str. 10",
-    "diesel": 2.109,
-    "dieselWaar": "bft, Klever Str. 10",
-    "e5": 2.019,
-    "e5Waar": "bft, Klever Str. 10",
     "n": 6
    },
+   "Goch": {
+    "e10": 1.989,
+    "e10Waar": "bft, Klever Str. 10",
+    "diesel": 2.159,
+    "dieselWaar": "bft, Klever Str. 10",
+    "e5": 2.049,
+    "e5Waar": "bft, Klever Str. 10",
+    "n": 7
+   },
    "Herzogenrath": {
-    "e10": 1.899,
-    "e10Waar": "SB, Übacher Weg 174",
-    "diesel": 2.109,
-    "dieselWaar": "SB, Übacher Weg 174",
-    "e5": 1.959,
-    "e5Waar": "SB, Übacher Weg 174",
-    "n": 11
+    "e10": 1.979,
+    "e10Waar": "JET, AACHENER STR. 86",
+    "diesel": 2.279,
+    "dieselWaar": "JET, AACHENER STR. 86",
+    "e5": 2.039,
+    "e5Waar": "JET, AACHENER STR. 86",
+    "n": 17
    },
    "Emlichheim": {
     "e10": 1.989,
@@ -855,12 +859,30 @@
     "e5": 2.039,
     "e5Waar": "Raiffeisen, Emlichheimer Straße 6",
     "n": 4
+   },
+   "Kranenburg": {
+    "e10": 1.948,
+    "e10Waar": "TinQ, Breiter Weg 13",
+    "diesel": 2.108,
+    "dieselWaar": "TinQ, Breiter Weg 13",
+    "e5": 1.998,
+    "e5Waar": "TinQ, Breiter Weg 13",
+    "n": 3
+   },
+   "Vreden": {
+    "e10": 1.999,
+    "e10Waar": "K+K Klaas & Kock, Ottensteiner Str. 26",
+    "diesel": 2.149,
+    "dieselWaar": "K+K Klaas & Kock, Ottensteiner Str. 26",
+    "e5": 2.039,
+    "e5Waar": "K+K Klaas & Kock, Ottensteiner Str. 26",
+    "n": 5
    }
   },
   "borderMid": {
-   "e10": 1.959,
-   "diesel": 2.159,
-   "e5": 2.009,
+   "e10": 1.999,
+   "diesel": 2.209,
+   "e5": 2.049,
    "date": "20261115",
    "src": "middenprijs open grensstations (Tankerkönig)"
   }
@@ -1046,8 +1068,8 @@
    ],
    [
     "20261115",
-    1.889,
-    2.079
+    1.939,
+    2.108
    ]
   ],
   "beMax": [
@@ -1509,10 +1531,10 @@
    ],
    [
     "20261115",
-    1.959,
-    2.159
+    1.999,
+    2.209
    ]
   ]
  },
- "_ts": 1794722451504
+ "_ts": 1794754847591
 }
