@@ -79,4 +79,5 @@ export const GRENS_DE = [
   ['Kleve', 51.79, 6.14], ['Emmerich', 51.83, 6.25], ['Bocholt', 51.84, 6.61], ['Gronau', 52.21, 7.02], ['Bad Bentheim', 52.30, 7.16],
   ['Nordhorn', 52.43, 7.07], ['Bunde', 53.18, 7.27], ['Kaldenkirchen', 51.32, 6.20], ['Aken', 50.78, 6.08], ['Selfkant', 51.00, 5.93],
   ['Elten', 51.87, 6.16], ['Straelen', 51.44, 6.27], ['Goch', 51.68, 6.16], ['Herzogenrath', 50.87, 6.10], ['Emlichheim', 52.61, 6.85],
+  ['Kranenburg', 51.79, 6.01], ['Vreden', 52.03, 6.83],
 ];

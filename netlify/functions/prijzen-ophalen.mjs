@@ -67,14 +67,26 @@ export async function verzamel(oud, key, log = console.log) {
   if (key) await stap('DE grens', async () => {
     const st = new Map(), punten = {};
     // In groepjes van 5 tegelijk: zo blijft de hele run ruim binnen de tijdslimiet van een geplande functie.
-    const haalPunt = async ([plaats, lat, lng]) => {
+    // Eén keer opnieuw proberen als Tankerkönig even geen JSON geeft (drukte rond het hele uur);
+    // lukt een punt dan nog niet, sla alleen dat punt over en houd de vorige prijs van die plaats.
+    const vraag = async (lat, lng) => {
       const r = await fetch(`https://creativecommons.tankerkoenig.de/json/list.php?lat=${lat}&lng=${lng}&rad=6&sort=dist&type=all&apikey=${key}`, { signal: AbortSignal.timeout(15000) });
-      const j = await r.json(); if (!j.ok) throw new Error(j.message || 'fout');
-      return [plaats, (j.stations || []).filter(s => s.isOpen && !SNELWEG.test(`${s.name} ${s.street}`))];
+      const j = JSON.parse(await r.text()); if (!j.ok) throw new Error(j.message || 'fout');
+      return j.stations || [];
+    };
+    const mislukt = [];
+    const haalPunt = async ([plaats, lat, lng]) => {
+      let lijst;
+      try { lijst = await vraag(lat, lng); }
+      catch { await new Promise(r => setTimeout(r, 1500)); try { lijst = await vraag(lat, lng); } catch (e) { mislukt.push(plaats); return [plaats, null]; } }
+      return [plaats, lijst.filter(s => s.isOpen && !SNELWEG.test(`${s.name} ${s.street}`))];
     };
     const lijsten = [];
     for (let i = 0; i < GRENS_DE.length; i += 5) lijsten.push(...await Promise.all(GRENS_DE.slice(i, i + 5).map(haalPunt)));
+    if (mislukt.length) log('DE grens: overgeslagen ' + mislukt.join(', '));
+    if (mislukt.length > GRENS_DE.length / 3) throw new Error('te veel punten mislukt: ' + mislukt.length);
     for (const [plaats, hier] of lijsten) {
+      if (!hier) { if (d.de.points?.[plaats]) punten[plaats] = d.de.points[plaats]; continue; }
       for (const s of hier) st.set(s.id, s);
       // Per grensplaats het goedkoopste open station, voor de plaatspagina's.
       const p = {};

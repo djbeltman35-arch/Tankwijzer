@@ -89,6 +89,7 @@ PLAATSEN = [
     ("Bunde", "bunde", "DE", 53.183, 7.270, "Bunde"), ("Kaldenkirchen", "kaldenkirchen", "DE", 51.318, 6.196, "Kaldenkirchen"), ("Aken", "aken", "DE", 50.776, 6.084, "Aken"),
     ("Elten", "elten", "DE", 51.868, 6.158, "Elten"), ("Straelen", "straelen", "DE", 51.442, 6.266, "Straelen"), ("Goch", "goch", "DE", 51.678, 6.161, "Goch"),
     ("Herzogenrath", "herzogenrath", "DE", 50.870, 6.096, "Herzogenrath"), ("Emlichheim", "emlichheim", "DE", 52.612, 6.850, "Emlichheim"),
+    ("Selfkant (Tüddern)", "selfkant", "DE", 51.000, 5.930, "Selfkant"), ("Kranenburg", "kranenburg", "DE", 51.790, 6.010, "Kranenburg"), ("Vreden", "vreden", "DE", 52.033, 6.830, "Vreden"),
     ("Lanaken", "lanaken", "BE", 50.893, 5.648, "Limburg"), ("Wezet (Visé)", "vise", "BE", 50.737, 5.698, "Luik"), ("Maaseik", "maaseik", "BE", 51.098, 5.784, "Limburg"),
     ("Hamont-Achel", "hamont-achel", "BE", 51.252, 5.547, "Limburg"), ("Lommel", "lommel", "BE", 51.230, 5.313, "Limburg"), ("Poppel", "poppel", "BE", 51.449, 5.040, "Antwerpen"), ("Baarle-Hertog", "baarle-hertog", "BE", 51.441, 4.927, "Antwerpen"),
     ("Meer (Hoogstraten)", "meer-hoogstraten", "BE", 51.447, 4.735, "Antwerpen"), ("Essen", "essen", "BE", 51.468, 4.468, "Antwerpen"), ("Zelzate", "zelzate", "BE", 51.199, 3.811, "Oost-Vlaanderen")]
