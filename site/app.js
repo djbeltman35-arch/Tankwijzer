@@ -101,21 +101,23 @@ async function tk(path, params) {
   try { j = await getJSON(API + path + "?" + new URLSearchParams(params)); }
   catch (e) { throw new Error(navigator.onLine ? "Tankerkönig is even niet bereikbaar." : "Geen internetverbinding."); }
   if (!j.ok) throw new Error(j.message || "Live Duitse prijzen zijn even niet beschikbaar.");
+  if (j.stale && j.staleTs) tkOud = Math.min(tkOud || Infinity, j.staleTs); // reserve van de server: toon het echte tijdstip
   return j;
 }
+let tkOud = null;
 function toStation(s) {
   return { id: s.id, src: "tk", cc: "DE", name: s.name || "", brand: (s.brand || "").trim(), street: [s.street, s.houseNumber].filter(Boolean).join(" "),
     place: [s.postCode, s.place].filter(Boolean).join(" "), lat: s.lat, lng: s.lng, e5: num(s.e5), e10: num(s.e10), diesel: num(s.diesel),
     isOpen: !!s.isOpen, hwy: HWY.test(s.name || "") || HWY.test(s.street || ""), border: borderDistance(s.lat, s.lng) };
 }
 async function scanRegion(region) {
-  const byId = new Map();
+  const byId = new Map(); tkOud = null;
   for (const [lat, lng] of REGIONS[region].pts) {
     const j = await tk("list.php", { lat, lng, rad: 12, sort: "dist", type: "all" });
     for (const raw of j.stations || []) { if (byId.has(raw.id)) continue; const st = toStation(raw); if (st.border <= 10.5) byId.set(raw.id, st); }
     await new Promise((r) => setTimeout(r, 250));
   }
-  S.cache[region] = { listTs: Date.now(), priceTs: Date.now(), stations: [...byId.values()] };
+  S.cache[region] = { listTs: Date.now(), priceTs: tkOud || Date.now(), stations: [...byId.values()] };
 }
 async function refreshPrices(list) {
   const map = new Map(list.filter((s) => s.src === "tk").map((s) => [s.id, s])), ids = [...map.keys()];
@@ -137,11 +139,11 @@ function recordDay(region) {
 async function update(force = false) {
   if (!S.key || S.busy) { render(); return; }
   const c = S.cache[S.region], now = Date.now();
-  const needList = force === "list" || !c || now - c.listTs > LIST_TTL, needPrices = force || !c || now - c.priceTs > PRICE_TTL;
+  const needList = force === "list" || !c || now - c.listTs > LIST_TTL, needPrices = force || !!S.error || !c || now - c.priceTs > PRICE_TTL;
   if (!needList && !needPrices) { render(); return; }
   S.busy = true; S.error = ""; render();
   try {
-    if (needList) await scanRegion(S.region); else { await refreshPrices(c.stations); c.priceTs = Date.now(); }
+    if (needList) await scanRegion(S.region); else { tkOud = null; await refreshPrices(c.stations); c.priceTs = tkOud || Date.now(); }
     recordDay(S.region); store.set("tw_cache", S.cache); checkAlert();
     if (S.mode === "search" && S.place && S.found.some((s) => s.src === "tk")) { await refreshPrices(S.found); S.place.ts = Date.now(); }
   } catch (e) { S.error = e.message; }
@@ -186,17 +188,19 @@ async function searchPlace(place) {
   try {
     const tasks = [];
     // Duitse stations met prijs (Tankerkönig): in Duitsland rond de plaats, vanuit NL/BE tot 20 km over de grens
-    if (S.key) tasks.push(tk("list.php", { lat: place.lat.toFixed(4), lng: place.lng.toFixed(4), rad: place.cc === "DE" ? 6 : 20, sort: "dist", type: "all" }).then((j) => (j.stations || []).map(toStation)));
+    const tkGebied = place.cc !== "DE" || (place.lat > 49.3 && place.lat < 54.6 && place.lng > 5.6 && place.lng < 9.8);
+    if (S.key && tkGebied) tasks.push(tk("list.php", { lat: place.lat.toFixed(4), lng: place.lng.toFixed(4), rad: place.cc === "DE" ? 6 : 20, sort: "dist", type: "all" }).then((j) => (j.stations || []).map(toStation)));
     // Stationslocaties zonder prijs (OpenStreetMap) in NL/BE, of in DE zonder sleutel
-    if (place.cc !== "DE" || !S.key) tasks.push(osmStations(place.lat, place.lng, 6000).then((l) => l.map((s) => ({ ...s, cc: s.cc || place.cc || "NL" }))));
+    if (place.cc !== "DE" || !S.key || !tkGebied) tasks.push(osmStations(place.lat, place.lng, 6000).then((l) => l.map((s) => ({ ...s, cc: s.cc || place.cc || "NL" }))));
     const res = await Promise.allSettled(tasks);
     let list = res.filter((r) => r.status === "fulfilled").flatMap((r) => r.value);
-    if (S.key) list = list.filter((s) => !(s.src === "osm" && s.cc === "DE"));
+    if (S.key && tkGebied) list = list.filter((s) => !(s.src === "osm" && s.cc === "DE"));
     list.forEach((s) => { s.dist = haversine([place.lat, place.lng], [s.lat, s.lng]); });
     S.found = list.filter((s) => s.src === "tk" || s.dist <= 6);
     await Promise.all([googleErbij(place, S.found), meldingenErbij(place, S.found)]);
     const fails = res.filter((r) => r.status === "rejected");
     if (fails.length && !S.found.length) S.searchErr = "Zoeken lukte niet. Controleer je internet en probeer opnieuw.";
+    if (!tkGebied) S.verGebied = true; else S.verGebied = false;
   } catch (e) { S.searchErr = "Zoeken lukte niet. Probeer het opnieuw."; }
   S.searching = false; render(); naarLijst();
 }
@@ -323,7 +327,8 @@ function render() {
   const c = S.cache[S.region], st = $("status");
   if (S.busy || S.searching) { st.className = "status"; $("statusTxt").textContent = "Bezig…"; }
   else if (!S.key) { st.className = "status"; $("statusTxt").textContent = "Dagprijzen"; }
-  else if (S.error) { st.className = "status err"; $("statusTxt").textContent = "Offline"; }
+  else if (S.error && !c) { st.className = "status err"; $("statusTxt").textContent = navigator.onLine === false ? "Offline" : "Live even weg"; }
+  else if (S.error) { st.className = "status stale"; $("statusTxt").textContent = (navigator.onLine === false ? "Offline · " : "Prijzen ") + hhmm(c.priceTs); }
   else if (c) { const fresh = Date.now() - c.priceTs < 15 * 60000; st.className = "status " + (fresh ? "live" : "stale"); $("statusTxt").textContent = "Live " + hhmm(c.priceTs); }
   const ab = $("alertBanner"); ab.hidden = !S.alertHit; if (S.alertHit) ab.innerHTML = `<strong>🔔 ${esc(S.alertHit)}</strong>`;
 
@@ -375,6 +380,7 @@ function renderSearch() {
     else if (S.searchErr) note = S.searchErr;
     const gN = list.filter((s) => s.bron?.[S.fuel] === "google").length, mN = list.filter((s) => s.bron?.[S.fuel] === "melding").length;
     if (!S.searching && !S.searchErr) note = [tkN && S.fuel !== "lpg" ? `${tkN} met live prijs` : "", gN ? `${gN} met pompprijs via Google` : "", mN ? `${mN} met gemelde prijs` : "", osmN - gN - mN > 0 ? `${osmN - gN - mN} zonder prijs` : "", S.fuel === "lpg" && !gN && !mN ? "LPG: nog geen prijzen per station" : "", !S.key && S.place.cc === "DE" ? "live prijzen met sleutel (Meer)" : ""].filter(Boolean).join(" · ");
+    if (S.verGebied && !S.searching) note = "Live Duitse prijzen zijn er alleen voor de grensstreek; hier zie je de tankstations zonder prijs." + (note ? " · " + note : "");
   } else {
     title = S.key ? "Grensstrook · " + REGIONS[S.region].name : "Zoek tankstations";
     note = S.key ? (S.busy ? "Laden…" : S.error || "") : "Typ een plaats of kies er een hierboven.";

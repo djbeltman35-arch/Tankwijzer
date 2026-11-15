@@ -1,6 +1,7 @@
 // Doorgeefluik naar Tankerkönig (live Duitse prijzen per tankstation) voor alle bezoekers.
 // De API-sleutel staat alleen hier, als geheime Netlify-instelling (TANKERKOENIG_KEY), nooit in de browser.
 // Antwoorden worden 5 minuten op het CDN bewaard, zodat Tankerkönig niet onnodig vaak wordt bevraagd.
+import { getStore } from '@netlify/blobs';
 const API = 'https://creativecommons.tankerkoenig.de/json/';
 const BESTANDEN = { 'list.php': ['lat', 'lng', 'rad', 'sort', 'type'], 'prices.php': ['ids'], 'detail.php': ['id'] };
 const json = (data, status, extra = {}) => Response.json(data, { status, headers: extra });
@@ -25,14 +26,30 @@ export default async (req, context) => {
     if ((k === 'sort' && !/^(dist|price)$/.test(v)) || (k === 'type' && !/^(all|e5|e10|diesel)$/.test(v))) continue;
     q.set(k, v);
   }
+  // Laatste goede antwoord per vraag bewaren: valt Tankerkönig even weg, dan krijgt de bezoeker die prijzen (met tijdstip) in plaats van een fout.
+  const sleutel = bestand + '?' + q.toString();
   q.set('apikey', key);
-  try {
-    const r = await fetch(API + bestand + '?' + q, { headers: { 'User-Agent': 'Tankwijzer (goedkopertanken.netlify.app)' } });
+  const reserve = getStore('tk-reserve');
+  const haal = async () => {
+    const r = await fetch(API + bestand + '?' + q, { headers: { 'User-Agent': 'Tankwijzer (goedkopertanken.netlify.app)' }, signal: AbortSignal.timeout(8000) });
     const j = await r.json();
-    return json(j, r.ok ? 200 : 502, j.ok ? { 'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=120', 'Netlify-Vary': `query=${toegestaan.join('|')}` } : {});
-  } catch (e) {
-    return json({ ok: false, message: 'Tankerkönig is even niet bereikbaar.' }, 502);
+    if (!r.ok || !j.ok) throw new Error(j.message || 'status ' + r.status);
+    return j;
+  };
+  let j = null, fout = '';
+  for (let poging = 0; poging < 2 && !j; poging++) {
+    try { j = await haal(); } catch (e) { fout = e.message; if (poging === 0) await new Promise((r) => setTimeout(r, 700)); }
   }
+  if (j) {
+    try { await reserve.setJSON(sleutel, { ts: Date.now(), j }); } catch (e) {}
+    return json(j, 200, { 'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=300, stale-while-revalidate=120', 'Netlify-Vary': `query=${toegestaan.join('|')}` });
+  }
+  console.log('Tankerkönig faalt:', bestand, fout);
+  try {
+    const oud = await reserve.get(sleutel, { type: 'json' });
+    if (oud && Date.now() - oud.ts < 6 * 3600e3) return json({ ...oud.j, stale: true, staleTs: oud.ts }, 200, { 'Cache-Control': 'no-store' });
+  } catch (e) {}
+  return json({ ok: false, message: 'Tankerkönig is even niet bereikbaar.' }, 502);
 };
 
 export const config = { path: '/api/tk/:bestand' };
