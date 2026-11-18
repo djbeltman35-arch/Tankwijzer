@@ -1,5 +1,5 @@
 // Service worker: app werkt offline (laatst bekende prijzen), live gegevens altijd via het netwerk.
-const VERSION = "tankwijzer-v34";
+const VERSION = "tankwijzer-v35";
 const SHELL = ["./", "index.html", "app.js", "geo.js", "data.json", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png", "fonts/atkinson-hyperlegible-400.woff2", "fonts/big-shoulders-display-800.woff2", "fonts/jetbrains-mono-500.woff2"];
 
 self.addEventListener("install", (e) => {
