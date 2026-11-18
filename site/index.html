@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="Tankwijzer">
 <link rel="preload" href="/fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/big-shoulders-display-800.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/jetbrains-mono-500.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+.plink{display:grid;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--surface)}.plink b{font-size:16px}.plink span{color:var(--accent);font-weight:700;font-size:14px}.plink:hover{border-color:var(--accent)}.partners .ad{font-size:13px;margin:0}
 @font-face{font-family:'Big Shoulders Display';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/big-shoulders-display-800.woff2) format('woff2')}@font-face{font-family:'Big Shoulders Display';font-style:normal;font-weight:900;font-display:swap;src:url(/fonts/big-shoulders-display-900.woff2) format('woff2')}@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/atkinson-hyperlegible-400.woff2) format('woff2')}@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/atkinson-hyperlegible-700.woff2) format('woff2')}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:swap;src:url(/fonts/jetbrains-mono-500.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 :root{
   --bg:#f1f5f4;--surface:#fff;--ink:#11272f;--muted:#566b72;--line:#d9e2e1;
@@ -402,8 +403,15 @@ body{padding-top:0}
   <!-- MEER -->
   <section data-view="meer" hidden style="display:flex;flex-direction:column;gap:12px">
     <div class="card free">
-      <h2>Gratis, en ik verdien er niets aan</h2>
-      <p class="note">Tankwijzer heeft geen reclame, geen betaalde plekken en geen commissie van tankstations. Ik verdien er op geen enkele manier een cent aan. Je hebt geen account nodig, en je tankbeurten en instellingen blijven op je eigen telefoon.</p>
+      <h2>Gratis en eerlijk</h2>
+      <p class="note">Tankstations kunnen geen plek kopen en krijgen geen voorrang: de goedkoopste staat altijd bovenaan. Je hebt geen account nodig, en je tankbeurten en instellingen blijven op je eigen telefoon.</p>
+      <p class="note">Hieronder staan een paar partnerlinks, duidelijk gemarkeerd. Koop je daar iets, dan krijgt Tankwijzer een kleine vergoeding. Zo blijft de app gratis.</p>
+    </div>
+    <div class="card partners">
+      <h2>Handig voor je auto</h2>
+      <a class="plink" href="https://www.awin1.com/cread.php?awinmid=8671&amp;awinaffid=3152283&amp;clickref=tankwijzer" rel="sponsored noopener" target="_blank"><b>🛞 Nieuwe banden</b><span>Zomer-, winter- en all-seasonbanden vergelijken bij Autobandenmarkt →</span></a>
+      <a class="plink" href="https://www.awin1.com/cread.php?awinmid=12717&amp;awinaffid=3152283&amp;clickref=tankwijzer" rel="sponsored noopener" target="_blank"><b>🔧 Banden met montage</b><span>Banden bestellen en laten monteren in de buurt via Banden.nl →</span></a>
+      <p class="note ad">Advertentie. Jij betaalt niets extra.</p>
     </div>
     <div class="card">
       <h2>Prijsalarm</h2>
@@ -432,7 +440,7 @@ body{padding-top:0}
   </section>
   <!--SEO-->
   <footer class="foot">
-    <p class="freeline">Gratis en onafhankelijk: geen reclame, geen commissie, ik verdien er geen cent aan.</p>
+    <p class="freeline">Gratis en onafhankelijk: tankstations kunnen geen plek kopen, de goedkoopste staat altijd bovenaan.</p>
     <nav class="footnav" aria-label="Meer"><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a><a href="/gids/grensplaatsen.html">Grensplaatsen</a><a href="/gids/">Tankgids</a><a href="/gids/over.html">Over en privacy</a></nav>
     <section class="apps" aria-labelledby="apps-kop"><h2 id="apps-kop">Meer gratis sites van Erik</h2><ul><li><a href="https://boodschappenvergelijk.nl/">Goedkope Boodschappen</a><span>Boodschappen en aanbiedingen vergelijken bij 11 supermarkten.</span></li><li><a href="https://salderingscheck-nl.netlify.app/">Salderingscheck</a><span>Bereken wat het einde van salderen jou kost en of een thuisbatterij loont.</span></li><li><a href="https://vluchtwijzer.netlify.app/">Vluchtwijzer</a><span>Goedkope vliegtickets vanaf vliegvelden in Nederland, België en Duitsland.</span></li><li><a href="https://vakantietoppers.netlify.app/">Vakantiewijzer</a><span>Pakketreizen, hotels, vakantieparken en campings vergelijken.</span></li><li><a href="https://euroroadrules.eu/">EuroRoadRules</a><span>Vignetten, tol en milieuzones in heel Europa, ook voor je route.</span></li><li><a href="https://foutcodezoeker.nl/">Foutcodezoeker</a><span>Foutcodes en storingen van apparaten zelf opzoeken en oplossen.</span></li><li><a href="https://allesoporde.netlify.app/">Op Orde</a><span>Gratis app voor je deadlines, toeslagen en vaste lasten.</span></li></ul></section>
     <p class="madeby"><a href="mailto:djbeltman35@gmail.com">Made by Erik</a></p>
