@@ -24,6 +24,8 @@
 <meta name="apple-mobile-web-app-title" content="Tankwijzer">
 <link rel="preload" href="/fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/big-shoulders-display-800.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/jetbrains-mono-500.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+.top3{font:800 22px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;margin:4px 0 2px}
+.bandsel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.bandsel select{width:100%}#bS button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .morebtn{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--accent);font:700 15px var(--f-body);cursor:pointer}.morebtn:hover{border-color:var(--accent)}
 .plink{display:grid;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);background:var(--surface)}.plink b{font-size:16px}.plink span{color:var(--accent);font-weight:700;font-size:14px}.plink:hover{border-color:var(--accent)}.partners .ad{font-size:13px;margin:0}
 @font-face{font-family:'Big Shoulders Display';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/big-shoulders-display-800.woff2) format('woff2')}@font-face{font-family:'Big Shoulders Display';font-style:normal;font-weight:900;font-display:swap;src:url(/fonts/big-shoulders-display-900.woff2) format('woff2')}@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/atkinson-hyperlegible-400.woff2) format('woff2')}@font-face{font-family:'Atkinson Hyperlegible';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/atkinson-hyperlegible-700.woff2) format('woff2')}@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:swap;src:url(/fonts/jetbrains-mono-500.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
@@ -365,11 +367,19 @@ body{padding-top:0}
     </div>
     <p class="note" id="resNote"></p>
     <div class="list" id="list"></div>
-      <div class="card partners">
-      <h2>Handig voor je auto</h2>
-      <a class="plink" href="https://www.awin1.com/cread.php?awinmid=8671&amp;awinaffid=3152283&amp;clickref=tankwijzer" rel="sponsored noopener" target="_blank"><b>🛞 Nieuwe banden</b><span>Zomer-, winter- en all-seasonbanden vergelijken bij Autobandenmarkt →</span></a>
-      <a class="plink" href="https://www.awin1.com/cread.php?awinmid=12717&amp;awinaffid=3152283&amp;clickref=tankwijzer" rel="sponsored noopener" target="_blank"><b>🔧 Banden met montage</b><span>Banden bestellen en laten monteren in de buurt via Banden.nl →</span></a>
-      <p class="note ad">Advertentie. Jij betaalt niets extra.</p>
+      <div class="card partners" id="banden">
+      <h2>Banden vergelijken</h2>
+      <p class="note">Kies je bandenmaat (staat op de zijkant van je band, bijvoorbeeld 205/55 R16) en bekijk direct de prijzen.</p>
+      <div class="chiprow" id="bandPop" aria-label="Veelgekozen maten"><button data-maat="205-55-16">205/55 R16</button><button data-maat="195-65-15">195/65 R15</button><button data-maat="225-45-17">225/45 R17</button></div>
+      <div class="bandsel">
+        <label class="f"><span>Breedte</span><select id="bW"></select></label>
+        <label class="f"><span>Hoogte</span><select id="bH"></select></label>
+        <label class="f"><span>Inch</span><select id="bD"></select></label>
+      </div>
+      <div class="seg" role="group" aria-label="Seizoen" id="bS"><button data-s="zomer" class="on">Zomer</button><button data-s="winter">Winter</button><button data-s="all">All-season</button></div>
+      <a class="plink" id="bAbm" href="https://www.awin1.com/cread.php?awinmid=8671&amp;awinaffid=3152283&amp;clickref=tankwijzer" rel="sponsored noopener" target="_blank"><b>🛞 Autobandenmarkt</b><span id="bAbmT">Bekijk 205/55 R16 zomerbanden →</span></a>
+      <a class="plink" id="bBnl" href="https://www.awin1.com/cread.php?awinmid=12717&amp;awinaffid=3152283&amp;clickref=tankwijzer" rel="sponsored noopener" target="_blank"><b>🔧 Banden.nl</b><span id="bBnlT">Vergelijk 205/55 R16 zomerbanden van meerdere winkels →</span></a>
+      <p class="note ad">Advertentie. Koop je via deze links, dan krijgt Tankwijzer een kleine vergoeding. Jij betaalt niets extra.</p>
     </div>
   </section>
 

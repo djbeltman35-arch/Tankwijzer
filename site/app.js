@@ -389,9 +389,10 @@ function renderSearch() {
   const alts = S.mode === "search" && S.alts?.length && !S.searching ? `<div class="chiprow">${S.alts.map((a, i) => `<button data-alt="${i}">${esc(a.name)}</button>`).join("")}</div>` : "";
   const lkey = [S.mode, title, S.fuel, S.region].join("|");
   if (S.listKey !== lkey) { S.listKey = lkey; S.showAll = false; }
-  const TOP = 5, shown = S.showAll ? list : list.slice(0, TOP);
+  const TOP = 3, shown = S.showAll ? list : list.slice(0, TOP);
+  const kop = !S.showAll && list.length ? `<h3 class="top3">Top ${Math.min(TOP, list.length)}</h3>` : "";
   const more = !S.showAll && list.length > TOP ? `<button class="morebtn" data-more="1">Toon alle ${list.length} tankstations</button>` : "";
-  $("list").innerHTML = alts + (list.length ? shown.map((s) => card(s, med)).join("") + more : (S.searching || S.busy || (S.mode === "border" && !S.key) ? "" : `<div class="empty">Geen tankstations gevonden.</div>`));
+  $("list").innerHTML = alts + (list.length ? kop + shown.map((s) => card(s, med)).join("") + more : (S.searching || S.busy || (S.mode === "border" && !S.key) ? "" : `<div class="empty">Geen tankstations gevonden.</div>`));
   const brands = [...new Set(baseList().map((s) => s.brand || s.name))].sort((a, b) => a.localeCompare(b));
   const html = `<option value="">Alle merken</option>` + brands.map((b) => `<option>${esc(b)}</option>`).join("");
   if ($("brand").innerHTML !== html) { $("brand").innerHTML = html; $("brand").value = brands.includes(S.brand) ? S.brand : ""; }
@@ -640,3 +641,28 @@ locAllowed().then((ok) => { if (ok) refreshLocation(true); else render(); });
 { const qp = new URLSearchParams(location.search).get("q"); if (qp) { $("q").value = qp; doSearch(qp); history.replaceState(null, "", location.pathname); } }
 document.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => gc("tab/" + b.dataset.tab, "Tab " + b.dataset.tab)));
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+
+// --- Bandenzoeker (deeplinks via Awin) ---
+(function bandenzoeker() {
+  if (!$("bW")) return;
+  const W = [145,155,165,175,185,195,205,215,225,235,245,255,265,275], H = [30,35,40,45,50,55,60,65,70,75,80], D = [13,14,15,16,17,18,19,20,21];
+  const opt = (arr, v) => arr.map((x) => `<option${x === v ? " selected" : ""}>${x}</option>`).join("");
+  let st = Object.assign({ w: 205, h: 55, d: 16, s: "zomer" }, store.get("tw_band") || {});
+  const SEAS = { zomer: ["so", "zomer-banden", "zomerbanden"], winter: ["wi", "winter-banden", "winterbanden"], all: ["gan", "all-season-banden", "all-seasonbanden"] };
+  const AW = (mid, url) => `https://www.awin1.com/cread.php?awinmid=${mid}&awinaffid=3152283&clickref=tankwijzer-banden&ued=${encodeURIComponent(url)}`;
+  function upd() {
+    const [abS, bnS, naam] = SEAS[st.s] || SEAS.zomer, m = `${st.w}/${st.h} R${st.d}`;
+    $("bAbm").href = AW(8671, `https://www.autobandenmarkt.nl/search?vehicleTypes=PKW&width=${st.w}&profile=${st.h}&size=${st.d}&season=${abS}&type=tyre`);
+    $("bBnl").href = AW(12717, `https://www.banden.nl/banden/auto/${bnS}/${st.w}-${st.h}-${st.d}/200+201+202`);
+    $("bAbmT").textContent = `Bekijk ${m} ${naam} →`;
+    $("bBnlT").textContent = `Vergelijk ${m} ${naam} van meerdere winkels →`;
+    document.querySelectorAll("#bS button").forEach((b) => b.classList.toggle("on", b.dataset.s === st.s));
+    document.querySelectorAll("#bandPop button").forEach((b) => b.classList.toggle("on", b.dataset.maat === `${st.w}-${st.h}-${st.d}`));
+    store.set("tw_band", st);
+  }
+  function fill() { $("bW").innerHTML = opt(W, st.w); $("bH").innerHTML = opt(H, st.h); $("bD").innerHTML = opt(D, st.d); }
+  fill(); upd();
+  [["bW", "w"], ["bH", "h"], ["bD", "d"]].forEach(([id, k]) => $(id).addEventListener("change", (e) => { st[k] = +e.target.value; upd(); }));
+  $("bS").addEventListener("click", (e) => { const b = e.target.closest("[data-s]"); if (b) { st.s = b.dataset.s; upd(); } });
+  $("bandPop").addEventListener("click", (e) => { const b = e.target.closest("[data-maat]"); if (!b) return; const [w, h, d] = b.dataset.maat.split("-").map(Number); st = Object.assign(st, { w, h, d }); fill(); upd(); });
+})();
