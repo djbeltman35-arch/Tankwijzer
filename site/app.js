@@ -387,7 +387,11 @@ function renderSearch() {
   }
   $("resTitle").textContent = title; $("resNote").textContent = note;
   const alts = S.mode === "search" && S.alts?.length && !S.searching ? `<div class="chiprow">${S.alts.map((a, i) => `<button data-alt="${i}">${esc(a.name)}</button>`).join("")}</div>` : "";
-  $("list").innerHTML = alts + (list.length ? list.map((s) => card(s, med)).join("") : (S.searching || S.busy || (S.mode === "border" && !S.key) ? "" : `<div class="empty">Geen tankstations gevonden.</div>`));
+  const lkey = [S.mode, title, S.fuel, S.region].join("|");
+  if (S.listKey !== lkey) { S.listKey = lkey; S.showAll = false; }
+  const TOP = 5, shown = S.showAll ? list : list.slice(0, TOP);
+  const more = !S.showAll && list.length > TOP ? `<button class="morebtn" data-more="1">Toon alle ${list.length} tankstations</button>` : "";
+  $("list").innerHTML = alts + (list.length ? shown.map((s) => card(s, med)).join("") + more : (S.searching || S.busy || (S.mode === "border" && !S.key) ? "" : `<div class="empty">Geen tankstations gevonden.</div>`));
   const brands = [...new Set(baseList().map((s) => s.brand || s.name))].sort((a, b) => a.localeCompare(b));
   const html = `<option value="">Alle merken</option>` + brands.map((b) => `<option>${esc(b)}</option>`).join("");
   if ($("brand").innerHTML !== html) { $("brand").innerHTML = html; $("brand").value = brands.includes(S.brand) ? S.brand : ""; }
@@ -533,6 +537,7 @@ $("locBtn").addEventListener("click", async () => {
 });
 $("list").addEventListener("click", (e) => {
   const alt = e.target.closest("[data-alt]"); if (alt) { const a = S.alts[+alt.dataset.alt]; $("q").value = a.name; S.alts = []; searchPlace(a); return; }
+  const mo = e.target.closest("[data-more]"); if (mo) { S.showAll = true; render(); return; }
   const ml = e.target.closest("[data-meld]"); if (ml) { meldPrijs(ml.dataset.meld); return; }
   const fav = e.target.closest("[data-fav]"); if (fav) { const id = fav.dataset.fav; S.favs.has(id) ? S.favs.delete(id) : S.favs.add(id); store.set("tw_favs", [...S.favs]); render(); return; }
   if (e.target.closest("a,button")) return;
