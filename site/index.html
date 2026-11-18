@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="e0d5a73bd035a1c" content="277030417ea9ada19f69ae08c41fb74b">
 <title>Goedkoop tanken: live prijzen NL, België en Duitsland | Tankwijzer</title>
-<meta name="description" content="Waar tank je vandaag het goedkoopst? Live benzine- en dieselprijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit. Gratis, zonder reclame.">
+<meta name="description" content="Waar tank je vandaag het goedkoopst? Live benzine- en dieselprijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit. Gratis, zonder account.">
 <link rel="canonical" href="https://goedkopertanken.netlify.app/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website"><meta property="og:locale" content="nl_NL"><meta property="og:site_name" content="Tankwijzer">
 <meta property="og:url" content="https://goedkopertanken.netlify.app/"><meta property="og:title" content="Waar tank je vandaag het goedkoopst?">
-<meta property="og:description" content="Live prijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit. Gratis en zonder reclame.">
+<meta property="og:description" content="Live prijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit. Gratis, zonder account.">
 <meta property="og:image" content="https://goedkopertanken.netlify.app/og.png"><meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{{LDJSON}}</script>
 <script data-goatcounter="https://goedkopertanken.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -315,6 +315,27 @@ body{padding-top:0}
 .sc .acts .big svg{width:16px;height:16px}
 .sc .acts .big small{display:none}
 .sc .meldbtn{padding:4px 0;font-size:.8rem}
+
+/* Compacte bovenkant */
+section[data-view="zoek"]{gap:8px!important}
+.search{display:flex;gap:6px}.search input{flex:1;min-width:0}
+#locBtn{flex:none;padding:0 .7rem}
+@media (max-width:520px){
+ .hero h1{font-size:min(26px,7vw)!important;margin:2px 0 2px}
+ .hero .lead{font-size:13px!important;margin:0 0 6px;line-height:1.35}
+ .hero .pump .src{min-height:0!important;font-size:.62rem;max-height:1.3em;overflow:hidden}
+ .hero .pump{padding-top:6px;padding-bottom:6px}
+ .hero .seg button{padding:.35rem .6rem;font-size:.85rem}
+ .verdict{padding:10px 12px!important;gap:6px 10px!important}
+ .verdict .vnum{font-size:1.9rem!important}
+ .verdict .nav2 .big{min-height:36px!important;padding:.3rem .5rem!important;font-size:.86rem!important}
+ .verdict .nav2 .big small{display:none}
+ .search input,.search .big,#locBtn{min-height:42px}
+ #locBtn{font-size:0;gap:0}#locBtn svg{margin:0}
+ .mijnauto summary{padding-top:8px;padding-bottom:8px}
+ .mijnauto #carSum{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+ .mijnauto .ma-ic{font-size:1.4rem}
+}
 </style>
 </head>
 <body>
@@ -324,8 +345,8 @@ body{padding-top:0}
     <span class="status" id="status"><i></i><span id="statusTxt">Laden…</span></span>
   </div>
   <div class="intro">
-    <h1>Tank goedkoper <br class="mbr">over de grens</h1>
-    <p class="lead">Live prijzen in Nederland, België en Duitsland naast elkaar, met je besparing na aftrek van de rit. Gratis en zonder reclame.</p>
+    <h1>Tank goedkoper over de grens</h1>
+    <p class="lead">Live prijzen in NL, BE en DE, met je besparing na aftrek van de rit. Gratis, zonder account.</p>
   </div>
   <div class="seg" role="group" aria-label="Brandstof" style="align-self:flex-start">
     <button data-fuel="e10" aria-pressed="true">Euro95 / E10</button>
@@ -349,10 +370,8 @@ body{padding-top:0}
     <form class="search" id="searchForm" role="search">
       <input id="q" type="search" placeholder="Plaats of postcode, bv. Kleve" autocomplete="off" enterkeyhint="search" aria-label="Zoek plaats">
       <button class="big" type="submit"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Zoek</button>
+      <button class="big sec" id="locBtn" type="button" aria-label="Mijn locatie"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Mijn locatie</button>
     </form>
-    <div>
-      <button class="big sec" id="locBtn" style="width:100%"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Mijn locatie</button>
-    </div>
     <div class="chiprow" id="quick"></div>
     <details class="mijnauto" id="mijnauto"><summary><span class="ma-ic" aria-hidden="true">🚗</span><span><b>Mijn auto</b><small id="carSum">Stel je auto in om te zien of omrijden loont</small></span></summary>
       <div class="controls" style="margin-top:10px">

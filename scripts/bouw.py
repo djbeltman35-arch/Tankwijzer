@@ -494,7 +494,7 @@ over = '''<div class="panel"><h2>Eerlijk en gratis</h2><p>Tankwijzer is een proj
 <p>De prijs aan de pomp is altijd leidend.</p>
 <h2>Privacy</h2><p>Tankwijzer gebruikt geen cookies en je hebt geen account nodig. Je instellingen, favorieten en tankbeurten blijven alleen op je eigen telefoon of computer. Je locatie wordt alleen in je browser gebruikt om te rekenen en niet bewaard. Bezoeken tellen we met GoatCounter, zonder cookies en zonder persoonsgegevens.</p>
 <h2>Contact</h2><p>Een fout gezien of een idee? Mail naar <a href="mailto:djbeltman35@gmail.com">djbeltman35@gmail.com</a>.</p>'''
-schrijf("/gids/over.html", pagina("/gids/over.html", "Over Tankwijzer: gratis, zonder reclame en zonder cookies", "Waar de prijzen vandaan komen, hoe we rekenen en waarom Tankwijzer gratis is.", "Over Tankwijzer en privacy", over, None, [("Home", "/"), ("Over", None)]))
+schrijf("/gids/over.html", pagina("/gids/over.html", "Over Tankwijzer: gratis, eerlijk en zonder cookies", "Waar de prijzen vandaan komen, hoe we rekenen en waarom Tankwijzer gratis is.", "Over Tankwijzer en privacy", over, None, [("Home", "/"), ("Over", None)]))
 gemaakt.append(("/gids/over.html", "0.3"))
 
 # ---------- gidsoverzicht ----------
