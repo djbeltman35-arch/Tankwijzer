@@ -390,7 +390,7 @@ function renderSearch() {
   const lkey = [S.mode, title, S.fuel, S.region].join("|");
   if (S.listKey !== lkey) { S.listKey = lkey; S.showAll = false; }
   const TOP = 3, shown = S.showAll ? list : list.slice(0, TOP);
-  const kop = !S.showAll && list.length ? `<h3 class="top3">Top ${Math.min(TOP, list.length)}</h3>` : "";
+  const kop = !S.showAll && list.length ? `<h3 class="top3"><span class="tb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 16.8 6.1 20l1.3-6.5L2.5 8.9l6.6-.8z"/></svg>Top ${Math.min(TOP, list.length)}</span></h3>` : "";
   const more = !S.showAll && list.length > TOP ? `<button class="morebtn" data-more="1">Toon alle ${list.length} tankstations</button>` : "";
   $("list").innerHTML = alts + (list.length ? kop + shown.map((s) => card(s, med)).join("") + more : (S.searching || S.busy || (S.mode === "border" && !S.key) ? "" : `<div class="empty">Geen tankstations gevonden.</div>`));
   const brands = [...new Set(baseList().map((s) => s.brand || s.name))].sort((a, b) => a.localeCompare(b));
