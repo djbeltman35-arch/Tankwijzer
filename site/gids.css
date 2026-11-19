@@ -1,7 +1,7 @@
 /* Tankgids: zelfde kleuren en letters als de app */
-:root{--bg:#f1f5f4;--surface:#fff;--ink:#11272f;--muted:#5b6d74;--line:#d9e2e1;--accent:#0a7c74;--accent-ink:#fff;--led-bg:#0f3440;--led:#ffb627;--good:#1f8a4c;--bad:#c2392f;--good-bg:#e3f4ea;--brand:#9b1b1f;
+:root{--bg:#f4f7f1;--surface:#fff;--ink:#1e2a22;--muted:#5b6d74;--line:#e1e7dc;--accent:#0e7c4a;--accent-ink:#fff;--led-bg:#0e7c4a;--led:#ffb627;--good:#1f8a4c;--bad:#c2392f;--good-bg:#e3f4ea;--brand:#9b1b1f;
   --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;--f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;--f-num:"JetBrains Mono",ui-monospace,monospace;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#0f181b;--surface:#172428;--ink:#e6eef0;--muted:#93a6ad;--line:#2a3b40;--accent:#3cc3c9;--accent-ink:#06191b;--led-bg:#0a1211;--led:#ffbe3d;--good:#4cc77f;--bad:#f06a5d;--good-bg:#15301f;--brand:#e5636a;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#0f181b;--surface:#172428;--ink:#e9efe8;--muted:#a3b0a6;--line:#2a3b40;--accent:#3fbf7f;--accent-ink:#06191b;--led-bg:#0a1211;--led:#ffbe3d;--good:#4cc77f;--bad:#f06a5d;--good-bg:#15301f;--brand:#e5636a;color-scheme:dark}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 var(--f-body)}
 a{color:var(--accent);text-underline-offset:3px}
