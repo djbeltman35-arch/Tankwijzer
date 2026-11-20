@@ -394,11 +394,14 @@ button.big.sec{border-radius:10px!important}
 input,select{border-radius:4px!important}
 .nav button[aria-current="page"] svg{background:var(--accent-soft,#e2f2e8)!important}
 .chips a,.chips button,.city{border-radius:999px}
-.tegels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:4px}
-.tegels a{display:grid;justify-items:center;gap:1px;text-align:center;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 4px 9px;box-shadow:0 2px 0 #d5ddd0,0 6px 14px -6px rgba(20,40,28,.28);transition:transform .08s}
-.tegels a:active{transform:translateY(2px)}
-.tegels .ic{font-size:26px;line-height:1.1}.tegels b{font-size:14.5px}.tegels small{font-size:12px;color:var(--muted);line-height:1.2}
-.tegels-ad{font-size:11.5px;color:var(--muted);text-align:center;margin:2px 0 0}
+.tegels{display:flex;gap:6px;margin-top:2px;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 1px 4px;mask-image:linear-gradient(90deg,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.tegels::-webkit-scrollbar{display:none}
+.tegels a{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 8px;box-shadow:0 1px 0 #d5ddd0;scroll-snap-align:start;white-space:nowrap;transition:transform .08s}
+.tegels a:active{transform:translateY(1px)}
+.tegels .ic{font-size:18px;line-height:1}.tegels b{font-size:13.5px;font-weight:700}.tegels small{display:none}
+.tegels-ad{font-size:10.5px;color:var(--muted);text-align:center;margin:-8px 0 0}
+.hero-in{padding-bottom:6px!important}
+.hero+.wrap{padding-top:8px}
 /* gbstijl:end */
 </style>
 </head>
@@ -422,7 +425,7 @@ input,select{border-radius:4px!important}
     <div class="pump"><div class="lab"><i class="flag de"></i>DE</div><div class="led" id="ledDE">–</div><div class="src" id="srcDE"></div></div>
   </section>
   <div class="tegels"><a href="https://www.awin1.com/cread.php?awinmid=8311&amp;awinaffid=3152283&amp;clickref=tankwijzer-tegel&amp;ued=https%3A%2F%2Fwww.unitedconsumers.com%2Ftanken" rel="sponsored noopener" target="_blank"><span class="ic">⛽</span><b>Tankkorting</b><small>korting per liter</small></a><a href="https://www.awin1.com/cread.php?awinmid=8311&amp;awinaffid=3152283&amp;clickref=tankwijzer-tegel&amp;ued=https%3A%2F%2Fwww.unitedconsumers.com%2Fautoverzekering" rel="sponsored noopener" target="_blank"><span class="ic">🛡️</span><b>Autoverzekering</b><small>met korting</small></a><a href="https://www.awin1.com/cread.php?awinmid=8671&amp;awinaffid=3152283&amp;clickref=tankwijzer-tegel&amp;ued=https%3A%2F%2Fwww.autobandenmarkt.nl%2F" rel="sponsored noopener" target="_blank"><span class="ic">🛞</span><b>Banden</b><small>goedkoop online</small></a><a href="https://www.awin1.com/cread.php?awinmid=128671&amp;awinaffid=3152283&amp;clickref=tankwijzer-tegel&amp;ued=https%3A%2F%2Fwww.sunnycars.nl%2F" rel="sponsored noopener" target="_blank"><span class="ic">🚗</span><b>Huurauto</b><small>alles verzekerd</small></a><a href="https://euroroadrules.eu/nl/"><span class="ic">🛣️</span><b>Vignet en tol</b><small>per land in Europa</small></a><a href="https://www.awin1.com/cread.php?awinmid=128623&amp;awinaffid=3152283&amp;clickref=tankwijzer-tegel&amp;ued=https%3A%2F%2Fsaily.com%2Fnl%2F" rel="sponsored noopener" target="_blank"><span class="ic">📶</span><b>eSIM</b><small>internet buiten de EU</small></a><a href="https://www.awin1.com/cread.php?awinmid=107738&amp;awinaffid=3152283&amp;clickref=tankwijzer-tegel&amp;ued=https%3A%2F%2Fwww.poliswijzer.nl%2Fzorgverzekering" rel="sponsored noopener" target="_blank"><span class="ic">🏥</span><b>Zorgverzekering</b><small>vergelijk voor 2027</small></a></div>
-  <p class="tegels-ad">Tegels naar andere sites zijn meestal advertenties. Jij betaalt niets extra.</p>
+  <p class="tegels-ad">Meestal advertenties · jij betaalt niets extra</p>
 </div></header>
 <div class="wrap">
   <div class="verdict" id="verdict" style="flex-wrap:wrap"><div class="vnum" id="vBig">–</div><div style="flex:1;min-width:180px"><strong id="vHead">Prijzen vergelijken…</strong><div class="note" id="vSub">Netto besparing vanaf je huidige locatie, na rijkosten</div></div>
