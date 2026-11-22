@@ -44,7 +44,7 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 };
 const fmt = (n, d = 3) => (n == null || isNaN(n)) ? "–" : n.toLocaleString("nl-NL", { minimumFractionDigits: d, maximumFractionDigits: d });
-const eur = (n) => (n < 0 ? "− " : "") + "€ " + Math.abs(n).toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const eur = (n) => (n < 0 ? "− " : "") + "€\u00a0" + Math.abs(n).toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const hhmm = (ts) => new Date(ts).toLocaleTimeString("nl-NL", { hour: "2-digit", minute: "2-digit" });
 const ymd = (d) => d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
@@ -336,14 +336,14 @@ function render() {
   const deP = regionCheap ? regionCheap[S.fuel] : deBorder();
   $("ledNL").innerHTML = fmt(nl.p) + "<small>€</small>"; $("srcNL").textContent = nl.src;
   $("ledBE").innerHTML = fmt(be) + "<small>€</small>"; const bn = S.data.be?.next, mx = beMax(); const bt = bn && bn.date > S.data.be.max.date && bn[S.fuel] && mx ? bn[S.fuel] - mx : null;
-  $("srcBE").textContent = be ? (S.data.be.avg?.[S.fuel] ? `Gem. ${dayLabel(S.data.be.avg.date)} · max ${fmt(mx)}` : `Max · ${dayLabel(S.data.be.max.date)}`) + (bt ? ` · morgen ${bt > 0 ? "↑" : "↓"}${fmt(Math.abs(bt) * 100, 1)}ct` : "") : "–";
+  $("srcBE").textContent = be ? (S.data.be.avg?.[S.fuel] ? `Gemiddeld · ${dayLabel(S.data.be.avg.date)}` : `Max · ${dayLabel(S.data.be.max.date)}`) + (bt ? ` · morgen ${bt > 0 ? "↑" : "↓"}${fmt(Math.abs(bt) * 100, 1)}ct` : "") : "–";
   if (S.fuel === "lpg") { $("ledDE").innerHTML = "–"; $("srcDE").textContent = "Geen live LPG-prijzen"; } else {
   $("ledDE").innerHTML = fmt(deP) + "<small>€</small>"; $("srcDE").textContent = regionCheap ? `Live · ${town(regionCheap)}` : deP ? "Grens · " + (S.data.de.border.at ? hhmm(S.data.de.border.at) : dayLabel(S.data.de.border.date)) : "–"; }
   const opts = [["België", beL], ["Duitsland", S.fuel === "lpg" ? null : deP]].filter((o) => o[1]).sort((a, b) => a[1] - b[1]), v = $("verdict");
   if (opts.length) {
     const [land, p] = opts[0], d = nl.p - p;
     v.className = "verdict " + (d > 0 ? "good" : "bad"); $("vBig").textContent = (d >= 0 ? "−" : "+") + Math.round(Math.abs(d) * 100) + " ct";
-    $("vHead").textContent = d > 0 ? `Goedkoopst in ${land}` : "Nederland is niet duurder";
+    $("vHead").textContent = d > 0 ? `Goedkoopst in ${land}` : "Tank gewoon in Nederland";
     $("vSub").textContent = d > 0 ? `${eur(d * settings().L)} minder voor ${settings().L} L, zonder rijkosten` : "";
   }
 
@@ -483,10 +483,13 @@ function renderCompare() {
   if (best) {
     const d = nl - best.s[S.fuel];
     $("verdict").className = "verdict " + (best.net > 0 ? "good" : "bad");
-    $("vBig").textContent = (d >= 0 ? "−" : "+") + Math.round(Math.abs(d) * 100) + " ct";
-    $("vHead").textContent = best.net > 0 ? `Voordeligst: ${best.label}` : "Omrijden loont nu niet";
-    $("vSub").textContent = `Netto ${eur(best.net)} vanaf je huidige locatie, na rijkosten`;
+    $("vBig").textContent = eur(best.net);
+    $("vHead").textContent = best.net > 0 ? `Rijd naar ${best.label}` : "Tank gewoon in Nederland";
+    $("vSub").textContent = best.net > 0
+      ? `Je houdt ${eur(best.net)} over op ${L} L, na aftrek van de rit (${Math.round(Math.abs(d) * 100)} ct per liter goedkoper).`
+      : `Naar ${best.label} rijden kost je ${eur(Math.abs(best.net))} meer dan je bespaart.`;
   }
+  { const { use } = settings(); $("vCarTxt").textContent = `Berekend voor je auto (${fmt(use, 1)} L/100 km, ${L} L tanken)`; }
   if (!S.home) { $("vSub").innerHTML = 'Zie je netto besparing na rijkosten: <button type="button" class="linkbtn" id="vLoc">gebruik mijn locatie</button>'; $("vLoc").onclick = () => { $("vLoc").textContent = "locatie bepalen…"; refreshLocation(true); }; }
   $("lvlLbl").textContent = $("cLvl").value + "%"; $("litLbl").textContent = L + " L";
   if (document.activeElement !== $("cNL")) $("cNL").value = S.nlOwn[S.fuel] || ""; $("cNL").placeholder = fmt(nlPrice().p);
@@ -666,3 +669,7 @@ if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catc
   $("bS").addEventListener("click", (e) => { const b = e.target.closest("[data-s]"); if (b) { st.s = b.dataset.s; upd(); } });
   $("bandPop").addEventListener("click", (e) => { const b = e.target.closest("[data-maat]"); if (!b) return; const [w, h, d] = b.dataset.maat.split("-").map(Number); st = Object.assign(st, { w, h, d }); fill(); upd(); });
 })();
+
+// rustige startpagina: meer tegels tonen en 'wijzig' opent Mijn auto
+$("tegelsMeer")?.addEventListener("click", (e) => { const t = document.querySelector(".tegels"), open = t.classList.toggle("open"); e.currentTarget.setAttribute("aria-expanded", open); e.currentTarget.textContent = open ? "Minder ▴" : "Meer voordelen ▾"; });
+$("vCar")?.addEventListener("click", () => { const m = $("mijnauto"); m.open = true; m.scrollIntoView({ behavior: "smooth", block: "start" }); });
