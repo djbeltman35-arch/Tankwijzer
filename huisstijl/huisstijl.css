@@ -1,0 +1,49 @@
+/* Huisstijl (zelfde als Stroomwekker): donkerblauw #0F2340, wit, geel #F5B700, IBM Plex Sans */
+@font-face{font-family:'HSPlex';font-weight:400;font-style:normal;font-display:swap;src:url(/huisstijl/fonts/ibm-plex-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:'HSPlex';font-weight:500;font-style:normal;font-display:swap;src:url(/huisstijl/fonts/ibm-plex-sans-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:'HSPlex';font-weight:600;font-style:normal;font-display:swap;src:url(/huisstijl/fonts/ibm-plex-sans-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:'HSPlex';font-weight:700 900;font-style:normal;font-display:swap;src:url(/huisstijl/fonts/ibm-plex-sans-latin-700-normal.woff2) format("woff2")}
+
+:root{color-scheme:light}
+html,body{font-family:'HSPlex',system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3,h4{letter-spacing:-.015em}
+
+/* Kop met groot woordmerk */
+.hs-kop{background:#0F2340;color:#fff;overflow:hidden;position:relative;z-index:2}
+.hs-in{max-width:1120px;margin:0 auto;padding:30px 20px 18px}
+.hs-merk{display:block;text-decoration:none;color:#fff;line-height:1}
+.hs-woord{position:relative;display:inline-block;white-space:nowrap;font-family:'HSPlex',system-ui,sans-serif;font-weight:700;
+  font-size:min(calc(14vw * 12 / var(--n)),calc(156px * 12 / var(--n)));letter-spacing:-.045em;line-height:1;
+  text-shadow:.03em 0 0 #0F2340,-.03em 0 0 #0F2340,0 .03em 0 #0F2340,0 -.03em 0 #0F2340,.022em .022em 0 #0F2340,-.022em .022em 0 #0F2340,.022em -.022em 0 #0F2340,-.022em -.022em 0 #0F2340,0 .06em .12em rgba(0,0,0,.35)}
+.hs-a{color:#F5B700}
+.hs-b{position:relative;display:inline-block;isolation:isolate;color:#fff}
+.hs-sym{position:absolute;z-index:-1;left:-12%;width:118%;top:50%;height:auto;transform:translateY(-44%);overflow:visible;fill:#F5B700}
+.hs-n6{--n:6}
+.hs-n7{--n:7}
+.hs-n8{--n:8}
+.hs-n9{--n:9}
+.hs-n10{--n:10}
+.hs-n11{--n:11}
+.hs-n12{--n:12}
+.hs-n13{--n:13}
+.hs-n14{--n:14}
+.hs-n15{--n:15}
+.hs-n16{--n:16}
+.hs-n17{--n:17}
+.hs-n18{--n:18}
+.hs-n19{--n:19}
+.hs-n20{--n:20}
+@media (max-width:720px){.hs-in{padding:24px 20px 14px}}
+
+/* Oude logo's verbergen: het woordmerk staat er nu boven */
+.brand:not(.hs-merk),.logo:not(.hs-merk),.gbbar .mark{display:none!important}
+
+/* Knoppen en accenten in huisstijl */
+::selection{background:#F5B700;color:#0F2340}
+a:focus-visible,button:focus-visible{outline:3px solid #F5B700;outline-offset:2px}
+
+/* Bovenbalk van de sites in donkerblauw, sluit aan op het woordmerk */
+.gbbar{background:#0F2340!important;border-bottom:1px solid #22385C!important}
+.gbnav a{color:#fff!important}
+.gbnav a:hover{background:#1A3358!important}
+.gbnav a.pil{background:#F5B700!important;color:#0F2340!important;box-shadow:0 3px 0 #B98A00!important}

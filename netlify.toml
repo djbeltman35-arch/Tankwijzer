@@ -1,6 +1,6 @@
 # Tankwijzer (goedkopertanken.netlify.app): Netlify bouwt bij elke wijziging op GitHub.
 [build]
-  command = "python3 scripts/bouw.py public && python3 scripts/installeerknop.py public"
+  command = "python3 scripts/bouw.py public && python3 scripts/installeerknop.py public && python3 huisstijl/huisstijl.py public tankwijzer"
   publish = "public"
   # De oude site tankgoedkoper stuurt alleen door; die hoeft niet bij elke push opnieuw te bouwen (scheelt Netlify-credits).
   ignore = 'test "$SITE_NAME" = "tankgoedkoper"'
