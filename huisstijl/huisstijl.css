@@ -42,8 +42,27 @@ h1,h2,h3,h4{letter-spacing:-.015em}
 ::selection{background:#F5B700;color:#0F2340}
 a:focus-visible,button:focus-visible{outline:3px solid #F5B700;outline-offset:2px}
 
+/* Zelfde basis als Stroomwekker: lichtgrijze pagina, witte vlakken met dunne rand, hoeken van 8px, rustige schaduw */
+:root{--r:8px!important;--radius:8px!important;--lift:0 1px 2px rgba(15,35,64,.06),0 2px 6px rgba(15,35,64,.08)!important;--lift-hi:0 2px 4px rgba(15,35,64,.08),0 6px 16px rgba(15,35,64,.12)!important;
+  --shadow:0 1px 2px rgba(15,35,64,.06),0 2px 6px rgba(15,35,64,.08)!important;--shadow-sm:0 1px 2px rgba(15,35,64,.06)!important}
+html,body{background:#F3F5F8!important;background-image:none!important}
+body{color:#14213A}
+h1,h2,h3{font-weight:600!important;letter-spacing:-.015em}
+/* Achtergrondtekeningen (watermerken) weg, zoals op Stroomwekker */
+.hero::before,.hero::after,.hero-in::before,.hero-in::after{display:none!important}
+
 /* Bovenbalk van de sites in donkerblauw, sluit aan op het woordmerk */
 .gbbar{background:#0F2340!important;border-bottom:1px solid #22385C!important}
 .gbnav a{color:#fff!important}
 .gbnav a:hover{background:#1A3358!important}
-.gbnav a.pil{background:#F5B700!important;color:#0F2340!important;box-shadow:0 3px 0 #B98A00!important}
+.gbnav a.pil{background:#F5B700!important;color:#0F2340!important;box-shadow:none!important}
+
+/* Voettekst in donkerblauw over de volle breedte, zoals Stroomwekker */
+body footer:not(.hs-x){background:#0F2340!important;color:#C9D4E5;border-top:0!important;box-shadow:0 0 0 100vmax #0F2340;clip-path:inset(0 -100vmax)}
+body footer p,body footer small{color:#C9D4E5!important}
+body footer p a,body footer nav a,body footer li a,body footer>a,body footer .wrap>a{color:#fff!important}
+body footer>h2,body footer>h3,body footer .wrap>h2,body footer .wrap>h3,body footer section>h2,body footer .fcols h2,body footer summary h2,body footer p>b,body footer p>strong{color:#fff}
+/* Witte kaartjes in de voettekst houden donkere tekst */
+body footer .apps li{background:#fff;color:#5B6677}
+body footer .apps li a,body footer .sisgrid a,body footer .sispart a,body footer .sispart p,body footer .sisgrid p{color:#14213A!important}
+body footer .fkop,body footer .apps h2{color:#fff!important}
