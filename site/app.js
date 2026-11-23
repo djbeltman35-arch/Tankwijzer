@@ -248,6 +248,8 @@ async function doSearch(q) {
     if (!hits.length) { S.searching = false; S.searchErr = `Geen plaats gevonden voor "${q}".`; render(); return; }
     S.alts = hits.slice(1, 5);
     store.set("tw_lastq", q); gc("zoek/" + q.toLowerCase(), "Zoekt: " + q);
+    // Na "typ je woonplaats" (locatie lukte niet): de gezochte plaats als vertrekpunt voor de besparing na aftrek van de rit.
+    if (S.wantHome && hits[0].lat) { S.home = { name: hits[0].name || q, lat: hits[0].lat, lng: hits[0].lng }; store.set("tw_gps", S.home); S.wantHome = false; S.locDenied = false; }
     await searchPlace(hits[0]);
   } catch (e) { S.searching = false; S.searchErr = "Zoeken lukte niet. Controleer je internet."; render(); }
 }
@@ -343,7 +345,10 @@ function render() {
   if (opts.length) {
     const [land, p] = opts[0], d = nl.p - p;
     v.className = "verdict " + (d > 0 ? "good" : "bad"); $("vBig").textContent = (d >= 0 ? "−" : "+") + Math.round(Math.abs(d) * 100) + " ct";
-    $("vHead").textContent = d > 0 ? `Goedkoopst in ${land}` : "Tank gewoon in Nederland";
+    // Zonder locatie geen winnaar uitroepen: de laagste Belgische prijs ligt vaak ver weg. Pas met een vertrekpunt telt de rit mee.
+    const beide = opts.length > 1 && opts.every((o) => o[1] < nl.p);
+    if (beide) $("vBig").textContent = "tot −" + Math.round(d * 100) + " ct";
+    $("vHead").textContent = d <= 0 ? "Tank gewoon in Nederland" : beide ? "België en Duitsland goedkoper" : `Goedkoper in ${land}`;
     $("vSub").textContent = d > 0 ? `${eur(d * settings().L)} minder voor ${settings().L} L, zonder rijkosten` : "";
   }
 
@@ -476,8 +481,14 @@ function renderCarSum() {
   if (document.activeElement !== $("cFuel")) $("cFuel").value = S.fuel;
   if (document.activeElement !== $("cKmL")) $("cKmL").value = use > 0 ? Math.round(1000 / use) / 10 : "";
 }
+// Zonder locatie rekenen we vanaf een grote plaats in de gekozen grensstreek, zodat iemand in Twente niet "België" als advies krijgt.
+const REGIO_VAN = { noord: ["Emmen", 52.785, 6.897], twente: ["Enschede", 52.221, 6.894], achterhoek: ["Doetinchem", 51.965, 6.289], gelderland: ["Nijmegen", 51.842, 5.853], nlimburg: ["Venlo", 51.370, 6.172], zlimburg: ["Heerlen", 50.888, 5.980] };
 function renderCompare() {
-  const { L } = settings(), nl = nlPrice().p, opts = options(); S.opts = opts;
+  const { L } = settings(), nl = nlPrice().p;
+  const schat = !S.home && REGIO_VAN[S.region];
+  if (schat) S.home = { name: schat[0], lat: schat[1], lng: schat[2] };
+  let opts; try { opts = options(); } finally { if (schat) S.home = null; }
+  S.opts = opts;
   const best = opts[0];
   [["vRoute", nav.google], ["vApple", nav.apple]].forEach(([id, f]) => { const a = $(id); if (best) { a.href = f(best.s); a.removeAttribute("aria-disabled"); } else { a.removeAttribute("href"); a.setAttribute("aria-disabled", "true"); } });
   if (best) {
@@ -490,7 +501,15 @@ function renderCompare() {
       : `Naar ${best.label} rijden kost je ${eur(Math.abs(best.net))} meer dan je bespaart.`;
   }
   { const { use } = settings(); $("vCarTxt").textContent = `Berekend voor je auto (${fmt(use, 1)} L/100 km, ${L} L tanken)`; }
-  if (!S.home) { $("vSub").innerHTML = 'Zie je netto besparing na rijkosten: <button type="button" class="linkbtn" id="vLoc">gebruik mijn locatie</button>'; $("vLoc").onclick = () => { $("vLoc").textContent = "locatie bepalen…"; refreshLocation(true); }; }
+  if (!S.home) {
+    // Lukt de locatie niet (geweigerd, of in de ingebouwde browser van Messenger/Facebook/Instagram), zeg dat dan en bied zoeken op plaats aan.
+    const iab = /FBAN|FBAV|FB_IAB|Messenger|Instagram|Line\/|; wv\)/i.test(navigator.userAgent);
+    const mis = S.locDenied ? `<span class="locmis">Je locatie lukte niet${iab ? ": in deze ingebouwde app-browser werkt dat vaak niet. Open de site via ⋯ in Chrome of Safari," : ". Sta locatie toe in je browser,"} of <button type="button" class="linkbtn" id="vPlaats">typ je woonplaats</button>.</span>` : "";
+    const vanaf = schat && best ? `Geschat vanaf ${schat[0]}, na aftrek van de rit. Woon je ergens anders? ` : 'Welk land voor jou het voordeligst is, hangt af van je rit: ';
+    $("vSub").innerHTML = (mis || vanaf) + (mis ? "" : '<button type="button" class="linkbtn" id="vLoc">gebruik mijn locatie</button>');
+    if ($("vLoc")) $("vLoc").onclick = () => { $("vLoc").textContent = "locatie bepalen…"; refreshLocation(true); };
+    if ($("vPlaats")) $("vPlaats").onclick = () => { S.wantHome = true; showTab("zoek"); $("q").scrollIntoView({ block: "center" }); $("q").focus(); };
+  }
   $("lvlLbl").textContent = $("cLvl").value + "%"; $("litLbl").textContent = L + " L";
   if (document.activeElement !== $("cNL")) $("cNL").value = S.nlOwn[S.fuel] || ""; $("cNL").placeholder = fmt(nlPrice().p);
 }
