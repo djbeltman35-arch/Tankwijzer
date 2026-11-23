@@ -127,7 +127,7 @@ NAV = [("/", "Tankwijzer"), ("/gids/prijzen-vandaag.html", "Prijzen vandaag"), (
 FOOT = ('<footer class="foot"><p class="free">Tankwijzer is gratis en onafhankelijk: tankstations kunnen geen plek kopen, de goedkoopste staat altijd bovenaan. Partnerlinks staan er duidelijk bij.</p>'
         '<nav><a href="/">Tankwijzer openen</a><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a><a href="/gids/grensplaatsen.html">Grensplaatsen</a><a href="/gids/">Tankgids</a><a href="/gids/over.html">Over en privacy</a></nav>'
         '<section class="apps" aria-labelledby="apps-kop"><h2 id="apps-kop">Meer gratis sites van Erik</h2><ul><li><a href="https://boodschappenvergelijk.nl/">Goedkope Boodschappen</a><span>Boodschappen en aanbiedingen vergelijken bij 11 supermarkten.</span></li><li><a href="https://salderingscheck-nl.netlify.app/">Salderingscheck</a><span>Bereken wat het einde van salderen jou kost en of een thuisbatterij loont.</span></li><li><a href="https://vluchtwijzer.netlify.app/">Vluchtwijzer</a><span>Goedkope vliegtickets vanaf vliegvelden in Nederland, België en Duitsland.</span></li><li><a href="https://vakantietoppers.netlify.app/">Vakantiewijzer</a><span>Pakketreizen, hotels, vakantieparken en campings vergelijken.</span></li><li><a href="https://euroroadrules.eu/">EuroRoadRules</a><span>Vignetten, tol en milieuzones in heel Europa, ook voor je route.</span></li><li><a href="https://foutcodezoeker.nl/">Foutcodezoeker</a><span>Foutcodes en storingen van apparaten zelf opzoeken en oplossen.</span></li><li><a href="https://allesoporde.netlify.app/">Op Orde</a><span>Gratis app voor je deadlines, toeslagen en vaste lasten.</span></li></ul></section>'
-        f'<p class="small">Prijzen bijgewerkt op {esc(NU)}. Bronnen: Tankerkönig/Markttransparenzstelle (CC BY 4.0), carbu.com, UnitedConsumers, CBS, EU Oil Bulletin. De prijs aan de pomp is leidend. <a href="mailto:djbeltman35@gmail.com">Made by Erik</a></p></footer>')
+        f'<p class="small">Prijzen bijgewerkt op {esc(NU)}. Bronnen: Tankerkönig/Markttransparenzstelle (CC BY 4.0), carbu.com, UnitedConsumers, CBS, EU Oil Bulletin. De prijs aan de pomp is leidend. <a href="mailto:erik@beltman.email">Made by Erik</a></p></footer>')
 # Werkt de getallen bij zodra iemand de pagina opent (de pagina zelf wordt dagelijks opnieuw gebouwd).
 LIVEJS = '''<script>fetch("/data.json").then(r=>r.json()).then(d=>{const g=(o,p)=>p.split(".").reduce((a,k)=>a&&a[k],o);document.querySelectorAll("[data-k]").forEach(e=>{const v=g(d,e.dataset.k);if(typeof v==="number"&&v>.5)e.textContent=v.toFixed(3).replace(".",",")});const t=document.getElementById("bijgewerkt");if(t&&d.updated)t.textContent=new Date(d.updated).toLocaleString("nl-NL",{day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"})}).catch(()=>{})</script>'''
 def pagina(pad, titel, omschrijving, kop, inhoud, ld=None, kruimel=None):
@@ -493,7 +493,7 @@ over = '''<div class="panel"><h2>Eerlijk en gratis</h2><p>Tankwijzer is een proj
 <li><b>Tankstations en plaatsen:</b> © OpenStreetMap-bijdragers.</li></ul>
 <p>De prijs aan de pomp is altijd leidend.</p>
 <h2>Privacy</h2><p>Tankwijzer gebruikt geen cookies en je hebt geen account nodig. Je instellingen, favorieten en tankbeurten blijven alleen op je eigen telefoon of computer. Je locatie wordt alleen in je browser gebruikt om te rekenen en niet bewaard. Bezoeken tellen we met GoatCounter, zonder cookies en zonder persoonsgegevens.</p>
-<h2>Contact</h2><p>Een fout gezien of een idee? Mail naar <a href="mailto:djbeltman35@gmail.com">djbeltman35@gmail.com</a>.</p>'''
+<h2>Contact</h2><p>Een fout gezien of een idee? Mail naar <a href="mailto:erik@beltman.email">erik@beltman.email</a>.</p>'''
 schrijf("/gids/over.html", pagina("/gids/over.html", "Over Tankwijzer: gratis, eerlijk en zonder cookies", "Waar de prijzen vandaan komen, hoe we rekenen en waarom Tankwijzer gratis is.", "Over Tankwijzer en privacy", over, None, [("Home", "/"), ("Over", None)]))
 gemaakt.append(("/gids/over.html", "0.3"))
 
@@ -518,11 +518,11 @@ seo = (f'<section class="seo" aria-label="Uitleg"><div class="card"><h2>Waar tan
        '<ul class="gidslinks"><li><a href="/gids/prijzen-vandaag.html">Prijzen vandaag</a></li><li><a href="/gids/grensplaatsen.html">Grensplaatsen</a></li><li><a href="/gids/tanken-in-duitsland.html">Tanken in Duitsland</a></li><li><a href="/gids/tanken-in-belgie.html">Tanken in België</a></li><li><a href="/gids/lpg-prijs-vandaag.html">LPG-prijs</a></li><li><a href="/gids/jerrycan-brandstof-meenemen-grens.html">Jerrycan</a></li><li><a href="/gids/goedkoop-tanken-tips.html">8 tips</a></li></ul></div>'
        f'<div class="card">{fh}</div></section>')
 ld_home = [{"@context": "https://schema.org", "@type": "WebApplication", "name": "Tankwijzer", "url": BASE + "/", "applicationCategory": "TravelApplication", "operatingSystem": "Alle (web-app)", "inLanguage": "nl",
-            "description": "Live benzine- en dieselprijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Erik", "email": "djbeltman35@gmail.com"}},
+            "description": "Live benzine- en dieselprijzen in Nederland, België en Duitsland, met je besparing na aftrek van de rit.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@type": "Person", "name": "Erik"}},
            fl,
            {"@context": "https://schema.org", "@type": "WebSite", "name": "Tankwijzer", "alternateName": "Goedkoper tanken", "url": BASE + "/", "inLanguage": "nl",
             "description": "Brandstofprijzen in Nederland, België en Duitsland vergelijken, met een tankgids per grensplaats.", "publisher": {"@id": BASE + "/#erik"}},
-           {"@context": "https://schema.org", "@type": "Person", "@id": BASE + "/#erik", "name": "Erik", "email": "djbeltman35@gmail.com", "url": BASE + "/gids/over.html",
+           {"@context": "https://schema.org", "@type": "Person", "@id": BASE + "/#erik", "name": "Erik", "url": BASE + "/gids/over.html",
             "owns": [{"@type": "WebSite", "name": n, "url": u} for u, n, _ in ANDERE_SITES]}]
 app = app.replace("{{LDJSON}}", json.dumps(ld_home, ensure_ascii=False)).replace("<!--SEO-->", seo)
 open(os.path.join(OUT, "index.html"), "w").write(app)

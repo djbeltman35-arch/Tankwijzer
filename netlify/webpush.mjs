@@ -10,7 +10,7 @@ function vapidKey(pub, priv) {
   return crypto.createPrivateKey({ key: { kty: 'EC', crv: 'P-256', x: b64u(p.subarray(1, 33)), y: b64u(p.subarray(33, 65)), d: priv }, format: 'jwk' });
 }
 
-export function vapidHeader(endpoint, pub, priv, subject = 'mailto:djbeltman35@gmail.com') {
+export function vapidHeader(endpoint, pub, priv, subject = 'mailto:erik@beltman.email') {
   const aud = new URL(endpoint).origin;
   const head = b64u(JSON.stringify({ typ: 'JWT', alg: 'ES256' }));
   const body = b64u(JSON.stringify({ aud, exp: Math.floor(Date.now() / 1000) + 12 * 3600, sub: subject }));

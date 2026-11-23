@@ -2,7 +2,7 @@
 
 Gratis web-app die benzine- en dieselprijzen in Nederland, België en Duitsland vergelijkt: https://goedkopertanken.netlify.app
 
-Geen reclame, geen account, geen cookies, geen verdienmodel.
+Geen account, geen cookies. Tankstations kunnen geen plek kopen: de goedkoopste staat altijd bovenaan. Onder de prijzen staan een paar duidelijk gemarkeerde partnerlinks (affiliate, o.a. Awin en Daisycon); die hebben geen invloed op prijzen of volgorde.
 
 ## Hoe het werkt
 - **site/**: de app (index.html, app.js, geo.js, sw.js) en de stijl van de tankgids.
